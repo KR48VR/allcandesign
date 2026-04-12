@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Can Create. All Can Design.</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --pink: #FF6B9D;
+    --orange: #FFA552;
+    --yellow: #FFD93D;
+    --green: #6BCB77;
+    --blue: #4D96FF;
+    --purple: #9B59B6;
+    --dark: #2D3436;
+    --light: #FAFAFA;
+    --card-bg: #FFFFFF;
+    --shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--light);
+    color: var(--dark);
+    min-height: 100vh;
+  }
+
+  /* === HEADER === */
+  .header {
+    background: linear-gradient(135deg, var(--pink), var(--orange), var(--yellow), var(--green), var(--blue), var(--purple));
+    background-size: 300% 300%;
+    animation: gradientShift 8s ease infinite;
+    padding: 48px 24px 36px;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.15);
+  }
+  .header h1 {
+    font-size: 2.6rem;
+    font-weight: 800;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  .header p {
+    font-size: 1.15rem;
+    margin-top: 8px;
+    position: relative;
+    z-index: 1;
+    opacity: 0.95;
+  }
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* === SEARCH BAR === */
+  .search-container {
+    max-width: 1200px;
+    margin: 20px auto 0;
+    padding: 0 24px;
+  }
+  .search-box {
+    width: 100%;
+    padding: 14px 20px 14px 48px;
+    border-radius: 50px;
+    border: 2px solid #E0E0E0;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    background: white url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'%3E%3C/circle%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'%3E%3C/line%3E%3C/svg%3E") no-repeat 16px center;
+    color: var(--dark);
+  }
+  .search-box::placeholder { color: #BBB; }
+  .search-box:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 4px rgba(155, 89, 182, 0.15);
+  }
+
+  /* === TOOLBAR === */
+  .toolbar {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 24px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .category-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .filter-btn {
+    padding: 8px 18px;
+    border-radius: 50px;
+    border: 2px solid #E0E0E0;
+    background: white;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    color: var(--dark);
+  }
+  .filter-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .filter-btn.active {
+    background: var(--blue);
+    color: white;
+    border-color: var(--blue);
+  }
+
+  .view-toggles {
+    display: flex;
+    gap: 6px;
+    background: white;
+    border-radius: 12px;
+    padding: 4px;
+    box-shadow: var(--shadow);
+  }
+  .view-btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    color: #999;
+  }
+  .view-btn:hover { color: var(--dark); }
+  .view-btn.active {
+    background: var(--purple);
+    color: white;
+  }
+
+  /* === ITEM COUNT === */
+  .item-count {
+    max-width: 1200px;
+    margin: 16px auto 0;
+    padding: 0 24px;
+    font-size: 0.9rem;
+    color: #999;
+    font-weight: 600;
+  }
+
+  /* === GRID VIEW === */
+  .showcase {
+    max-width: 1200px;
+    margin: 16px auto 60px;
+    padding: 0 24px;
+  }
+  .grid-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  /* === CARD === */
+  .card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  }
+  .card-thumb {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .card-body {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .card-category {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    align-self: flex-start;
+  }
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: var(--dark);
+  }
+  .card-desc {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.5;
+    flex: 1;
+  }
+  .card-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .card-link {
+    display: inline-block;
+    padding: 8px 18px;
+    border-radius: 50px;
+    background: var(--blue);
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.85rem;
+    transition: opacity 0.2s;
+  }
+  .card-link:hover { opacity: 0.85; }
+  .card-link.secondary {
+    background: #F0F0F0;
+    color: #555;
+  }
+  .card-link.secondary:hover { background: #E0E0E0; }
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid #F0F0F0;
+  }
+  .card-date {
+    font-size: 0.8rem;
+    color: #AAA;
+    font-weight: 600;
+  }
+  .card-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tool-tag {
+    padding: 3px 10px;
+    border-radius: 50px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    background: #F0F0F0;
+    color: #888;
+  }
+
+  /* Category colors */
+  .cat-app { background: #E8F5E9; color: #2E7D32; }
+  .cat-app .card-thumb { background: linear-gradient(135deg, #A8E6CF, #6BCB77); }
+  .cat-image { background: #FFF3E0; color: #E65100; }
+  .cat-image .card-thumb { background: linear-gradient(135deg, #FFD8A8, #FFA552); }
+  .cat-video { background: #FCE4EC; color: #C62828; }
+  .cat-video .card-thumb { background: linear-gradient(135deg, #FFB3C6, #FF6B9D); }
+  .cat-idea { background: #F3E5F5; color: #7B1FA2; }
+  .cat-idea .card-thumb { background: linear-gradient(135deg, #D4A5FF, #9B59B6); }
+  .cat-writing { background: #E3F2FD; color: #1565C0; }
+  .cat-writing .card-thumb { background: linear-gradient(135deg, #90CAF9, #4D96FF); }
+  .cat-music { background: #FFFDE7; color: #F57F17; }
+  .cat-music .card-thumb { background: linear-gradient(135deg, #FFF59D, #FFD93D); }
+  .cat-other { background: #ECEFF1; color: #546E7A; }
+  .cat-other .card-thumb { background: linear-gradient(135deg, #B0BEC5, #78909C); }
+  .cat-publication { background: #E0F2F1; color: #00695C; }
+  .cat-publication .card-thumb { background: linear-gradient(135deg, #80CBC4, #26A69A); }
+
+  /* === TIMELINE VIEW === */
+  .timeline-view {
+    display: none;
+    position: relative;
+    padding-left: 40px;
+  }
+  .timeline-view::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(to bottom, var(--pink), var(--blue), var(--green));
+    border-radius: 4px;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 32px;
+  }
+  .timeline-dot {
+    position: absolute;
+    left: -33px;
+    top: 20px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 4px solid white;
+    box-shadow: 0 0 0 3px var(--blue);
+    z-index: 1;
+  }
+  .timeline-item .card {
+    max-width: 700px;
+  }
+
+  /* === LIST VIEW === */
+  .list-view {
+    display: none;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .list-item {
+    display: flex;
+    align-items: center;
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 16px 20px;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s;
+    gap: 16px;
+  }
+  .list-item:hover { transform: translateX(4px); }
+  .list-emoji {
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    flex-shrink: 0;
+  }
+  .list-info { flex: 1; }
+  .list-info h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+  .list-info p {
+    font-size: 0.85rem;
+    color: #888;
+  }
+  .list-meta {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .list-meta .card-category { margin-bottom: 4px; }
+  .list-meta .card-date { display: block; }
+
+  /* === SEARCH HIGHLIGHT === */
+  mark {
+    background: #FFF59D;
+    color: var(--dark);
+    border-radius: 3px;
+    padding: 0 2px;
+  }
+
+  /* === EMPTY STATE === */
+  .empty-state {
+    text-align: center;
+    padding: 80px 24px;
+    color: #CCC;
+  }
+  .empty-state .emoji { font-size: 4rem; margin-bottom: 16px; }
+  .empty-state p { font-size: 1.1rem; font-weight: 600; }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 640px) {
+    .header h1 { font-size: 1.8rem; }
+    .toolbar { flex-direction: column; align-items: flex-start; }
+    .grid-view { grid-template-columns: 1fr; }
+    .list-item { flex-direction: column; text-align: center; }
+    .list-meta { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>All Can Create. All Can Design.</h1>
+  <p>All the fun I've had making stuff.</p>
+</div>
+
+<div class="search-container">
+  <input type="text" class="search-box" id="searchBox" placeholder="Search projects by title, description, tool, or keyword..." oninput="onSearch()">
+</div>
+
+<div class="toolbar">
+  <div class="category-filters" id="filters"></div>
+  <div class="view-toggles">
+    <button class="view-btn active" onclick="setView('grid')">Grid</button>
+    <button class="view-btn" onclick="setView('timeline')">Timeline</button>
+    <button class="view-btn" onclick="setView('list')">List</button>
+  </div>
+</div>
+
+<div class="item-count" id="itemCount"></div>
+
+<div class="showcase">
+  <div class="grid-view" id="gridView"></div>
+  <div class="timeline-view" id="timelineView"></div>
+  <div class="list-view" id="listView"></div>
+</div>
+
+<script>
+// ============================================================
+//  YOUR PROJECTS — ADD NEW ITEMS HERE!
+//
+//  Just copy the template below and fill in the details.
+//  Categories: "app", "image", "video", "idea", "writing",
+//              "music", "publication", "other"
+//
+//  {
+//    title: "Project Name",
+//    description: "What is it and what's cool about it",
+//    category: "app",
+//    emoji: "🚀",
+//    date: "2026-04-12",
+//    tools: ["Claude", "ChatGPT"],
+//    link: "",                          // main URL
+//    links: [],                         // extra links: [{label, url}]
+//    image: "",                         // optional thumbnail URL
+//  },
+// ============================================================
+
+const projects = [
+  {
+    title: "Gonn(ai) Fly Now",
+    description: "An AI-generated motivational video set to the iconic Rocky theme. A playful experiment in using AI video generation to create an uplifting, cinematic short — proving you don't need a film crew to channel your inner Rocky.",
+    category: "video",
+    emoji: "🥊",
+    date: "2025-11-25",
+    tools: ["AI Video Gen"],
+    link: "https://www.youtube.com/watch?v=NhGwSd3iGc0",
+    links: [],
+    image: "https://i.ytimg.com/vi/NhGwSd3iGc0/hqdefault.jpg",
+  },
+  {
+    title: "Scott Adams Real Coffee — Complete Video Inventory",
+    description: "A fully searchable web app cataloguing all 3,102 episodes of Scott Adams' Real Coffee series (2018–2026). Includes filtering by year, month, and 14 different themes like Persuasion, AI & Tech, and Mental Models. You can also export the data as JSON or CSV.",
+    category: "app",
+    emoji: "☕",
+    date: "2026-01-10",
+    tools: ["Claude", "GitHub Pages"],
+    link: "https://kr48vr.github.io/SARC/",
+    links: [],
+    image: "",
+  },
+  {
+    title: "Open Loop Careers — Career Gangsta Tools",
+    description: "A video walkthrough of the Open Loop Careers (OLC) project — research-grounded, evidence-based career tools for the modern age. Shows how the \"Micro Experimenter's Journey\" approach can help anyone navigate career decisions with practical frameworks.",
+    category: "video",
+    emoji: "🎯",
+    date: "2026-03-07",
+    tools: ["AI Video Gen", "OLC Research"],
+    link: "https://www.youtube.com/watch?v=ZmxaNLcW8Wc",
+    links: [],
+    image: "https://i.ytimg.com/vi/ZmxaNLcW8Wc/maxresdefault.jpg",
+  },
+  {
+    title: "The Anatomy of a Sonic Hack — Why Bagpipes Move Us",
+    description: "Starting from a simple question — \"What is it about the bagpipe that makes us so emotional?\" — this AI-generated cinematic video explores the science of why bagpipes are so powerful. Built using NotebookLM's Deep Research and Cinematic Video Overview, it weaves together acoustics, neurobiology, and cultural history.",
+    category: "video",
+    emoji: "🎵",
+    date: "2026-03-06",
+    tools: ["NotebookLM"],
+    link: "https://www.youtube.com/watch?v=kXj30aB4h68",
+    links: [],
+    image: "https://i.ytimg.com/vi/kXj30aB4h68/maxresdefault.jpg",
+  },
+  {
+    title: "Reel to Real Lives — Insights from Shrinking",
+    description: "An interactive web app that takes the emotional themes from the Apple TV+ show \"Shrinking\" and connects them to your real life. Search for what you're going through — grief, forgiveness, anger, guilt — and get meaningful insights drawn from the show's characters and storylines. Also built as a Gemini Gem, a Custom GPT, and Claude Artifacts (Opus and Sonnet).",
+    category: "app",
+    emoji: "🎬",
+    date: "2026-04-01",
+    tools: ["Claude", "ChatGPT", "Gemini", "GitHub Pages"],
+    link: "https://kr48vr.github.io/reel-to-real-lives/",
+    links: [
+      { label: "Gemini Gem", url: "https://gemini.google.com/gem/18ZgFFkdIh_2cqMJxWQmiMn-zZRaaVdsO?usp=sharing" },
+      { label: "Custom GPT", url: "https://chatgpt.com/share/e/69daf05b-9464-8013-a99d-c929343f0c04" },
+      { label: "Claude Opus Artifact", url: "https://claude.ai/public/artifacts/16a98090-e6f6-40fe-9174-e22e3637839e" },
+      { label: "Claude Sonnet Artifact", url: "https://claude.ai/public/artifacts/47a1acd9-b2cc-43dd-bcdf-610119cb7890" },
+    ],
+    image: "",
+  },
+  {
+    title: "Designing a Human-AI Innovation Edge for Enterprises",
+    description: "A published strategy use case briefing developed with SUTD and supported by SGTech and SkillsFuture Singapore. Focuses on building \"Trilingual Skills\" (Design x AI x Domain) for the future of innovation. Shows real enterprise stories of AI adoption across Singapore's organisations, with a companion video featuring companies sharing their journeys in their own words.",
+    category: "publication",
+    emoji: "📘",
+    date: "2026-04-07",
+    tools: ["SUTD", "SGTech"],
+    link: "https://www.sutd.edu.sg/future-of-innovation/strategy-use-cases-for-enterprises/",
+    links: [
+      { label: "Video: Enterprise AI Stories", url: "https://www.youtube.com/watch?v=TwpBCAL7cUE" },
+    ],
+    image: "",
+  },
+];
+
+// ============================================================
+//  ENGINE — you don't need to touch anything below here
+// ============================================================
+
+const categoryMeta = {
+  app:         { label: "App",         cls: "cat-app" },
+  image:       { label: "Image",       cls: "cat-image" },
+  video:       { label: "Video",       cls: "cat-video" },
+  idea:        { label: "Idea",        cls: "cat-idea" },
+  writing:     { label: "Writing",     cls: "cat-writing" },
+  music:       { label: "Music",       cls: "cat-music" },
+  publication: { label: "Publication", cls: "cat-publication" },
+  other:       { label: "Other",       cls: "cat-other" },
+};
+
+let currentFilter = "all";
+let currentView = "grid";
+let searchQuery = "";
+
+function getCategories() {
+  const cats = [...new Set(projects.map(p => p.category))];
+  return cats.sort();
+}
+
+function formatDate(dateStr) {
+  const d = new Date(dateStr + "T00:00:00");
+  return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+}
+
+function matchesSearch(p, q) {
+  if (!q) return true;
+  const lower = q.toLowerCase();
+  const searchable = [
+    p.title, p.description, p.category,
+    ...(p.tools || []),
+    ...(p.links || []).map(l => l.label),
+  ].join(" ").toLowerCase();
+  return lower.split(/\s+/).every(term => searchable.includes(term));
+}
+
+function highlight(text, q) {
+  if (!q) return text;
+  const terms = q.trim().split(/\s+/).filter(Boolean);
+  if (!terms.length) return text;
+  const regex = new RegExp(`(${terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi');
+  return text.replace(regex, '<mark>$1</mark>');
+}
+
+function filtered() {
+  let items = currentFilter === "all" ? [...projects] : projects.filter(p => p.category === currentFilter);
+  if (searchQuery) items = items.filter(p => matchesSearch(p, searchQuery));
+  items.sort((a, b) => new Date(b.date) - new Date(a.date));
+  return items;
+}
+
+function buildFilters() {
+  const el = document.getElementById("filters");
+  const cats = getCategories();
+  let html = `<button class="filter-btn active" onclick="setFilter('all')">All</button>`;
+  cats.forEach(c => {
+    const meta = categoryMeta[c] || categoryMeta.other;
+    html += `<button class="filter-btn" onclick="setFilter('${c}')">${meta.label}</button>`;
+  });
+  el.innerHTML = html;
+}
+
+function setFilter(cat) {
+  currentFilter = cat;
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+  event.target.classList.add("active");
+  render();
+}
+
+function setView(view) {
+  currentView = view;
+  document.querySelectorAll(".view-btn").forEach(b => b.classList.remove("active"));
+  event.target.classList.add("active");
+  render();
+}
+
+function onSearch() {
+  searchQuery = document.getElementById("searchBox").value;
+  render();
+}
+
+function cardThumbHTML(p) {
+  if (p.image) return `<img src="${p.image}" alt="${p.title}">`;
+  return p.emoji || "✨";
+}
+
+function cardHTML(p) {
+  const meta = categoryMeta[p.category] || categoryMeta.other;
+  const toolsHTML = (p.tools || []).map(t => `<span class="tool-tag">${highlight(t, searchQuery)}</span>`).join("");
+  let linksHTML = "";
+  if (p.link || (p.links && p.links.length)) {
+    linksHTML = `<div class="card-links">`;
+    if (p.link) linksHTML += `<a href="${p.link}" target="_blank" class="card-link">View Project →</a>`;
+    (p.links || []).forEach(l => {
+      linksHTML += `<a href="${l.url}" target="_blank" class="card-link secondary">${l.label}</a>`;
+    });
+    linksHTML += `</div>`;
+  }
+  return `
+    <div class="card ${meta.cls}">
+      <div class="card-thumb">${cardThumbHTML(p)}</div>
+      <div class="card-body">
+        <span class="card-category ${meta.cls}">${meta.label}</span>
+        <h3 class="card-title">${highlight(p.title, searchQuery)}</h3>
+        <p class="card-desc">${highlight(p.description, searchQuery)}</p>
+        ${linksHTML}
+        <div class="card-footer">
+          <span class="card-date">${formatDate(p.date)}</span>
+          <div class="card-tools">${toolsHTML}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function render() {
+  const items = filtered();
+  const gridEl = document.getElementById("gridView");
+  const timelineEl = document.getElementById("timelineView");
+  const listEl = document.getElementById("listView");
+  const countEl = document.getElementById("itemCount");
+
+  gridEl.style.display = "none";
+  timelineEl.style.display = "none";
+  listEl.style.display = "none";
+
+  countEl.textContent = `Showing ${items.length} project${items.length !== 1 ? "s" : ""}`;
+
+  if (items.length === 0) {
+    gridEl.style.display = "block";
+    gridEl.innerHTML = `<div class="empty-state"><div class="emoji">🔍</div><p>No projects found — try a different search or category!</p></div>`;
+    return;
+  }
+
+  if (currentView === "grid") {
+    gridEl.style.display = "grid";
+    gridEl.innerHTML = items.map(cardHTML).join("");
+  } else if (currentView === "timeline") {
+    timelineEl.style.display = "block";
+    timelineEl.innerHTML = items.map((p, i) => {
+      return `<div class="timeline-item">
+        <div class="timeline-dot" style="background:${getComputedStyle(document.documentElement).getPropertyValue(
+          ['--pink','--orange','--green','--blue','--purple'][i % 5]
+        )}"></div>
+        ${cardHTML(p)}
+      </div>`;
+    }).join("");
+  } else if (currentView === "list") {
+    listEl.style.display = "flex";
+    listEl.innerHTML = items.map(p => {
+      const meta = categoryMeta[p.category] || categoryMeta.other;
+      const linkAttr = p.link ? `onclick="window.open('${p.link}','_blank')" style="cursor:pointer"` : "";
+      return `<div class="list-item" ${linkAttr}>
+        <div class="list-emoji ${meta.cls}">${p.emoji || "✨"}</div>
+        <div class="list-info">
+          <h3>${highlight(p.title, searchQuery)}</h3>
+          <p>${highlight(p.description, searchQuery)}</p>
+        </div>
+        <div class="list-meta">
+          <span class="card-category ${meta.cls}">${meta.label}</span>
+          <span class="card-date">${formatDate(p.date)}</span>
+        </div>
+      </div>`;
+    }).join("");
+  }
+}
+
+buildFilters();
+render();
+</script>
+</body>
+</html>
