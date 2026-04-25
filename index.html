@@ -194,14 +194,37 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 4rem;
+    font-size: 5rem;
     position: relative;
     overflow: hidden;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  }
+  .card-thumb::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 50%, rgba(0,0,0,0.1) 100%);
+    pointer-events: none;
   }
   .card-thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  .card-thumb .emoji-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    z-index: 1;
+  }
+  .card-thumb .emoji-icon .thumb-label {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: rgba(255,255,255,0.75);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.3);
   }
   .card-body {
     padding: 20px;
@@ -284,13 +307,13 @@
 
   /* Category colors */
   .cat-app { background: #E8F5E9; color: #2E7D32; }
-  .cat-app .card-thumb { background: linear-gradient(135deg, #A8E6CF, #6BCB77); }
+  .cat-app .card-thumb { background: linear-gradient(135deg, #1a5c3a, #2d8c5a, #43b07a); }
   .cat-image { background: #FFF3E0; color: #E65100; }
   .cat-image .card-thumb { background: linear-gradient(135deg, #FFD8A8, #FFA552); }
   .cat-video { background: #FCE4EC; color: #C62828; }
-  .cat-video .card-thumb { background: linear-gradient(135deg, #FFB3C6, #FF6B9D); }
+  .cat-video .card-thumb { background: linear-gradient(135deg, #8c1a3a, #c0354d, #e8607a); }
   .cat-idea { background: #F3E5F5; color: #7B1FA2; }
-  .cat-idea .card-thumb { background: linear-gradient(135deg, #D4A5FF, #9B59B6); }
+  .cat-idea .card-thumb { background: linear-gradient(135deg, #5b2a8c, #8e44ad, #b56ee0); }
   .cat-writing { background: #E3F2FD; color: #1565C0; }
   .cat-writing .card-thumb { background: linear-gradient(135deg, #90CAF9, #4D96FF); }
   .cat-music { background: #FFFDE7; color: #F57F17; }
@@ -298,7 +321,7 @@
   .cat-other { background: #ECEFF1; color: #546E7A; }
   .cat-other .card-thumb { background: linear-gradient(135deg, #B0BEC5, #78909C); }
   .cat-publication { background: #E0F2F1; color: #00695C; }
-  .cat-publication .card-thumb { background: linear-gradient(135deg, #80CBC4, #26A69A); }
+  .cat-publication .card-thumb { background: linear-gradient(135deg, #1a3a5c, #2a5a8c, #3a7ab0); }
 
   /* === TIMELINE VIEW === */
   .timeline-view {
@@ -465,7 +488,7 @@ const projects = [
     tools: ["ChatGPT", "GitHub Pages", "OneMap"],
     link: "https://kr48vr.github.io/SingaporeSimulation/",
     links: [],
-    image: "images/singapore-sim.jpg",
+    image: "",
   },
   {
     title: "Project Hail Mary — Teaching Station",
@@ -476,7 +499,7 @@ const projects = [
     tools: ["Perplexity Computer"],
     link: "https://www.perplexity.ai/computer/a/project-hail-mary-teaching-sta-P8y3bst5SQqKYFfkYPFv1A",
     links: [],
-    image: "images/hail-mary.jpg",
+    image: "",
   },
   {
     title: "Gonn(ai) Fly Now",
@@ -500,7 +523,7 @@ const projects = [
     links: [
       { label: "Alt Version (SARC)", url: "https://kr48vr.github.io/SARC/" },
     ],
-    image: "images/scott-adams.jpg",
+    image: "",
   },
   {
     title: "Open Loop Careers — Career Gangsta Tools",
@@ -538,7 +561,7 @@ const projects = [
       { label: "Claude Opus Artifact", url: "https://claude.ai/public/artifacts/16a98090-e6f6-40fe-9174-e22e3637839e" },
       { label: "Claude Sonnet Artifact", url: "https://claude.ai/public/artifacts/47a1acd9-b2cc-43dd-bcdf-610119cb7890" },
     ],
-    image: "images/reel-to-real.jpg",
+    image: "",
   },
   {
     title: "Designing a Human-AI Innovation Edge for Enterprises",
@@ -551,7 +574,7 @@ const projects = [
     links: [
       { label: "Video: Enterprise AI Stories", url: "https://www.youtube.com/watch?v=TwpBCAL7cUE" },
     ],
-    image: "images/sutd-publication.jpg",
+    image: "",
   },
 ];
 
@@ -642,7 +665,9 @@ function onSearch() {
 
 function cardThumbHTML(p) {
   if (p.image) return `<img src="${p.image}" alt="${p.title}">`;
-  return p.emoji || "✨";
+  const shortTitle = p.title.split("—")[0].split("–")[0].trim();
+  const label = shortTitle.length > 24 ? shortTitle.slice(0, 22) + "…" : shortTitle;
+  return `<div class="emoji-icon"><span>${p.emoji || "✨"}</span><span class="thumb-label">${label}</span></div>`;
 }
 
 function cardHTML(p) {
