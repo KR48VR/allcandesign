@@ -255,11 +255,27 @@
     font-size: 0.78rem;
     color: rgba(232,236,241,0.55);
     line-height: 1.55;
-    margin-bottom: 12px;
+    margin-bottom: 4px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+  .card-desc.expanded {
+    -webkit-line-clamp: unset;
+    display: block;
+  }
+  .card-expand-btn {
+    background: none;
+    border: none;
+    color: rgba(232,236,241,0.4);
+    font-size: 0.7rem;
+    cursor: pointer;
+    padding: 0 0 8px 0;
+    transition: color 0.2s;
+  }
+  .card-expand-btn:hover {
+    color: rgba(232,236,241,0.75);
   }
   .card-meta {
     display: flex;
@@ -682,7 +698,8 @@ function buildGrid() {
       <div class="card-content">
         <div class="card-cluster-label" style="color:${col}">${p.emoji} ${p.cluster}</div>
         <div class="card-title">${p.title}</div>
-        <div class="card-desc">${p.description}</div>
+        <div class="card-desc" id="desc-${p.origIdx}">${p.description}</div>
+        <button class="card-expand-btn" id="expand-${p.origIdx}" onclick="event.stopPropagation();toggleDesc(${p.origIdx})">read more</button>
         <div class="card-meta">
           ${(p.tools||[]).map(t=>`<span class="card-tag">${t}</span>`).join("")}
           <span class="card-tag">${fmtDate(p.date)}</span>
@@ -692,6 +709,27 @@ function buildGrid() {
       </div>
     </div>`;
   }).join("");
+}
+
+function toggleDesc(idx) {
+  const desc = document.getElementById("desc-" + idx);
+  const btn = document.getElementById("expand-" + idx);
+  if (!desc || !btn) return;
+  const isExpanded = desc.classList.toggle("expanded");
+  btn.textContent = isExpanded ? "show less" : "read more";
+}
+
+// After grid is built, hide the button on cards where text isn't actually truncated
+function hideUnnecessaryExpandBtns() {
+  projects.forEach((p, i) => {
+    const desc = document.getElementById("desc-" + p.origIdx);
+    const btn = document.getElementById("expand-" + p.origIdx);
+    if (!desc || !btn) return;
+    // If scroll height matches client height, text fits — no need for the button
+    if (desc.scrollHeight <= desc.clientHeight + 1) {
+      btn.style.display = "none";
+    }
+  });
 }
 
 function fmtDate(d) { return new Date(d+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}); }
@@ -704,6 +742,8 @@ window.addEventListener("resize", resize);
 buildMontage();
 resize();
 buildGrid();
+// Wait a tick for layout to settle, then hide expand buttons on short descriptions
+requestAnimationFrame(() => { hideUnnecessaryExpandBtns(); });
 draw();
 </script>
 </body>
