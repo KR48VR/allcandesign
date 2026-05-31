@@ -113,28 +113,49 @@
   }
 
   /* ==============================
-     HOVER CARD (constellation)
+     INFO BAR (between constellation & grid)
      ============================== */
-  .hover-card {
-    display: none;
-    position: fixed;
-    z-index: 50;
-    background: rgba(19,27,46,0.95);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 12px;
-    padding: 14px 16px;
-    max-width: 280px;
-    width: max-content;
-    pointer-events: none;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.6);
-    backdrop-filter: blur(12px);
+  .info-bar {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 10px 24px 14px;
+    text-align: center;
   }
-  .hover-card.visible { display: block; }
-  .hc-cluster { font-size: 0.62rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 5px; }
-  .hc-title { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 500; margin-bottom: 6px; line-height: 1.3; color: #E8ECF1; }
-  .hc-desc { font-size: 0.72rem; color: rgba(232,236,241,0.5); line-height: 1.5; margin-bottom: 6px; }
-  .hc-companion { font-size: 0.68rem; color: #F5A623; opacity: 0.8; }
-  .hc-cta { font-size: 0.65rem; color: rgba(232,236,241,0.2); font-style: italic; margin-top: 6px; }
+  .info-bar .ib-instruction {
+    font-size: 0.72rem;
+    color: rgba(232,236,241,0.2);
+    font-style: italic;
+    margin-bottom: 0;
+    transition: color 0.3s;
+  }
+  .info-bar.active .ib-instruction {
+    color: rgba(232,236,241,0.3);
+    margin-bottom: 8px;
+  }
+  .info-bar .ib-details {
+    display: none;
+  }
+  .info-bar.active .ib-details {
+    display: block;
+  }
+  .ib-top-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .ib-cluster { font-size: 0.62rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; }
+  .ib-dot { color: rgba(232,236,241,0.15); font-size: 0.5rem; }
+  .ib-title { font-family: 'Playfair Display', serif; font-size: 0.88rem; font-weight: 500; color: #E8ECF1; }
+  .ib-companion { font-size: 0.66rem; color: #F5A623; opacity: 0.8; }
+  .ib-desc {
+    font-size: 0.72rem;
+    color: rgba(232,236,241,0.4);
+    line-height: 1.5;
+    max-width: 520px;
+    margin: 0 auto;
+  }
 
   /* ==============================
      GRID SECTION
@@ -255,27 +276,7 @@
     font-size: 0.78rem;
     color: rgba(232,236,241,0.55);
     line-height: 1.55;
-    margin-bottom: 4px;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-  .card-desc.expanded {
-    -webkit-line-clamp: unset;
-    display: block;
-  }
-  .card-expand-btn {
-    background: none;
-    border: none;
-    color: rgba(232,236,241,0.4);
-    font-size: 0.7rem;
-    cursor: pointer;
-    padding: 0 0 8px 0;
-    transition: color 0.2s;
-  }
-  .card-expand-btn:hover {
-    color: rgba(232,236,241,0.75);
+    margin-bottom: 12px;
   }
   .card-meta {
     display: flex;
@@ -342,7 +343,7 @@
     .hero-overlay h1 { font-size: 1.5rem; }
     .montage { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); grid-auto-rows: 52px; }
     .project-grid { grid-template-columns: 1fr; }
-    .hover-card { display: none !important; }
+    .info-bar { display: none; }
   }
   @media (min-width: 641px) and (max-width: 900px) {
     .project-grid { grid-template-columns: repeat(2, 1fr); }
@@ -367,6 +368,12 @@
   <canvas id="constellation"></canvas>
 </section>
 
+<!-- ============ INFO BAR ============ -->
+<div class="info-bar" id="infoBar">
+  <div class="ib-instruction" id="infoInstruction">Hover a node to explore</div>
+  <div class="ib-details" id="infoDetails"></div>
+</div>
+
 <!-- ============ GRID ============ -->
 <section class="grid-section">
   <div class="project-grid" id="projectGrid"></div>
@@ -376,9 +383,6 @@
 <footer class="site-footer">
   <p class="footer-tagline">Learns by building. Teaches by sharing.</p>
 </footer>
-
-<!-- Hover card -->
-<div class="hover-card" id="hoverCard"></div>
 
 <script>
 // ============================================================
@@ -446,7 +450,9 @@ function buildMontage() {
 // ============================================================
 const canvas = document.getElementById("constellation");
 const ctx = canvas.getContext("2d");
-const hoverCard = document.getElementById("hoverCard");
+const infoBar = document.getElementById("infoBar");
+const infoInstruction = document.getElementById("infoInstruction");
+const infoDetails = document.getElementById("infoDetails");
 let W, H, nodes = [], edges = [], hoveredNode = null;
 let time = 0, paused = false, pausedTime = 0;
 let highlightedIndex = -1, highlightTimer = null;
@@ -485,11 +491,20 @@ function layoutNodes() {
       if (partner && i < partner.index) edges.push({ a: n, b: partner, type: "companion" });
     }
   });
-  const sn = nodes.filter(n => n.project.cluster === "Companion Shelf");
-  ["Three-Body Problem","Apollo 13","The Martian","Project Hail Mary"].forEach(cn => {
-    const t = nodes.find(n => n.project.cluster === cn);
-    if (t) sn.forEach(s => edges.push({ a: s, b: t, type: "shelf" }));
-  });
+}
+
+// Family relationships — used for hover reveal
+const familyClusters = ["Three-Body Problem","Apollo 13","The Martian","Project Hail Mary"];
+function getRelatedNodes(hovered) {
+  if (!hovered) return [];
+  const cl = hovered.project.cluster;
+  if (cl === "Companion Shelf" || cl === "Hao Jingfang") {
+    return nodes.filter(n => familyClusters.includes(n.project.cluster));
+  }
+  if (familyClusters.includes(cl)) {
+    return nodes.filter(n => n.project.cluster === "Companion Shelf" || n.project.cluster === "Hao Jingfang");
+  }
+  return [];
 }
 
 function draw() {
@@ -526,10 +541,10 @@ function draw() {
     ctx.fillText(n.project.cluster.toUpperCase(), n.baseX, n.baseY - 40);
   });
 
-  // Edges
+  // Edges — companion pairs only
   edges.forEach(e => {
-    const col = clusters[e.a.project.cluster]?.color || "#fff";
     if (e.type === "companion") {
+      const col = clusters[e.a.project.cluster]?.color || "#fff";
       ctx.strokeStyle = `rgba(${hx(col)},0.12)`; ctx.lineWidth = 4; ctx.setLineDash([]);
       ctx.beginPath(); ctx.moveTo(e.a.x,e.a.y); ctx.lineTo(e.b.x,e.b.y); ctx.stroke();
       ctx.strokeStyle = `rgba(${hx(col)},0.35)`; ctx.lineWidth = 1.5;
@@ -538,10 +553,24 @@ function draw() {
       ctx.setLineDash([]);
       ctx.fillStyle = `rgba(${hx(col)},0.25)`; ctx.font = "500 7px Inter"; ctx.textAlign = "center";
       ctx.fillText("⇄", (e.a.x+e.b.x)/2, (e.a.y+e.b.y)/2 - 3);
-    } else {
-      ctx.strokeStyle = `rgba(${hx(col)},0.08)`; ctx.lineWidth = 0.5; ctx.setLineDash([2,6]);
-      ctx.beginPath(); ctx.moveTo(e.a.x,e.a.y); ctx.lineTo(e.b.x,e.b.y); ctx.stroke(); ctx.setLineDash([]);
     }
+  });
+
+  // Hover reveal — glow related family nodes when hovering a parent/cousin/child
+  const relatedNodes = getRelatedNodes(hoveredNode);
+  relatedNodes.forEach(rn => {
+    if (rn === hoveredNode) return;
+    const col = clusters[rn.project.cluster]?.color || "#fff";
+    const pulse = 0.25 + Math.sin(time * 3) * 0.1;
+    const rg = ctx.createRadialGradient(rn.x, rn.y, rn.radius, rn.x, rn.y, rn.radius * 5);
+    rg.addColorStop(0, `rgba(${hx(col)},${pulse})`);
+    rg.addColorStop(1, `rgba(${hx(col)},0)`);
+    ctx.fillStyle = rg;
+    ctx.beginPath(); ctx.arc(rn.x, rn.y, rn.radius * 5, 0, Math.PI * 2); ctx.fill();
+    // Bright ring
+    ctx.strokeStyle = `rgba(${hx(col)},${pulse + 0.1})`;
+    ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.arc(rn.x, rn.y, rn.radius + 5 + Math.sin(time * 2) * 2, 0, Math.PI * 2); ctx.stroke();
   });
 
   // Nodes
@@ -611,16 +640,16 @@ canvas.addEventListener("mousemove", e => {
   if (found !== hoveredNode) {
     hoveredNode = found;
     canvas.style.cursor = hoveredNode ? "pointer" : "default";
-    if (hoveredNode) showHoverCard(hoveredNode.project, e.clientX, e.clientY);
-    else hoverCard.classList.remove("visible");
-  } else if (hoveredNode) { posHC(e.clientX, e.clientY); }
+    if (hoveredNode) showInfoBar(hoveredNode.project);
+    else hideInfoBar();
+  }
 });
-canvas.addEventListener("mouseleave", () => { hoveredNode = null; hoverCard.classList.remove("visible"); });
+canvas.addEventListener("mouseleave", () => { hoveredNode = null; hideInfoBar(); });
 
 // CLICK constellation node → scroll to grid card
 canvas.addEventListener("click", () => {
   if (!hoveredNode) return;
-  hoverCard.classList.remove("visible");
+  hideInfoBar();
   scrollToCard(hoveredNode.index);
 });
 canvas.addEventListener("touchstart", e => {
@@ -632,25 +661,24 @@ canvas.addEventListener("touchstart", e => {
   }
 });
 
-function showHoverCard(p, cx, cy) {
+function showInfoBar(p) {
   const cl = clusters[p.cluster];
-  const sd = p.description.length > 130 ? p.description.slice(0,127) + "…" : p.description;
-  hoverCard.innerHTML = `
-    <div class="hc-cluster" style="color:${cl?.color||'#F5A623'}">${p.emoji} ${p.cluster}</div>
-    <div class="hc-title">${p.title}</div>
-    <div class="hc-desc">${sd}</div>
-    ${p.companion ? `<div class="hc-companion">⇄ Paired with: ${p.companion}</div>` : ""}
-    <div class="hc-cta">Click to find in grid ↓</div>
+  const sd = p.description;
+  infoInstruction.textContent = "Click node to find in grid ↓";
+  infoDetails.innerHTML = `
+    <div class="ib-top-line">
+      <span class="ib-cluster" style="color:${cl?.color||'#F5A623'}">${p.emoji} ${p.cluster}</span>
+      <span class="ib-dot">●</span>
+      <span class="ib-title">${p.title}</span>
+      ${p.companion ? `<span class="ib-dot">●</span><span class="ib-companion">⇄ ${p.companion}</span>` : ""}
+    </div>
+    <div class="ib-desc">${sd}</div>
   `;
-  hoverCard.classList.add("visible");
-  posHC(cx, cy);
+  infoBar.classList.add("active");
 }
-function posHC(cx, cy) {
-  let x = cx + 18, y = cy - 20;
-  if (x + 290 > window.innerWidth - 12) x = cx - 290;
-  if (y + (hoverCard.offsetHeight||180) > window.innerHeight - 12) y = window.innerHeight - (hoverCard.offsetHeight||180) - 12;
-  if (y < 12) y = 12;
-  hoverCard.style.left = x + "px"; hoverCard.style.top = y + "px";
+function hideInfoBar() {
+  infoBar.classList.remove("active");
+  infoInstruction.textContent = "Hover a node to explore";
 }
 
 // ============================================================
@@ -698,8 +726,7 @@ function buildGrid() {
       <div class="card-content">
         <div class="card-cluster-label" style="color:${col}">${p.emoji} ${p.cluster}</div>
         <div class="card-title">${p.title}</div>
-        <div class="card-desc" id="desc-${p.origIdx}">${p.description}</div>
-        <button class="card-expand-btn" id="expand-${p.origIdx}" onclick="event.stopPropagation();toggleDesc(${p.origIdx})">read more</button>
+        <div class="card-desc">${p.description}</div>
         <div class="card-meta">
           ${(p.tools||[]).map(t=>`<span class="card-tag">${t}</span>`).join("")}
           <span class="card-tag">${fmtDate(p.date)}</span>
@@ -711,29 +738,8 @@ function buildGrid() {
   }).join("");
 }
 
-function toggleDesc(idx) {
-  const desc = document.getElementById("desc-" + idx);
-  const btn = document.getElementById("expand-" + idx);
-  if (!desc || !btn) return;
-  const isExpanded = desc.classList.toggle("expanded");
-  btn.textContent = isExpanded ? "show less" : "read more";
-}
-
-// After grid is built, hide the button on cards where text isn't actually truncated
-function hideUnnecessaryExpandBtns() {
-  projects.forEach((p, i) => {
-    const desc = document.getElementById("desc-" + p.origIdx);
-    const btn = document.getElementById("expand-" + p.origIdx);
-    if (!desc || !btn) return;
-    // If scroll height matches client height, text fits — no need for the button
-    if (desc.scrollHeight <= desc.clientHeight + 1) {
-      btn.style.display = "none";
-    }
-  });
-}
-
 function fmtDate(d) { return new Date(d+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}); }
-document.addEventListener("keydown", e => { if (e.key === "Escape") hoverCard.classList.remove("visible"); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") hideInfoBar(); });
 
 // ============================================================
 // INIT
@@ -742,8 +748,6 @@ window.addEventListener("resize", resize);
 buildMontage();
 resize();
 buildGrid();
-// Wait a tick for layout to settle, then hide expand buttons on short descriptions
-requestAnimationFrame(() => { hideUnnecessaryExpandBtns(); });
 draw();
 </script>
 </body>
