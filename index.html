@@ -91,20 +91,16 @@
     cursor: default;
   }
   .pause-btn {
-    position: absolute;
-    top: 14px;
-    right: 18px;
-    z-index: 15;
-    width: 34px; height: 34px;
+    width: 28px; height: 28px;
     border-radius: 50%;
     border: 1px solid rgba(255,255,255,0.12);
     background: rgba(255,255,255,0.05);
-    color: rgba(232,236,241,0.5);
-    font-size: 14px;
+    color: rgba(232,236,241,0.4);
+    font-size: 12px;
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
     transition: all 0.25s;
-    backdrop-filter: blur(6px);
+    margin: 0 auto 6px;
   }
   .pause-btn:hover {
     background: rgba(255,255,255,0.12);
@@ -364,12 +360,12 @@
 
 <!-- ============ CONSTELLATION ============ -->
 <section class="constellation-wrap" id="constellationWrap">
-  <button class="pause-btn" id="pauseBtn" onclick="togglePause()" title="Pause / Play">⏸</button>
   <canvas id="constellation"></canvas>
 </section>
 
 <!-- ============ INFO BAR ============ -->
 <div class="info-bar" id="infoBar">
+  <button class="pause-btn" id="pauseBtn" onclick="togglePause()" title="Pause / Play">⏸</button>
   <div class="ib-instruction" id="infoInstruction">Hover a node to explore</div>
   <div class="ib-details" id="infoDetails"></div>
 </div>
