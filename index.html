@@ -385,12 +385,12 @@
 // DATA
 // ============================================================
 const clusters = {
-  "Hao Jingfang": { color: "#E07A5F", x: 0.15, y: 0.3 },
-  "Companion Shelf": { color: "#F5A623", x: 0.5, y: 0.25 },
-  "Three-Body Problem": { color: "#81B29A", x: 0.75, y: 0.2 },
-  "Apollo 13": { color: "#7EC8E3", x: 0.7, y: 0.45 },
-  "The Martian": { color: "#F2CC8F", x: 0.35, y: 0.45 },
-  "Project Hail Mary": { color: "#E07A5F", x: 0.55, y: 0.6 },
+  "Hao Jingfang": { color: "#E07A5F", x: 0.15, y: 0.3, cardLabel: "Crossing Worlds" },
+  "Companion Shelf": { color: "#F5A623", x: 0.5, y: 0.25, cardLabel: "Crossing Worlds" },
+  "Three-Body Problem": { color: "#81B29A", x: 0.75, y: 0.2, cardLabel: "Crossing Worlds" },
+  "Apollo 13": { color: "#7EC8E3", x: 0.7, y: 0.45, cardLabel: "Crossing Worlds" },
+  "The Martian": { color: "#F2CC8F", x: 0.35, y: 0.45, cardLabel: "Crossing Worlds" },
+  "Project Hail Mary": { color: "#E07A5F", x: 0.55, y: 0.6, cardLabel: "Crossing Worlds" },
   "Simulations": { color: "#4ECDC4", x: 0.2, y: 0.65 },
   "Tools & Dashboards": { color: "#FFD93D", x: 0.45, y: 0.78 },
   "Film & Culture": { color: "#FF6B6B", x: 0.8, y: 0.7 },
@@ -665,7 +665,7 @@ function showInfoBar(p) {
   infoInstruction.textContent = "Click node to find in grid ↓";
   infoDetails.innerHTML = `
     <div class="ib-top-line">
-      <span class="ib-cluster" style="color:${cl?.color||'#F5A623'}">${p.emoji} ${p.cluster}</span>
+      <span class="ib-cluster" style="color:${cl?.color||'#F5A623'}">${p.emoji} ${cl?.cardLabel || p.cluster}</span>
       <span class="ib-dot">●</span>
       <span class="ib-title">${p.title}</span>
       ${p.companion ? `<span class="ib-dot">●</span><span class="ib-companion">⇄ ${p.companion}</span>` : ""}
@@ -722,7 +722,7 @@ function buildGrid() {
       </div>
       <div class="card-cluster-bar" style="background:${col}"></div>
       <div class="card-content">
-        <div class="card-cluster-label" style="color:${col}">${p.emoji} ${p.cluster}</div>
+        <div class="card-cluster-label" style="color:${col}">${p.emoji} ${cl?.cardLabel || p.cluster}</div>
         <div class="card-title">${p.title}</div>
         <div class="card-desc">${p.description}</div>
         <div class="card-meta">
