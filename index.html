@@ -534,9 +534,15 @@ function draw() {
   const drawn = new Set();
   nodes.forEach(n => {
     if (drawn.has(n.project.cluster)) return; drawn.add(n.project.cluster);
-    ctx.fillStyle = `rgba(${hx(clusters[n.project.cluster].color)},0.22)`;
+    const cl = clusters[n.project.cluster];
+    ctx.fillStyle = `rgba(${hx(cl.color)},0.22)`;
     ctx.font = "600 9px Inter"; ctx.textAlign = "center";
     ctx.fillText(n.project.cluster.toUpperCase(), n.baseX, n.baseY - 40);
+    if (cl.cardLabel) {
+      ctx.fillStyle = `rgba(${hx(cl.color)},0.13)`;
+      ctx.font = "italic 400 7.5px Inter";
+      ctx.fillText(cl.cardLabel, n.baseX, n.baseY - 29);
+    }
   });
 
   // Edges — companion pairs only
