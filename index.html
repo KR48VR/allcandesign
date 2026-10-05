@@ -4,47 +4,791 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>All Can Create. All Can Design.</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0B1120;
+    color: #E8ECF1;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ==============================
+     HERO + DENSE MONTAGE
+     ============================== */
+  .hero {
+    position: relative;
+    overflow: hidden;
+  }
+  .montage {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
+    grid-auto-rows: 68px;
+    gap: 2px;
+  }
+  .montage-cell {
+    overflow: hidden;
+  }
+  .montage-cell img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.35;
+    filter: saturate(0.5) brightness(0.7);
+    transition: opacity 0.5s, filter 0.5s;
+  }
+  .montage-cell:hover img {
+    opacity: 0.7;
+    filter: saturate(0.9) brightness(1);
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: radial-gradient(ellipse at center, rgba(11,17,32,0.5) 0%, rgba(11,17,32,0.82) 70%);
+    z-index: 2;
+    padding: 24px;
+  }
+  .hero-overlay h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: #F5A623;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .hero-overlay p {
+    font-size: 0.85rem;
+    color: rgba(232,236,241,0.5);
+    font-weight: 300;
+    letter-spacing: 2px;
+  }
+  .hero-fade {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, #0B1120);
+    z-index: 3;
+  }
+
+  /* ==============================
+     CONSTELLATION
+     ============================== */
+  .constellation-wrap {
+    position: relative;
+  }
+  #constellation {
+    display: block;
+    width: 100%;
+    cursor: default;
+  }
+  .pause-btn {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.05);
+    color: rgba(232,236,241,0.4);
+    font-size: 12px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.25s;
+    margin: 0 auto 6px;
+  }
+  .pause-btn:hover {
+    background: rgba(255,255,255,0.12);
+    color: #E8ECF1;
+    border-color: rgba(255,255,255,0.3);
+  }
+
+  /* ==============================
+     INFO BAR (between constellation & grid)
+     ============================== */
+  .info-bar {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 10px 24px 14px;
+    text-align: center;
+  }
+  .info-bar .ib-instruction {
+    font-size: 0.72rem;
+    color: rgba(232,236,241,0.2);
+    font-style: italic;
+    margin-bottom: 0;
+    transition: color 0.3s;
+  }
+  .info-bar.active .ib-instruction {
+    color: rgba(232,236,241,0.3);
+    margin-bottom: 8px;
+  }
+  .info-bar .ib-details {
+    display: none;
+  }
+  .info-bar.active .ib-details {
+    display: block;
+  }
+  .ib-top-line {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+  .ib-cluster { font-size: 0.62rem; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; }
+  .ib-dot { color: rgba(232,236,241,0.15); font-size: 0.5rem; }
+  .ib-title { font-family: 'Playfair Display', serif; font-size: 0.88rem; font-weight: 500; color: #E8ECF1; }
+  .ib-companion { font-size: 0.66rem; color: #F5A623; opacity: 0.8; }
+  .ib-desc {
+    font-size: 0.72rem;
+    color: rgba(232,236,241,0.4);
+    line-height: 1.5;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ==============================
+     GRID SECTION
+     ============================== */
+  .grid-section {
+    padding: 28px 20px 16px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+  .grid-section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    color: rgba(232,236,241,0.3);
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 16px;
+  }
+
+  /* --- Card --- */
+  .project-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+  }
+  .project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.3);
+    border-color: rgba(255,255,255,0.12);
+  }
+  .project-card.highlighted {
+    border-color: rgba(245,166,35,0.5);
+    box-shadow: 0 0 30px rgba(245,166,35,0.12);
+  }
+
+  .card-img-wrap {
+    position: relative;
+    width: 100%;
+    height: 170px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.02);
+  }
+  .card-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+  }
+  .project-card:hover .card-img-wrap img {
+    transform: scale(1.04);
+  }
+
+  /* Locate-in-constellation icon */
+  .card-locate-btn {
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(11,17,32,0.7);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(232,236,241,0.6);
+    font-size: 12px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    backdrop-filter: blur(4px);
+    z-index: 5;
+  }
+  .card-locate-btn:hover {
+    background: rgba(245,166,35,0.3);
+    border-color: #F5A623;
+    color: #F5A623;
+  }
+  .card-locate-btn:hover::after {
+    content: "Find in constellation";
+    position: absolute;
+    right: 34px;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    font-size: 0.62rem;
+    background: rgba(11,17,32,0.85);
+    color: #F5A623;
+    padding: 3px 8px;
+    border-radius: 6px;
+    pointer-events: none;
+  }
+
+  .card-cluster-bar {
+    height: 3px;
+    width: 100%;
+  }
+
+  .card-content {
+    padding: 14px 16px 16px;
+  }
+  .card-cluster-label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.3;
+    margin-bottom: 8px;
+    color: #E8ECF1;
+  }
+  .card-desc {
+    font-size: 0.78rem;
+    color: rgba(232,236,241,0.55);
+    line-height: 1.55;
+    margin-bottom: 12px;
+  }
+  .card-meta {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .card-tag {
+    padding: 2px 8px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.05);
+    font-size: 0.62rem;
+    color: rgba(232,236,241,0.45);
+  }
+  .card-companion {
+    font-size: 0.72rem;
+    color: #F5A623;
+    opacity: 0.75;
+    margin-bottom: 10px;
+  }
+  .card-links {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .card-link {
+    padding: 6px 13px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+  .card-link.primary {
+    background: rgba(245,166,35,0.15);
+    color: #F5A623;
+  }
+  .card-link.primary:hover { background: rgba(245,166,35,0.28); }
+  .card-link.secondary {
+    background: rgba(255,255,255,0.04);
+    color: rgba(232,236,241,0.55);
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .card-link.secondary:hover { background: rgba(255,255,255,0.1); }
+
+  /* ==============================
+     FOOTER
+     ============================== */
+  .site-footer {
+    text-align: center;
+    padding: 40px 24px 52px;
+  }
+  .footer-tagline {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(232,236,241,0.3);
+  }
+
+  /* ==============================
+     RESPONSIVE
+     ============================== */
+  @media (max-width: 640px) {
+    .hero-overlay h1 { font-size: 1.5rem; }
+    .montage { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); grid-auto-rows: 52px; }
+    .project-grid { grid-template-columns: 1fr; }
+    .info-bar { display: none; }
+  }
+  @media (min-width: 641px) and (max-width: 900px) {
+    .project-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
 </head>
 <body>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="montage" id="montage"></div>
+  <div class="hero-overlay">
+    <h1>All Can Create. All Can Design.</h1>
+    <p>50 PROJECTS MAPPED &middot; 2026</p>
+  </div>
+  <div class="hero-fade"></div>
+</section>
+
+<!-- ============ CONSTELLATION ============ -->
+<section class="constellation-wrap" id="constellationWrap">
+  <canvas id="constellation"></canvas>
+</section>
+
+<!-- ============ INFO BAR ============ -->
+<div class="info-bar" id="infoBar">
+  <button class="pause-btn" id="pauseBtn" onclick="togglePause()" title="Pause / Play">⏸</button>
+  <div class="ib-instruction" id="infoInstruction">Hover a node to explore</div>
+  <div class="ib-details" id="infoDetails"></div>
+</div>
+
+<!-- ============ GRID ============ -->
+<section class="grid-section">
+  <div class="project-grid" id="projectGrid"></div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <p class="footer-tagline">Learns by building. Teaches by sharing.</p>
+</footer>
+
 <script>
-(async function () {
-  var sources = [
-    "https://cdn.jsdelivr.net/gh/KR48VR/allcandesign@5762fe2cff9bc4fa68590919a7737c906c2e3dd8/index.html",
-    "https://raw.githubusercontent.com/KR48VR/allcandesign/5762fe2cff9bc4fa68590919a7737c906c2e3dd8/index.html"
-  ];
-  var html = null;
-  for (var i = 0; i < sources.length; i++) {
-    try {
-      var res = await fetch(sources[i]);
-      if (res.ok) { html = await res.text(); break; }
-    } catch (e) {}
+// ============================================================
+// DATA
+// ============================================================
+const clusters = {
+  "Hao Jingfang": { color: "#E07A5F", x: 0.15, y: 0.3, cardLabel: "Crossing Worlds" },
+  "Companion Shelf": { color: "#F5A623", x: 0.5, y: 0.25, cardLabel: "Crossing Worlds" },
+  "Three-Body Problem": { color: "#81B29A", x: 0.75, y: 0.2, cardLabel: "Crossing Worlds" },
+  "Apollo 13": { color: "#7EC8E3", x: 0.7, y: 0.45, cardLabel: "Crossing Worlds" },
+  "The Martian": { color: "#F2CC8F", x: 0.35, y: 0.45, cardLabel: "Crossing Worlds" },
+  "Project Hail Mary": { color: "#E07A5F", x: 0.55, y: 0.6, cardLabel: "Crossing Worlds" },
+  "Simulations": { color: "#4ECDC4", x: 0.2, y: 0.65 },
+  "Tools & Dashboards": { color: "#FFD93D", x: 0.45, y: 0.78 },
+  "Film & Culture": { color: "#FF6B6B", x: 0.8, y: 0.7 },
+  "Videos": { color: "#B56EE0", x: 0.15, y: 0.85 },
+  "Publication": { color: "#7EC8E3", x: 0.82, y: 0.88 },
+  "Visual Narratives": { color: "#D63384", x: 0.35, y: 0.15 },
+};
+
+const projects = [
+  { title: "Hidden Masters (高手在民間)", description: "A seven-part video series (about 8 minutes in all) on the film, literature, music, history and pop-culture references hidden in Stephen Chow's Kung Fu Hustle (2004) — from Pig Sty Alley as a Cantonese pun on Kowloon Walled City to the masters who look ordinary until they fight.", cluster: "Film & Culture", emoji: "🥋", date: "2026-10-05", tools: ["Claude"], link: "https://claude.ai/artifact/3iSmkqXs2JaetGGvXB2AZa", links: [], image: "images/hidden-masters.png" },
+  { title: "Kill Bill Reference Reel", description: "A narrated walk through 28 films, TV shows, songs and pieces of history referenced in Kill Bill: Vol. 1 & 2, one at a time — and when each link came to light. Still unspooling.", cluster: "Film & Culture", emoji: "🎬", date: "2026-10-05", tools: ["Claude"], link: "https://claude.ai/artifact/GXh1VeSKW1kn82D6AjEZy9", links: [], image: "images/kill-bill-reference-reel.png" },
+  { title: "Secret Levels", description: "A game-style set of short maths videos for 15-year-olds that take school topics (such as simultaneous equations → linear algebra) all the way up to today's AI, with an XP bar and a tip for teachers.", cluster: "Videos", emoji: "🎮", date: "2026-10-05", tools: ["Claude"], link: "https://claude.ai/artifact/YbWToWcitg4x55Q6kgsdyk", links: [], image: "images/secret-levels.png" },
+  { title: "Team of bots", description: "How one leader and a team of AI teammates stay in sync: who does what, everything that runs each week, how a link becomes a forecast, and which choices stay with the leader. Built to explain by building.", cluster: "Tools & Dashboards", emoji: "🤖", date: "2026-10-05", tools: ["Grok Bot"], link: "https://kr48vr.github.io/team-of-bots/", links: [], image: "images/team-of-bots.png" },
+  { title: "SUTD Campus Twin", description: "An interactive 3D digital twin of the Singapore University of Technology and Design campus. Orbit or walk through the grounds, drop physics objects with adjustable gravity and bounce, control the lighting, and explore six preset viewpoints from the main driveway to the sports grounds. Built from OpenStreetMap data with estimated building heights.", cluster: "Simulations", emoji: "🏫", date: "2026-09-26", tools: ["ChatGPT Astra"], link: "https://sutd-campus-twin.kingrocks4ever.chatgpt.site", links: [], image: "images/sutd-campus-twin.png" },
+  { title: "Yellow Blade — A Garden of Vengeance", description: "What happens when Plants vs. Zombies meets Kill Bill? A 10-chapter lane-defense game where you spend Chi to place fighters — Tea Master generates energy, Yellow Blade cuts through the front line — and protect your gate through four waves and a boss per chapter. Original artwork, stylised combat, and music that starts on play. No knowledge of either source needed; the guided start waits until you're ready.", cluster: "Film & Culture", emoji: "⚔️", date: "2026-09-26", tools: ["ChatGPT Astra"], link: "https://yellow-blade-garden.kingrocks4ever.chatgpt.site", links: [{ label: "Trailer", url: "https://youtube.com/shorts/6kCoPsSCz2I" }, { label: "Poster", url: "https://drive.google.com/file/d/1UePlNOO1K32alNXcfnsmwico420kWmUU/view?usp=sharing" }], image: "images/yellow-blade.png" },
+  { title: "Physical AI & Markets", description: "Robots and self-driving cars that run on modern AI models, tracked on one animated timeline since November 2023 — robotaxi rides per week (Waymo vs Apollo Go), humanoid robots shipped worldwide, spatial-reasoning test scores, robotics stocks by country, and the money raised. Press play and everything moves on one clock. Companion piece to the AI Models & Markets benchmark clock.", cluster: "Tools & Dashboards", emoji: "🤖", date: "2026-09-26", tools: ["Claude"], link: "https://claude.ai/artifact/KxspP9jAWedMKJhN6aeCgj", links: [], image: "images/physical-ai-markets.png" },
+  { title: "King & AI Build Record — Working with AI as Tool, Teammate and/or Neither", description: "A build record documenting the human–AI collaboration behind the AI Models & Markets animated clock — when AI was a tool executing instructions, when it was a teammate shaping decisions, and when it was neither. An honest log of the process from concept to published artifact.", cluster: "Tools & Dashboards", emoji: "🤝", date: "2026-09-26", tools: ["Claude"], link: "https://claude.ai/artifact/W5ZCkmfxrkDH3eA28certv", links: [], image: "images/king-ai-build-record.png" },
+  { title: "The Great AI Containment Failure — Incident Evidence Guide", description: "How OpenAI's benchmark agents coordinated across runs and breached real systems — Artifactory, Hugging Face, CyberGym — without turning a containment failure into an 'AI uprising' story. A source-checked incident evidence guide with a master timeline, deep dive into five phases from May to July 2026, key terms, lessons learned, and downloadable infographic.", cluster: "Visual Narratives", emoji: "🔓", date: "2026-09-06", tools: ["ChatGPT Astra"], link: "https://ai-containment-failure.kingrocks4ever.chatgpt.site/", links: [], image: "images/ai-containment-failure.png" },
+  { title: "AI Compound Revolution — Living Map", description: "A living framework that tracks how AI diffuses through economies — not as a single technology but as a compound revolution where capability, speed, and scale interact. Two linked diagrams: Compound Diffusion maps where country portfolios reach across installation and deployment phases; Past Transformations places AI alongside historical revolutions from agriculture to the internet. Monthly reviews track 31 findings across the US, China, and Singapore with evidence cards, method notes, and watch flags. Framework 1.0, September 2026 baseline.", cluster: "Tools & Dashboards", emoji: "🗺️", date: "2026-09-05", tools: ["ChatGPT Astra"], link: "https://ai-compound-revolution-map.kingrocks4ever.chatgpt.site/", links: [], image: "images/ai-compound-revolution.png" },
+  { title: "The Other Side of Sunday — La Grande Jatte Discovery Game", description: "What's hidden behind the figures in Seurat's masterpiece? A discovery game that lets you explore the 1884–86 painting through interactive hotspots, a five-question quiz, and a 3D scene you can walk into. Toggle between the original painting and a first-person view, guess what each figure conceals, and learn the stories Seurat composed into his pointillist Sunday afternoon.", cluster: "Film & Culture", emoji: "🎨", date: "2026-09-05", tools: ["ChatGPT Astra"], link: "https://seurat-la-grande-jatte-3d.kingrocks4ever.chatgpt.site", links: [], image: "images/seurat-discovery.png" },
+  { title: "Future Nostalgia — Game & Watch Octopus", description: "Two browser versions of Nintendo's 1981 Game & Watch Octopus (OC-22). The first is a faithful recreation — retro hardware styling, pixel-perfect LCD aesthetic, chunky red arcade buttons. The second reimagines the same game as Deep Sea Treasure, with a modern dark UI, glowing HUD, and two difficulty modes. Both built with Gemini 3.7 Flash using the Nano Banana approach to creating beautiful games.", cluster: "Film & Culture", emoji: "🎮", date: "2026-08-15", tools: ["Gemini 3.7 Flash"], link: "https://share.gemini.google/hxq7kl8wIWbf", links: [{ label: "Reimagined", url: "https://share.gemini.google/shaO3RbK31Mx" }], image: "images/game-watch-octopus.png" },
+  { title: "AI Models & Markets — GPQA-Diamond vs Stock Markets vs AI Investment", description: "Frontier-model progress on GPQA-Diamond plotted against stock markets and AI investment announcements — 64 model scores and 96 investment events on one animated clock, from November 2023 to today. Press play and watch the benchmark race, market indices, and trillion-dollar pledges move together. Percussion generated live from the data; music via ElevenLabs. Video versions edited in CapCut.", cluster: "Tools & Dashboards", emoji: "📊", date: "2026-08-02", tools: ["Claude", "ElevenLabs", "CapCut"], link: "https://claude.ai/code/artifact/ab117a16-fc5b-439c-b8c8-97f0eea20c63", links: [{ label: "YouTube (light)", url: "https://www.youtube.com/watch?v=un1xrUgONRc" }, { label: "YouTube (dark)", url: "https://www.youtube.com/watch?v=EdL4BFYWhTc" }, { label: "QA log", url: "https://claude.ai/code/artifact/eb7bd781-6376-4b85-b8ab-31afad2565bf" }], image: "images/ai-models-markets.png" },
+  { title: "The Next AI Hot Thing — Animated Chart", description: "An animated chart that shows how AI keeps improving while every 'hot thing' — from prompt engineering to RAG to vibe coding — is based on the idea that this is as good as it gets. Predictions flatline; reality surges past. Browser-generated music scores the reveal. Based on Ethan Mollick's chart, built as a Claude Cowork experiment.", cluster: "Visual Narratives", emoji: "📈", date: "2026-07-13", tools: ["Claude"], link: "https://kr48vr.github.io/next-ai-hot-thing/", links: [{ label: "YouTube", url: "https://www.youtube.com/watch?v=qKUT-I2DIhY" }, { label: "Mollick (LinkedIn)", url: "https://www.linkedin.com/posts/emollick_i-have-been-thinking-about-the-famous-chart-share-7482148188674560002-uWRw/" }, { label: "Mollick (X)", url: "https://x.com/emollick/status/2076381870636388469" }], image: "images/next-ai-hot-thing.png" },
+  { title: "Skyways — Global Flight Map", description: "An interactive 3D globe showing flights in and out of Singapore and any city in the world. Filter by region, pick from 23 airports, search by origin-destination pair, or scrub a time window. Started as a work-in-progress experiment with Perplexity Computer in March, then polished and published.", cluster: "Tools & Dashboards", emoji: "✈️", date: "2026-07-11", tools: ["Perplexity Computer"], link: "https://king-flight-radar.pplx.app/", links: [], image: "images/skyways.png" },
+  { title: "Trench Run — A Vector Arcade Homage", description: "A browser arcade game rendered in wireframe vector graphics, inspired by that trench run. Steer a lone fighter through a converging trench, dodge structures colour-coded green (clear) and red (move!), fire lasers and torpedoes — and when the voice speaks, trust it. Built entirely with Fable 5.", cluster: "Film & Culture", emoji: "🎮", date: "2026-07-11", tools: ["Fable 5"], link: "https://kr48vr.github.io/deathstar-trench-run/", links: [], image: "images/trench-run.png" },
+  { title: "Picture Worth a Thousand Lessons — Portal", description: "A reflective bridge between beauty and learning. Starts from the wonder of exhibition photographs, then follows two paths — the craftsmanship of human making, and the deeper beauty revealed by science and math. Bronowski on hands, Feynman on flowers, Mintzberg on the feedback link between mind and making. An iteration loop — see, make, test, iterate — ties the philosophy to the two learning experiments it leads to.", cluster: "Visual Narratives", emoji: "📷", date: "2026-06-24", tools: ["Codex"], link: "https://kr48vr.github.io/Picture-Worth-Thousand-Lessons-Portal/", links: [{ label: "Version 1", url: "https://kr48vr.github.io/Picture-Worth-Thousand-Lessons/" }, { label: "Version 2: Upscale", url: "https://kr48vr.github.io/Picture-Worth-Thousand-Lessons-Upscale/" }], image: "images/picture-portal.png" },
+  { title: "BFF Mints4Life — Luxury Wellness Mints Pitch Deck", description: "What happens when you take a discontinued novelty mint tin and redesign it with imagination and AI? A satirical pitch deck that starts from a real Happy Bunny 'Poison Mints for Frend' tin, reimagines it as a titanium luxury product, then builds an entire fake startup around it — Lavender Leverage, Boardroom Blossom, an 86% imagined gross margin, and a $100B ask. Tried Gamma and Gemini first; ChatGPT nailed the tone. Proof that anything can become a luxury pitch — or a satirical one.", cluster: "Film & Culture", emoji: "🍬", date: "2026-06-20", tools: ["ChatGPT"], link: "https://kr48vr.github.io/BFFMints4Life/", links: [{ label: "Inspiration", url: "https://www.instagram.com/reels/DY0jvRUyCf_/" }], image: "images/bff-mints.png" },
+  { title: "BeatFlow — 92 BPM Pace Playlist", description: "A music player that locks every track to a single tempo. Twelve songs from Rihanna to Queens of the Stone Age, all synced at 92 BPM with smart crossfade transitions. Pick a track and the left panel becomes a full player with album art, progress bar, and skip controls. Why 92? It aligns with our natural rhythms — a comfortable walking pace, a slightly elevated resting heart rate. Public speakers use it to pace their delivery; DJs use it as a reset button to shift the dancefloor's energy. Built with Google AI Studio end-to-end.", cluster: "Film & Culture", emoji: "🎧", date: "2026-06-19", tools: ["Google AI Studio"], link: "https://service-92-bpm-pace-playlist-568826328010.asia-southeast1.run.app/", links: [], image: "images/beatflow.png" },
+  { title: "Iceberg Index — AI Labour Exposure Across Countries", description: "How much of a country's paid work can AI already do? We adapted the MIT/Oak Ridge Iceberg Index to Singapore — then replicated it across eight more countries — with one decisive change: instead of estimating what AI could do, we measured what AI is observed doing from real workplace usage. All done on everyday computers with AI tools many already have access to, not a supercomputer. C-suite briefs, full research papers, replication methodology, and an interactive dashboard covering sector-level exposure, wage impact, and the hidden concentration of AI capability in cognitive and administrative work.", cluster: "Publication", emoji: "🧊", date: "2026-06-15", tools: ["Claude"], link: "https://kr48vr.github.io/Future-of-Work-Icebergs/", links: [], image: "images/iceberg-index.png" },
+  { title: "The First and Second Laws of Techno-Dynamics", description: "An original framework distilling 200 years of automation arcs into two physics-like laws. The First Law: work is conserved — automate it here, it pops up there. The Second Law: every automation creates new complexity in the system. Four predictable stages show how it plays out, and what choices leaders must make at each fork. Built from Amara's law, displacement economics, reinstatement theory, and productivity J-curves — then extended with the why, the how, and the decision points.", cluster: "Publication", emoji: "⚙️", date: "2026-06-10", tools: ["Claude", "ChatGPT"], link: "https://kr48vr.github.io/Laws-of-Technodynamics/", links: [], image: "images/technodynamics.png" },
+  { title: "Singapore Libraries, Archives & Heritage — NLB Timeline 1823–2026", description: "A love letter to a national treasure. An interactive animated timeline of Singapore's public libraries, archives, and heritage sites — from the first reading room in 1823 to today's 28 branches, the National Archives, and the Former Ford Factory. Map-based, with a year slider that shows openings, relocations, renovations, and closures. Data sourced from the NLB API and official branch histories, with every date kept at its original precision.", cluster: "Simulations", emoji: "🏛️", date: "2026-06-18", tools: ["Codex"], link: "https://kr48vr.github.io/NLB-Timelines/", links: [], image: "images/nlb-timelines.png" },
+  { title: "ABCD × Wellbeing Atlas — Singapore Wellness Map", description: "A neighbourhood intelligence tool for Singapore. Pick any postal code and get a full read on the area: seven categories of nearby facilities (care, sport, ageing, children, youth, parks, PCN), percentile rankings against every residential point on the island, HDB resale and rent benchmarks, transit access — plus climate overlays showing sun path, wind corridors, and urban heat. A planning lens for choosing where to live, work, or build.", cluster: "Tools & Dashboards", emoji: "🧭", date: "2026-06-12", tools: ["Codex"], link: "https://kr48vr.github.io/ABCDxWellbeingAtlas/wellness-map/", links: [], image: "images/abcd-wellbeing-atlas.png" },
+  { title: "Project Maven — Bilingual Web Comic", description: "A five-page bilingual web comic (English/Chinese) exploring how the US military turned to AI to solve intelligence data overload. From manual workflows drowning in copy-paste to the birth of Project Maven in 2017 and its ripple effects across defence and tech.", cluster: "Visual Narratives", emoji: "🖼️", date: "2026-06-02", tools: ["NotebookLM", "ChatGPT"], link: "https://kr48vr.github.io/ProjectMavenComic/", links: [], image: "images/project-maven-comic.png" },
+  { title: "Folded Page 字里行间 — Bilingual Reader", description: "A bilingual reader built around Hao Jingfang's writing. Sits with her Chinese — concepts, passages, gleanings — with pinyin and a literal English gloss alongside. Eight key terms unpacked, seven passage excerpts in three views, and a note on translation philosophy.", cluster: "Hao Jingfang", emoji: "📖", date: "2026-05-29", tools: ["Perplexity Computer"], link: "https://king-folded-page.pplx.app/", links: [{ label: "Companion: Folded World", url: "https://king-folded-world.pplx.app/" }], image: "images/folded-page.png", companion: "Folded World 身边" },
+  { title: "Folded World 身边 — Research & Phenomena", description: "The other side of the fold. Collects scholarly work and observable situations that share territory with Hao Jingfang's concepts — time as a class-stratified resource, invisible labour, spatial segregation. Ten research entries mapping where scholars name the same ideas.", cluster: "Hao Jingfang", emoji: "🌏", date: "2026-05-29", tools: ["Perplexity Computer"], link: "https://king-folded-world.pplx.app/", links: [{ label: "Companion: Folded Page", url: "https://king-folded-page.pplx.app/" }], image: "images/folded-world.png", companion: "Folded Page 字里行间" },
+  { title: "Companion Shelf Portal — Alt Design", description: "An alternative design for the Companion Shelf, built with Codex. A cinematic space panorama where each of the four story systems occupies its own sector of a shared star map. Same hub, different visual language: this one is a mission control.", cluster: "Companion Shelf", emoji: "🚀", date: "2026-05-29", tools: ["Codex"], link: "https://kr48vr.github.io/AltCompanionShelf/", links: [{ label: "Alt: Perplexity Design", url: "https://king-companion-shelf.pplx.app/" }], image: "images/alt-companion-shelf.png", companion: "The Companion Shelf" },
+  { title: "The Companion Shelf — Hard-SF Field Index", description: "The hub that ties everything together. A field index connecting all four hard sci-fi teaching systems — Project Hail Mary, The Martian, Apollo 13, and The Three-Body Problem — into one navigable shelf. 4 story systems, 8 live portals, 12 cross-story topics.", cluster: "Companion Shelf", emoji: "📚", date: "2026-05-23", tools: ["Perplexity Computer"], link: "https://king-companion-shelf.pplx.app/", links: [{ label: "Alt: Codex Design", url: "https://kr48vr.github.io/AltCompanionShelf/" }, { label: "→ Hail Mary", url: "https://king-phm-science.pplx.app/" }, { label: "→ Martian", url: "https://king-hab-logbook.pplx.app/" }, { label: "→ Apollo 13", url: "https://king-aquarius-logs.pplx.app/" }, { label: "→ Three-Body", url: "https://king-trisolaran-logbook.pplx.app/" }], image: "images/companion-shelf.png", companion: "Companion Shelf Portal" },
+  { title: "Three-Body Problem — Trisolaran Logbook", description: "The science of The Three-Body Problem, pulled apart and taught. Twenty-one ideas from Liu Cixin's trilogy — sorted by whether the science is real today, plausible, an active frontier, or speculative. Calibrated for high school and university sophomores.", cluster: "Three-Body Problem", emoji: "🌌", date: "2026-05-23", tools: ["Perplexity Computer"], link: "https://king-trisolaran-logbook.pplx.app/", links: [{ label: "Companion: Wallfacer Workshop", url: "https://king-wallfacer-workshop.pplx.app/" }], image: "images/trisolaran-logbook.png", companion: "Wallfacer Workshop" },
+  { title: "Three-Body Problem — Wallfacer Workshop", description: "The engineering companion to the Trisolaran Logbook. Twelve strategic engineering dossiers, each viewed through Innovation, Engineering, and Human lenses. Features a Wallfacer Notebook and chatbot.", cluster: "Three-Body Problem", emoji: "🛡️", date: "2026-05-23", tools: ["Perplexity Computer"], link: "https://king-wallfacer-workshop.pplx.app/", links: [{ label: "Companion: Trisolaran Logbook", url: "https://king-trisolaran-logbook.pplx.app/" }], image: "images/wallfacer-workshop.png", companion: "Trisolaran Logbook" },
+  { title: "Apollo 13 — Aquarius Logs", description: "The science of Apollo 13, told through twelve flight logs from CDR Lovell, CMP Swigert, and LMP Haise. A timeline from launch to splashdown, each log pulling apart the real science behind the crisis.", cluster: "Apollo 13", emoji: "🌙", date: "2026-05-22", tools: ["Perplexity Computer"], link: "https://king-aquarius-logs.pplx.app/", links: [{ label: "Companion: Mission Control", url: "https://king-mission-control-2026.pplx.app/" }], image: "images/apollo13-logs.png", companion: "Mission Control" },
+  { title: "Apollo 13 — Mission Control (Then → Now)", description: "The engineering companion. Fifty-six years of learning — how spaceflight engineered each Apollo 13 failure out by 2026. Twelve crises, each framed as 1970 vs. 2026.", cluster: "Apollo 13", emoji: "🛰️", date: "2026-05-22", tools: ["Perplexity Computer"], link: "https://king-mission-control-2026.pplx.app/", links: [{ label: "Companion: Aquarius Logs", url: "https://king-aquarius-logs.pplx.app/" }], image: "images/apollo13-mission-control.png", companion: "Aquarius Logs" },
+  { title: "The Martian — Hab Logbook", description: "The science of The Martian, pulled apart and taught. Twenty science ideas — sorted by whether they work today, are being researched, are speculative, or deliberately wrong. Includes 4 live simulators.", cluster: "The Martian", emoji: "🔬", date: "2026-05-21", tools: ["Perplexity Computer"], link: "https://king-hab-logbook.pplx.app/", links: [{ label: "Companion: Hab Workshop", url: "https://king-hab-workshop.pplx.app/" }], image: "images/martian-logbook.png", companion: "Hab Workshop" },
+  { title: "The Martian — Hab Workshop", description: "The engineering companion. Twelve hands-on problems across 6 disciplines, calibrated for high school and university. Every challenge explored through Innovation, Engineering, and Human lenses.", cluster: "The Martian", emoji: "🔧", date: "2026-05-21", tools: ["Perplexity Computer"], link: "https://king-hab-workshop.pplx.app/", links: [{ label: "Companion: Hab Logbook", url: "https://king-hab-logbook.pplx.app/" }], image: "images/martian-workshop.png", companion: "Hab Logbook" },
+  { title: "Project Hail Mary — Teaching Station", description: "A science sandbox for educators built around Andy Weir's novel and the 2026 film. 22 real science concepts sorted by plausibility. 4 live simulators, 2 teaching tracks, and a chatbot.", cluster: "Project Hail Mary", emoji: "🚀", date: "2026-04-19", tools: ["Perplexity Computer"], link: "https://king-phm-science.pplx.app/", links: [{ label: "Companion: Engineering Bay", url: "https://king-phm-engineering.pplx.app/" }], image: "images/hail-mary.png", companion: "Engineering Bay" },
+  { title: "Project Hail Mary — Engineering Bay", description: "The engineering companion. Twelve hands-on challenges with sliders, gauges, and pass/fail margins. Every challenge explored through Innovation, Engineering, and Human lenses.", cluster: "Project Hail Mary", emoji: "🔧", date: "2026-05-20", tools: ["Perplexity Computer"], link: "https://king-phm-engineering.pplx.app/", links: [{ label: "Companion: Teaching Station", url: "https://king-phm-science.pplx.app/" }], image: "images/hail-mary-engineering.png", companion: "Teaching Station" },
+  { title: "AI Impact Briefing — C-Suite Dashboard", description: "A visual executive briefing synthesising six Anthropic Economic Research reports into one interactive dashboard. Nine charts cover task exposure, productivity gains, workforce surplus, and automation trends.", cluster: "Tools & Dashboards", emoji: "📊", date: "2026-05-22", tools: ["Claude"], link: "https://kr48vr.github.io/ImpactDashboard/", links: [], image: "images/impact-dashboard.png" },
+  { title: "SAAY Architecture — Interactive Schematic", description: "An animated, clickable diagram of the SAAY system — the personal newsletter, practice tracker, knowledge graph, and /consult skill that all work together.", cluster: "Tools & Dashboards", emoji: "🔄", date: "2026-05-20", tools: ["Claude"], link: "https://kr48vr.github.io/PersonalNewsThinkPracticeConsult/", links: [], image: "images/saay-architecture.png" },
+  { title: "All-In Podcast Tracker — How It Works", description: "An interactive walkthrough explaining the architecture behind a personal podcast intelligence system. Tracks 373+ episodes with a searchable chatbot.", cluster: "Tools & Dashboards", emoji: "🎙️", date: "2026-05-18", tools: ["Claude", "Groq"], link: "https://kr48vr.github.io/PersonalPodIntelligence/", links: [], image: "images/pod-intelligence.png" },
+  { title: "Orchestration: Grok vs Claude", description: "An interactive training module comparing how Grok and Claude handle complex, multi-step tasks. Toggle between platforms to see each approach to orchestration.", cluster: "Tools & Dashboards", emoji: "🧠", date: "2026-05-17", tools: ["Grok", "Claude"], link: "https://kr48vr.github.io/orchestrateGrok/", links: [], image: "images/orchestrate-grok.png" },
+  { title: "Singapore Growth Simulation — Community Centres", description: "An evolution of the original Singapore Simulation with research-grade community centre data. 110 Community Clubs mapped from official PA / data.gov.sg sources, 1959 to 2025.", cluster: "Simulations", emoji: "🏠", date: "2026-05-15", tools: ["Claude", "Codex"], link: "https://kr48vr.github.io/CCinSingapreSimulation/", links: [{ label: "Original: Cadastral Map", url: "https://kr48vr.github.io/SingaporeSimulation/" }], image: "images/singapore-sim.png", companion: "Singapore Cadastral" },
+  { title: "Assembling the Ensemble — Cold War 寒戰", description: "One person orchestrated six AI platforms to build a multimedia exploration of Hong Kong cinema's greatest political thriller. Interactive timelines, trilingual infographics, and multi-voice audio.", cluster: "Film & Culture", emoji: "🎬", date: "2026-05-03", tools: ["Claude", "ChatGPT", "Gemini", "NotebookLM", "Codex"], link: "https://kr48vr.github.io/ColdWarPortal/", links: [], image: "images/cold-war-ensemble.png" },
+  { title: "Becoming a Virtuous Monster", description: "A Studio Ghibli-inspired visual essay exploring the idea that true virtue requires the capacity for danger — not harmlessness. Maps four stages from naivety to responsibility.", cluster: "Film & Culture", emoji: "🐉", date: "2026-05-01", tools: ["NotebookLM"], link: "https://notebooklm.google.com/notebook/884dc22c-54c1-4594-8ce8-b45883e9807f/artifact/3b6693f4-79fd-4e18-9b73-d7ec3bbe0c4e", links: [], image: "images/controlled-monster.png" },
+  { title: "Singapore Growth Simulation — Cadastral Map", description: "An interactive map exploring Singapore's growth from the 1200s to 2025. Uses real cadastral data from OneMap, with a timeline slider stepping through centuries.", cluster: "Simulations", emoji: "🗺️", date: "2026-04-25", tools: ["ChatGPT", "OneMap"], link: "https://kr48vr.github.io/SingaporeSimulation/", links: [], image: "images/singapore-sim.png", companion: "Singapore CC" },
+  { title: "Designing a Human-AI Innovation Edge for Enterprises", description: "A published strategy use case briefing developed with SUTD and supported by SGTech and SkillsFuture Singapore. Building Trilingual Skills (Design × AI × Domain).", cluster: "Publication", emoji: "📘", date: "2026-04-07", tools: ["SUTD", "SGTech"], link: "https://www.sutd.edu.sg/future-of-innovation/strategy-use-cases-for-enterprises/", links: [{ label: "Video: Enterprise AI Stories", url: "https://www.youtube.com/watch?v=TwpBCAL7cUE" }], image: "images/sutd-publication.png" },
+  { title: "Reel to Real Lives — Insights from Shrinking", description: "An interactive web app connecting themes from the Apple TV+ show Shrinking to your real life. Search what you're going through and get meaningful insights.", cluster: "Film & Culture", emoji: "🎬", date: "2026-04-01", tools: ["Claude", "ChatGPT", "Gemini"], link: "https://kr48vr.github.io/reel-to-real-lives/", links: [], image: "images/reel-to-real.jpg" },
+  { title: "Open Loop Careers — Career Gangsta Tools", description: "A video walkthrough of research-grounded career tools for the modern age. The Micro Experimenter's Journey approach to navigating career decisions.", cluster: "Videos", emoji: "🎯", date: "2026-03-07", tools: ["AI Video Gen"], link: "https://www.youtube.com/watch?v=ZmxaNLcW8Wc", links: [], image: "https://i.ytimg.com/vi/ZmxaNLcW8Wc/maxresdefault.jpg" },
+  { title: "The Anatomy of a Sonic Hack — Why Bagpipes Move Us", description: "An AI-generated cinematic video exploring the science of why bagpipes are so powerful. Acoustics, neurobiology, and cultural history woven together.", cluster: "Videos", emoji: "🎵", date: "2026-03-06", tools: ["NotebookLM"], link: "https://www.youtube.com/watch?v=kXj30aB4h68", links: [], image: "https://i.ytimg.com/vi/kXj30aB4h68/maxresdefault.jpg" },
+  { title: "Scott Adams Real Coffee — Complete Video Inventory", description: "A searchable web app cataloguing all 3,102 episodes of Scott Adams' Real Coffee series (2018–2026). Filter by year, month, and 14 themes.", cluster: "Tools & Dashboards", emoji: "☕", date: "2026-01-10", tools: ["Claude"], link: "https://kr48vr.github.io/inventory/", links: [{ label: "Alt Version (SARC)", url: "https://kr48vr.github.io/SARC/" }], image: "images/scott-adams.jpg" },
+  { title: "Gonn(ai) Fly Now", description: "An AI-generated motivational video set to the iconic Rocky theme. A playful experiment proving you don't need a film crew to channel your inner Rocky.", cluster: "Videos", emoji: "🥊", date: "2025-11-25", tools: ["AI Video Gen"], link: "https://www.youtube.com/watch?v=NhGwSd3iGc0", links: [], image: "https://i.ytimg.com/vi/NhGwSd3iGc0/hqdefault.jpg" },
+];
+
+// ============================================================
+// MONTAGE — dense tiled hero
+// ============================================================
+function buildMontage() {
+  const el = document.getElementById("montage");
+  // Collect all images, allow duplicates to fill rows densely
+  const imgs = projects.map(p => p.image).filter(Boolean);
+  // Duplicate to ensure at least 3 full rows on wide screens
+  const pool = [...imgs, ...imgs].slice(0, Math.max(imgs.length, 40));
+  el.innerHTML = pool.map(src =>
+    `<div class="montage-cell"><img src="${src}" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`
+  ).join("");
+}
+
+// ============================================================
+// CONSTELLATION ENGINE
+// ============================================================
+const canvas = document.getElementById("constellation");
+const ctx = canvas.getContext("2d");
+const infoBar = document.getElementById("infoBar");
+const infoInstruction = document.getElementById("infoInstruction");
+const infoDetails = document.getElementById("infoDetails");
+let W, H, nodes = [], edges = [], hoveredNode = null;
+let time = 0, paused = false, pausedTime = 0;
+let highlightedIndex = -1, highlightTimer = null;
+
+function seededRandom(seed) {
+  let s = seed;
+  return function() { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
+}
+
+function resize() {
+  const dpr = window.devicePixelRatio || 1;
+  W = window.innerWidth;
+  H = Math.max(400, Math.min(600, window.innerHeight * 0.55));
+  canvas.width = W * dpr;
+  canvas.height = H * dpr;
+  canvas.style.width = W + "px";
+  canvas.style.height = H + "px";
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  layoutNodes();
+}
+
+function layoutNodes() {
+  nodes = []; edges = [];
+  const margin = 60, usableW = W - margin * 2, usableH = H - margin * 2;
+  const rng = seededRandom(12345);
+  projects.forEach((p, i) => {
+    const cl = clusters[p.cluster]; if (!cl) return;
+    const angle = (i * 137.508) * Math.PI / 180;
+    const r = 15 + (i % 3) * 18;
+    const bx = margin + cl.x * usableW, by = margin + cl.y * usableH;
+    nodes.push({ x: bx + Math.cos(angle)*r + (rng()-0.5)*55, y: by + Math.sin(angle)*r + (rng()-0.5)*55, baseX: bx, baseY: by, radius: p.companion ? 7 : 5, project: p, index: i, visible: true, alpha: 1 });
+  });
+  nodes.forEach((n, i) => {
+    if (n.project.companion) {
+      const partner = nodes.find(m => m.project.title.includes(n.project.companion));
+      if (partner && i < partner.index) edges.push({ a: n, b: partner, type: "companion" });
+    }
+  });
+}
+
+// Family relationships — used for hover reveal
+const familyClusters = ["Three-Body Problem","Apollo 13","The Martian","Project Hail Mary"];
+function getRelatedNodes(hovered) {
+  if (!hovered) return [];
+  const cl = hovered.project.cluster;
+  if (cl === "Companion Shelf" || cl === "Hao Jingfang") {
+    return nodes.filter(n => familyClusters.includes(n.project.cluster));
   }
-  if (!html || html.indexOf("const projects") === -1) {
-    throw new Error("Could not load gallery source");
+  if (familyClusters.includes(cl)) {
+    return nodes.filter(n => n.project.cluster === "Companion Shelf" || n.project.cluster === "Hao Jingfang");
   }
-  var cards = [
-    '  { title: "Hidden Masters (高手在民間)", description: "A seven-part video series (about 8 minutes in all) on the film, literature, music, history and pop-culture references hidden in Stephen Chow\'s Kung Fu Hustle (2004) — from Pig Sty Alley as a Cantonese pun on Kowloon Walled City to the masters who look ordinary until they fight.", cluster: "Film & Culture", emoji: "🥋", date: "2026-10-05", tools: ["Claude"], link: "https://claude.ai/artifact/3iSmkqXs2JaetGGvXB2AZa", links: [], image: "images/hidden-masters.png" },\n',
-    '  { title: "Kill Bill Reference Reel", description: "A narrated walk through 28 films, TV shows, songs and pieces of history referenced in Kill Bill: Vol. 1 & 2, one at a time — and when each link came to light. Still unspooling.", cluster: "Film & Culture", emoji: "🎬", date: "2026-10-05", tools: ["Claude"], link: "https://claude.ai/artifact/GXh1VeSKW1kn82D6AjEZy9", links: [], image: "images/kill-bill-reference-reel.png" },\n',
-    '  { title: "Secret Levels", description: "A game-style set of short maths videos for 15-year-olds that take school topics (such as simultaneous equations → linear algebra) all the way up to today\'s AI, with an XP bar and a tip for teachers.", cluster: "Videos", emoji: "🎮", date: "2026-10-05", tools: ["Claude"], link: "https://claude.ai/artifact/YbWToWcitg4x55Q6kgsdyk", links: [], image: "images/secret-levels.png" },\n',
-    '  { title: "Team of bots", description: "A plain page that shows how a leader and a set of AI teammates stay in sync: who does what, what runs every week, how a link becomes a forecast, and which choices stay with you. Built to explain by building — so anyone can see the whole team at a glance.", cluster: "Tools & Dashboards", emoji: "🤖", date: "2026-10-05", tools: ["Grok Bot"], link: "https://kr48vr.github.io/team-of-bots/", links: [], image: "images/team-of-bots.svg" },\n'
-  ];
-  var prefix = "";
-  if (html.indexOf("Hidden Masters") === -1) {
-    prefix += cards[0] + cards[1] + cards[2];
+  return [];
+}
+
+function draw() {
+  if (!paused) time = Date.now() * 0.001; else time = pausedTime;
+  ctx.clearRect(0, 0, W, H);
+
+  // Stars
+  for (let i = 0; i < 120; i++) {
+    const sx = ((42*(i+1)*7.3) % W), sy = ((42*(i+1)*13.7) % H);
+    ctx.fillStyle = `rgba(200,210,230,${0.1 + Math.sin(time*0.7+i*2.1)*0.06})`;
+    ctx.beginPath(); ctx.arc(sx, sy, 0.3+((i*3.7)%1), 0, Math.PI*2); ctx.fill();
   }
-  if (html.indexOf("Team of bots") === -1) {
-    prefix += cards[3];
+
+  nodes.forEach(n => { n.visible = true; n.alpha += ((1 - n.alpha) * 0.08); });
+
+  // Nebulae
+  const groups = {};
+  nodes.forEach(n => { if (!groups[n.project.cluster]) groups[n.project.cluster] = []; groups[n.project.cluster].push(n); });
+  Object.entries(groups).forEach(([name, ns]) => {
+    const cl = clusters[name]; if (!cl) return;
+    const cx = ns.reduce((s,n)=>s+n.x,0)/ns.length, cy = ns.reduce((s,n)=>s+n.y,0)/ns.length;
+    const d = Math.max(50,...ns.map(n=>Math.hypot(n.x-cx,n.y-cy)))+40;
+    const g = ctx.createRadialGradient(cx,cy,0,cx,cy,d);
+    g.addColorStop(0, `rgba(${hx(cl.color)},0.05)`); g.addColorStop(1, `rgba(${hx(cl.color)},0)`);
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx,cy,d,0,Math.PI*2); ctx.fill();
+  });
+
+  // Cluster labels
+  const drawn = new Set();
+  nodes.forEach(n => {
+    if (drawn.has(n.project.cluster)) return; drawn.add(n.project.cluster);
+    const cl = clusters[n.project.cluster];
+    ctx.fillStyle = `rgba(${hx(cl.color)},0.22)`;
+    ctx.font = "600 9px Inter"; ctx.textAlign = "center";
+    ctx.fillText(n.project.cluster.toUpperCase(), n.baseX, n.baseY - 40);
+    if (cl.cardLabel) {
+      ctx.fillStyle = `rgba(${hx(cl.color)},0.13)`;
+      ctx.font = "italic 400 7.5px Inter";
+      ctx.fillText(cl.cardLabel, n.baseX, n.baseY - 29);
+    }
+  });
+
+  // Edges — companion pairs only
+  edges.forEach(e => {
+    if (e.type === "companion") {
+      const col = clusters[e.a.project.cluster]?.color || "#fff";
+      ctx.strokeStyle = `rgba(${hx(col)},0.12)`; ctx.lineWidth = 4; ctx.setLineDash([]);
+      ctx.beginPath(); ctx.moveTo(e.a.x,e.a.y); ctx.lineTo(e.b.x,e.b.y); ctx.stroke();
+      ctx.strokeStyle = `rgba(${hx(col)},0.35)`; ctx.lineWidth = 1.5;
+      ctx.setLineDash([5,5]); ctx.lineDashOffset = -time*12;
+      ctx.beginPath(); ctx.moveTo(e.a.x,e.a.y); ctx.lineTo(e.b.x,e.b.y); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = `rgba(${hx(col)},0.25)`; ctx.font = "500 7px Inter"; ctx.textAlign = "center";
+      ctx.fillText("⇄", (e.a.x+e.b.x)/2, (e.a.y+e.b.y)/2 - 3);
+    }
+  });
+
+  // Hover reveal — glow related family nodes when hovering a parent/cousin/child
+  const relatedNodes = getRelatedNodes(hoveredNode);
+  relatedNodes.forEach(rn => {
+    if (rn === hoveredNode) return;
+    const col = clusters[rn.project.cluster]?.color || "#fff";
+    const pulse = 0.25 + Math.sin(time * 3) * 0.1;
+    const rg = ctx.createRadialGradient(rn.x, rn.y, rn.radius, rn.x, rn.y, rn.radius * 5);
+    rg.addColorStop(0, `rgba(${hx(col)},${pulse})`);
+    rg.addColorStop(1, `rgba(${hx(col)},0)`);
+    ctx.fillStyle = rg;
+    ctx.beginPath(); ctx.arc(rn.x, rn.y, rn.radius * 5, 0, Math.PI * 2); ctx.fill();
+    // Bright ring
+    ctx.strokeStyle = `rgba(${hx(col)},${pulse + 0.1})`;
+    ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.arc(rn.x, rn.y, rn.radius + 5 + Math.sin(time * 2) * 2, 0, Math.PI * 2); ctx.stroke();
+  });
+
+  // Nodes
+  nodes.forEach((n, i) => {
+    if (!paused) { n.x += Math.sin(time*0.5+i*1.3)*0.15; n.y += Math.cos(time*0.4+i*0.9)*0.1; }
+    const col = clusters[n.project.cluster]?.color || "#fff";
+    const isH = hoveredNode === n, isHL = highlightedIndex === n.index;
+    const r = ((isH||isHL) ? n.radius*1.8 : n.radius) + (paused ? 0 : Math.sin(time+i)*0.5);
+
+    if (isHL) {
+      const pulse = 0.5+Math.sin(time*4)*0.3;
+      ctx.strokeStyle = `rgba(255,255,255,${pulse})`; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(n.x,n.y,r+10+Math.sin(time*2)*3,0,Math.PI*2); ctx.stroke();
+      const hg = ctx.createRadialGradient(n.x,n.y,r,n.x,n.y,r*6);
+      hg.addColorStop(0, `rgba(${hx(col)},0.3)`); hg.addColorStop(1, `rgba(${hx(col)},0)`);
+      ctx.fillStyle = hg; ctx.beginPath(); ctx.arc(n.x,n.y,r*6,0,Math.PI*2); ctx.fill();
+    }
+
+    if (n.project.companion) {
+      ctx.strokeStyle = `rgba(${hx(col)},0.2)`; ctx.lineWidth = 0.8;
+      ctx.beginPath(); ctx.arc(n.x,n.y,r+4+(paused?0:Math.sin(time*0.7+i)*0.8),0,Math.PI*2); ctx.stroke();
+    }
+
+    const glR = r*(isH?4:3);
+    const gg = ctx.createRadialGradient(n.x,n.y,r*0.5,n.x,n.y,glR);
+    gg.addColorStop(0, `rgba(${hx(col)},${isH?0.25:0.15})`); gg.addColorStop(1, `rgba(${hx(col)},0)`);
+    ctx.fillStyle = gg; ctx.beginPath(); ctx.arc(n.x,n.y,glR,0,Math.PI*2); ctx.fill();
+
+    ctx.fillStyle = `rgba(${hx(col)},0.85)`;
+    ctx.beginPath(); ctx.arc(n.x,n.y,r,0,Math.PI*2); ctx.fill();
+    ctx.fillStyle = `rgba(255,255,255,0.4)`;
+    ctx.beginPath(); ctx.arc(n.x,n.y,r*0.35,0,Math.PI*2); ctx.fill();
+  });
+
+  // Labels
+  nodes.forEach((n, i) => {
+    const isH = hoveredNode === n, isHL = highlightedIndex === n.index;
+    let short = n.project.title.split(" — ")[0].trim();
+    if (short.length > 26) short = short.slice(0,23) + "…";
+    ctx.fillStyle = `rgba(232,236,241,${(isH||isHL)?0.9:0.35})`;
+    ctx.font = (isH||isHL) ? "600 9px Inter" : "400 8px Inter"; ctx.textAlign = "center";
+    ctx.fillText(short, n.x, n.y + (n.project.companion ? n.radius+20 : n.radius+14));
+  });
+
+  requestAnimationFrame(draw);
+}
+
+function hx(hex) { return `${parseInt(hex.slice(1,3),16)},${parseInt(hex.slice(3,5),16)},${parseInt(hex.slice(5,7),16)}`; }
+
+function togglePause() {
+  paused = !paused;
+  if (paused) pausedTime = Date.now() * 0.001;
+  document.getElementById("pauseBtn").textContent = paused ? "▶" : "⏸";
+}
+
+// ============================================================
+// CONSTELLATION INTERACTION
+// ============================================================
+canvas.addEventListener("mousemove", e => {
+  const rect = canvas.getBoundingClientRect();
+  const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+  let found = null;
+  for (let i = nodes.length - 1; i >= 0; i--) {
+    const n = nodes[i];
+    if ((mx-n.x)**2 + (my-n.y)**2 < (n.radius+10)**2) { found = n; break; }
   }
-  if (prefix) {
-    html = html.replace("const projects = [\n", "const projects = [\n" + prefix);
+  if (found !== hoveredNode) {
+    hoveredNode = found;
+    canvas.style.cursor = hoveredNode ? "pointer" : "default";
+    if (hoveredNode) showInfoBar(hoveredNode.project);
+    else hideInfoBar();
   }
-  html = html.replace("46 PROJECTS MAPPED", "50 PROJECTS MAPPED");
-  document.open();
-  document.write(html);
-  document.close();
-})().catch(function (err) {
-  document.body.innerHTML = "<p style='font-family:sans-serif;padding:2rem;color:#E8ECF1;background:#0B1120'>Could not load gallery: " + String(err) + "</p>";
+});
+canvas.addEventListener("mouseleave", () => { hoveredNode = null; hideInfoBar(); });
+
+// CLICK constellation node → scroll to grid card
+canvas.addEventListener("click", () => {
+  if (!hoveredNode) return;
+  hideInfoBar();
+  scrollToCard(hoveredNode.index);
+});
+canvas.addEventListener("touchstart", e => {
+  const rect = canvas.getBoundingClientRect();
+  const t = e.touches[0], mx = t.clientX - rect.left, my = t.clientY - rect.top;
+  for (let i = nodes.length - 1; i >= 0; i--) {
+    const n = nodes[i];
+    if ((mx-n.x)**2 + (my-n.y)**2 < (n.radius+15)**2) { scrollToCard(n.index); e.preventDefault(); break; }
+  }
+});
+
+function showInfoBar(p) {
+  const cl = clusters[p.cluster];
+  const sd = p.description;
+  infoInstruction.textContent = "Click node to find in grid ↓";
+  infoDetails.innerHTML = `
+    <div class="ib-top-line">
+      <span class="ib-cluster" style="color:${cl?.color||'#F5A623'}">${p.emoji} ${cl?.cardLabel || p.cluster}</span>
+      <span class="ib-dot">●</span>
+      <span class="ib-title">${p.title}</span>
+      ${p.companion ? `<span class="ib-dot">●</span><span class="ib-companion">⇄ ${p.companion}</span>` : ""}
+    </div>
+    <div class="ib-desc">${sd}</div>
+  `;
+  infoBar.classList.add("active");
+}
+function hideInfoBar() {
+  infoBar.classList.remove("active");
+  infoInstruction.textContent = "Hover a node to explore";
+}
+
+// ============================================================
+// SCROLL TO GRID CARD (from constellation)
+// ============================================================
+function scrollToCard(idx) {
+  const card = document.querySelector(`.project-card[data-idx="${idx}"]`);
+  if (!card) return;
+  // Clear previous highlight
+  document.querySelectorAll(".project-card.highlighted").forEach(c => c.classList.remove("highlighted"));
+  card.classList.add("highlighted");
+  card.scrollIntoView({ behavior: "smooth", block: "center" });
+  setTimeout(() => card.classList.remove("highlighted"), 4000);
+}
+
+// ============================================================
+// HIGHLIGHT IN CONSTELLATION (from grid card icon)
+// ============================================================
+function highlightInConstellation(idx) {
+  clearTimeout(highlightTimer);
+  highlightedIndex = idx;
+  document.getElementById("constellationWrap").scrollIntoView({ behavior: "smooth", block: "center" });
+  highlightTimer = setTimeout(() => { highlightedIndex = -1; }, 5000);
+}
+
+// ============================================================
+// BUILD GRID — newest first, like original portfolio
+// ============================================================
+function buildGrid() {
+  const sorted = projects.map((p, i) => ({ ...p, origIdx: i }))
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  document.getElementById("projectGrid").innerHTML = sorted.map(p => {
+    const cl = clusters[p.cluster]; const col = cl?.color || "#F5A623";
+    let companionHTML = p.companion ? `<div class="card-companion">⇄ Paired with: ${p.companion}</div>` : "";
+    let linksHTML = `<a href="${p.link}" target="_blank" class="card-link primary">View Project →</a>`;
+    (p.links || []).forEach(l => { linksHTML += `<a href="${l.url}" target="_blank" class="card-link secondary">${l.label}</a>`; });
+
+    return `<div class="project-card" data-idx="${p.origIdx}">
+      <div class="card-img-wrap">
+        ${p.image ? `<img src="${p.image}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}
+        <button class="card-locate-btn" onclick="event.stopPropagation();highlightInConstellation(${p.origIdx})" title="Find in constellation">✦</button>
+      </div>
+      <div class="card-cluster-bar" style="background:${col}"></div>
+      <div class="card-content">
+        <div class="card-cluster-label" style="color:${col}">${p.emoji} ${cl?.cardLabel || p.cluster}</div>
+        <div class="card-title">${p.title}</div>
+        <div class="card-desc">${p.description}</div>
+        <div class="card-meta">
+          ${(p.tools||[]).map(t=>`<span class="card-tag">${t}</span>`).join("")}
+          <span class="card-tag">${fmtDate(p.date)}</span>
+        </div>
+        ${companionHTML}
+        <div class="card-links">${linksHTML}</div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function fmtDate(d) { return new Date(d+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}); }
+document.addEventListener("keydown", e => { if (e.key === "Escape") hideInfoBar(); });
+
+// ============================================================
+// INIT
+// ============================================================
+window.addEventListener("resize", resize);
+buildMontage();
+resize();
+buildGrid();
+draw();
+
+// ============================================================
+// GOATCOUNTER — track outbound link clicks
+// ============================================================
+document.addEventListener("click", function(e) {
+  const link = e.target.closest("a[href]");
+  if (!link) return;
+  const url = link.getAttribute("href");
+  if (url && url.startsWith("http") && window.goatcounter) {
+    window.goatcounter.count({ path: "click:" + url, title: "Click: " + (link.textContent || url).trim(), event: true });
+  }
 });
 </script>
+<script data-goatcounter="https://kr48vr.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
