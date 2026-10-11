@@ -478,7 +478,7 @@
 <div class="info-bar" id="infoBar">
   <div class="ib-row">
     <button class="pause-btn" id="pauseBtn" onclick="togglePause()" title="Pause / Play" aria-label="Pause or play the map">⏸</button>
-    <button class="tour-toggle" id="tourToggle" type="button" aria-pressed="false" aria-controls="tourLayer"><span class="tc-dot" aria-hidden="true"></span><span class="tt-text">Start here: show the path</span></button>
+    <button class="tour-toggle" id="tourToggle" type="button" aria-pressed="false" aria-controls="tourLayer"><span class="tc-dot" aria-hidden="true"></span><span class="tt-text">Start here: five to see first</span></button>
     <span class="ib-sep" aria-hidden="true"></span>
     <div class="ib-instruction" id="infoInstruction">Hover a node to explore</div>
   </div>
@@ -918,7 +918,7 @@ function mixHex(a, b, t) {
 }
 function setTourButton() {
   tourBtn.setAttribute("aria-pressed", tourOn ? "true" : "false");
-  tourBtnText.textContent = tourOn ? "Hide the path" : "Start here: show the path";
+  tourBtnText.textContent = tourOn ? "Hide the five" : "Start here: five to see first";
 }
 function tourShow() {
   tourAuto = false; tourOn = true;
