@@ -48,7 +48,7 @@
   .swatch { display: inline-block; padding: 1px 8px; border-radius: 4px; font-weight: 650; }
   .swatch.orange { background: var(--orange-soft); border: 2px solid var(--orange-line); }
   .swatch.green { background: var(--green-soft); border: 2px solid var(--green-line); color: #333; }
-  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+  div.split { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
   .split article, .vs > div {
     background: var(--card);
     border-radius: 10px;
@@ -80,7 +80,9 @@
   td { padding: 9px 10px; font-size: 14px; line-height: 1.35; border-radius: 6px; vertical-align: top; background: #f4f4f4; overflow-wrap: break-word; }
   td.l { background: none; font-weight: 700; font-size: 13px; }
   td.l .verdict { display: block; margin-top: 4px; font-size: 12px; font-weight: 650; line-height: 1.35; color: #222; }
-  tr.split > td:not(.l):not(.blank) { background: var(--orange-soft); }
+  tr.row-split > td:not(.l):not(.blank) { background: var(--orange-soft); }
+  table tr { display: table-row; }
+  table th, table td { display: table-cell; }
   td.agreed { background: var(--green-soft); border: 2px solid var(--green-line); color: #243; font-weight: 650; }
   td.blank { background: none; border: none; }
   td.moved { background: var(--orange-soft); border: 2px solid var(--orange-line); }
@@ -97,13 +99,13 @@
   .foot { margin-top: 16px; }
   .col-note a { color: #111; }
   @media (max-width: 1000px) {
-    .split, .insights, .vs { grid-template-columns: 1fr; }
+    div.split, .insights, .vs { grid-template-columns: 1fr; }
     h1 { font-size: 1.4rem; }
     .wrap { padding: 22px 16px 48px; }
-    table { display: block; border-spacing: 0; }
-    table tr { display: block; margin: 0 0 18px; }
+    table { display: block; border-spacing: 0; width: 100%; }
+    table tr, table tr.row-split, table tr.agree { display: block; margin: 0 0 18px; }
     table tr.heads { display: none; }
-    td { display: block; width: auto; margin: 0 0 8px; }
+    table td, table th { display: block; width: 100%; margin: 0 0 8px; }
     td.gstart { margin-top: 12px; }
     td.g-claude.gstart { border-top: 3px solid #c96442; }
     td.g-chat.gstart { border-top: 3px solid #10a37f; }
@@ -204,19 +206,19 @@
         <td class="l"><span class="topic">Guardrails</span><span class="verdict">Agree</span></td>
         <td class="agreed" colspan="3">Clear limits, and a way to stop the agents</td>
       </tr>
-      <tr class="split">
+      <tr class="row-split">
         <td class="l"><span class="topic">First move</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Pick one painful, high-volume process (for example, customer complaints) and run AI agents on it for 90 days alongside the people doing it today</td>
         <td class="m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">List every agent in use</td>
         <td class="m-gs gstart g-chat" data-platform="ChatGPT" data-model="ChatGPT GPT-6.1-Sol (default)">Small trial on a routine internal task</td>
       </tr>
-      <tr class="split">
+      <tr class="row-split">
         <td class="l"><span class="topic">Safeguard</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Compare both sides weekly on speed, errors and customer satisfaction. Staff own the results</td>
         <td class="m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">Limits and an off switch</td>
         <td class="m-gs gstart g-chat" data-platform="ChatGPT" data-model="ChatGPT GPT-6.1-Sol (default)">Human approval for money and customers</td>
       </tr>
-      <tr class="split">
+      <tr class="row-split">
         <td class="l"><span class="topic">Stance</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Prove it, with staff on board</td>
         <td class="m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">Control first</td>
@@ -265,25 +267,25 @@
         <td class="l"><span class="topic">Winners</span><span class="verdict">Agree</span></td>
         <td class="agreed" colspan="3">Move proven ideas into the main programme</td>
       </tr>
-      <tr class="split">
+      <tr class="row-split">
         <td class="l"><span class="topic">Share</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">30–40%, mostly paid in staff time rather than cash</td>
         <td class="m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">20–30%</td>
         <td class="m-gs gstart g-chat" data-platform="ChatGPT" data-model="ChatGPT GPT-6.1-Sol (default)">30%</td>
       </tr>
-      <tr class="split">
+      <tr class="row-split">
         <td class="l"><span class="topic">Extra spend</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Recognition for whoever finds the win</td>
         <td class="m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">Tools, training, time, grants</td>
         <td class="m-gs gstart g-chat" data-platform="ChatGPT" data-model="ChatGPT GPT-6.1-Sol (default)">Tools, training, time</td>
       </tr>
-      <tr class="split">
+      <tr class="row-split">
         <td class="l"><span class="topic">How to measure</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Ideas other teams copy without being told</td>
         <td class="m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">Weekly users, workflows</td>
         <td class="m-gs gstart g-chat" data-platform="ChatGPT" data-model="ChatGPT GPT-6.1-Sol (default)">Savings and returns, quarterly</td>
       </tr>
-      <tr class="split">
+      <tr class="row-split">
         <td class="l"><span class="topic">Main risk</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Leaders who don’t listen, so good ideas die locally</td>
         <td class="m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">Sprawl and data leaks</td>
@@ -345,19 +347,19 @@
         <td class="l"><span class="topic">Where to start</span><span class="verdict">Agree</span></td>
         <td class="agreed" colspan="3">One limited piece of work</td>
       </tr>
-      <tr class="split">
+      <tr class="row-split">
         <td class="l"><span class="topic">First move</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Pick one painful, high-volume process (for example, customer complaints) and run AI agents on it for 90 days alongside the people doing it today</td>
         <td class="m-co gstart g-claude" data-platform="Claude" data-model="Claude Opus 5.5 (strongest)">Pilot 1–2 back-office jobs</td>
         <td class="m-ga gstart g-chat" data-platform="ChatGPT" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Small trial on a routine internal task</td>
       </tr>
-      <tr class="split">
+      <tr class="row-split">
         <td class="l"><span class="topic">Safeguard</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Compare both sides weekly on speed, errors and customer satisfaction. Staff own the results</td>
         <td class="m-co gstart g-claude" data-platform="Claude" data-model="Claude Opus 5.5 (strongest)">Human approval for money and customers, plus traceable actions</td>
         <td class="m-ga gstart g-chat" data-platform="ChatGPT" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Human approval for money and customers</td>
       </tr>
-      <tr class="split">
+      <tr class="row-split">
         <td class="l"><span class="topic">Stance</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Prove it, with staff on board</td>
         <td class="m-co gstart g-claude" data-platform="Claude" data-model="Claude Opus 5.5 (strongest)">Prove it, with controls</td>
@@ -406,25 +408,25 @@
         <td class="l"><span class="topic">Winners</span><span class="verdict">Agree</span></td>
         <td class="agreed" colspan="3">Move proven ideas into the main programme</td>
       </tr>
-      <tr class="split">
+      <tr class="row-split">
         <td class="l"><span class="topic">Share</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">30–40%, mostly paid in staff time rather than cash</td>
         <td class="m-co gstart g-claude" data-platform="Claude" data-model="Claude Opus 5.5 (strongest)">About 30%</td>
         <td class="m-ga gstart g-chat" data-platform="ChatGPT" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">30%</td>
       </tr>
-      <tr class="split">
+      <tr class="row-split">
         <td class="l"><span class="topic">Extra spend</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Recognition for whoever finds the win</td>
         <td class="m-co gstart g-claude" data-platform="Claude" data-model="Claude Opus 5.5 (strongest)">Adds 5–10% of a team’s week</td>
         <td class="m-ga gstart g-chat" data-platform="ChatGPT" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Tools, training, time</td>
       </tr>
-      <tr class="split">
+      <tr class="row-split">
         <td class="l"><span class="topic">How to measure</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Ideas other teams copy without being told</td>
         <td class="m-co gstart g-claude" data-platform="Claude" data-model="Claude Opus 5.5 (strongest)">Ideas other teams adopt; checked hours saved</td>
         <td class="m-ga gstart g-chat" data-platform="ChatGPT" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Same, against a baseline</td>
       </tr>
-      <tr class="split">
+      <tr class="row-split">
         <td class="l"><span class="topic">Main risk</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Leaders who don’t listen, so good ideas die locally</td>
         <td class="m-co gstart g-claude" data-platform="Claude" data-model="Claude Opus 5.5 (strongest)">Scattered pilots and data leaks</td>
