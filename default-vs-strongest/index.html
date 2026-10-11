@@ -78,7 +78,7 @@
   .table-scroll { margin: 8px 0 4px; }
   table { width: 100%; border-collapse: separate; border-spacing: 6px; table-layout: fixed; }
   th { color: #fff; padding: 8px 10px; font-size: 12.5px; border-radius: 6px; text-align: left; font-weight: 650; line-height: 1.3; }
-  th.l { background: none; color: var(--ink); width: 108px; }
+  th.l { background: none; color: var(--ink); width: 168px; }
   th.plat { text-align: center; font-size: 13px; letter-spacing: 0.04em; }
   th.plat.claude { background: #c96442; }
   th.plat.chat { background: #10a37f; }
@@ -92,11 +92,22 @@
   .how { font-size: 0.98rem; margin: 18px 0 0; max-width: 75ch; }
   td { padding: 9px 10px; font-size: 14px; line-height: 1.35; border-radius: 6px; vertical-align: top; background: #f4f4f4; }
   td.l { background: none; font-weight: 700; font-size: 13px; }
-  td.moved { background: var(--orange-soft); border: 2px solid var(--orange-line); }
-  td.same { background: var(--green-soft); border: 2px solid var(--green-line); color: #444; }
+  td.l .verdict { display: block; margin-top: 4px; font-size: 11px; font-weight: 650; line-height: 1.35; color: #222; }
+  tr.split > td:not(.l):not(.blank) { background: var(--orange-soft); }
+  td.agreed { background: var(--green-soft); border: 2px solid var(--green-line); color: #243; }
+  tr.split > td.blank { background: none; border: none; box-shadow: none; }
+  .vs { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0 0 10px; }
+  .vs > div { background: #fff; border-radius: 10px; padding: 12px 14px 14px; border-top: 4px solid #ccc; min-width: 0; }
+  .vs > div:first-child { border-top-color: var(--green); background: var(--green-soft); }
+  .vs > div:nth-child(2) { border-top-color: var(--orange-line); background: var(--orange-soft); }
+  .vs h3 { margin: 0 0 6px; font-size: 0.98rem; }
+  .vs ul { margin: 0; padding-left: 1.15em; }
+  .vs li { margin: 0 0 4px; }
+  .vs .within { grid-column: 1 / -1; margin: 0; background: #fff; border-radius: 10px; padding: 10px 14px; }
   td.v { font-weight: 700; text-align: center; background: none; font-size: 13px; }
   td.bottom { font-size: 15px; }
   td.grok { background: #f4f4f4; border: 2px solid #111; }
+  td.diff { border: 2px dashed #c96442; }
   .grok-note {
     background: #fff;
     border-radius: 10px;
@@ -115,7 +126,7 @@
   .col-note { font-size: 13px; color: #555; margin: 4px 0 0; max-width: 72ch; }
   .col-note a { color: #111; }
   @media (max-width: 1000px) {
-    .split, .insights { grid-template-columns: 1fr; }
+    .split, .insights, .vs { grid-template-columns: 1fr; }
     h1 { font-size: 1.4rem; }
     .wrap { padding: 22px 16px 48px; }
     table { display: block; border-spacing: 0; }
@@ -135,6 +146,7 @@
       margin: 0;
       font-size: 15px;
     }
+    td.l .verdict { font-size: 13px; }
     td:empty { display: none; }
     td[data-model] { padding: 10px 12px; }
     td[data-model]::before {
@@ -179,7 +191,7 @@
     <p>I asked the same two questions a leader might ask an adviser. They went to three AIs: Grok Bot, ChatGPT and Claude. Claude and ChatGPT each answered twice, on an everyday model and on a strongest model: Claude Sonnet 5.5 (default), Claude Opus 5.5 (strongest), ChatGPT GPT-6.1-Sol (default) and ChatGPT GPT-6-Astra at high reasoning (strongest). Grok Bot gave one answer. No version number is published for it, so none is shown.</p>
     <p>The answers were generated on 11 Oct 2026.</p>
     <p>The questions were a Singapore bank chief executive’s priority for the next 90 days on AI agents, and how much of the effort should go into bottom-up AI, where teams try things for themselves.</p>
-    <p class="read"><span class="swatch orange">Orange</span> means the stronger model changed the answer. <span class="swatch green">Green</span> means it gave the same answer. The dark column is Grok Bot. It has one answer, so it is not marked orange or green.</p>
+    <p class="read"><span class="swatch green">Green</span> means all three platforms agree, so the row is one cell. <span class="swatch orange">Orange</span> means the platforms split. A dashed border marks a cell that differs. The words in the left column say the same thing, without colour. The dark header is Grok Bot. It has one answer, labelled by date. On these two questions, no row is the same across all three platforms, so none is merged.</p>
   </div>
 
   <div class="split">
@@ -200,6 +212,24 @@
   <p class="how">Read across a row to compare platforms; compare the two shades within a platform to see what the stronger model changed.</p>
 
   <h2>1. A Singapore bank CEO’s 90-day priority on AI agents</h2>
+  <div class="vs">
+    <div>
+      <h3>Where they agree</h3>
+      <ul>
+        <li>Claude Opus 5.5 (strongest), ChatGPT GPT-6.1-Sol (default) and ChatGPT GPT-6-Astra at high reasoning (strongest) all call for human approval on money and customers.</li>
+        <li>Claude Opus 5.5 (strongest) and Grok Bot both want a real pilot, not a list of every agent first.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Where they split</h3>
+      <ul>
+        <li>Claude Sonnet 5.5 (default) says list every agent and control first. Claude Opus 5.5 (strongest) says pilot one or two jobs and prove it.</li>
+        <li>ChatGPT GPT-6.1-Sol (default) and ChatGPT GPT-6-Astra at high reasoning (strongest) stay on a small trial and start small.</li>
+        <li>Grok Bot runs one painful process for 90 days beside the people who do it today, and has staff own the results, including customer satisfaction.</li>
+      </ul>
+    </div>
+    <p class="within">Within Claude, Claude Sonnet 5.5 (default) changed to Claude Opus 5.5 (strongest), from control first to prove it. Within ChatGPT, ChatGPT GPT-6.1-Sol (default) and ChatGPT GPT-6-Astra at high reasoning (strongest) stayed the same.</p>
+  </div>
   <div class="table-scroll">
     <table>
       <tr class="heads">
@@ -215,49 +245,68 @@
         <th class="gs gap">ChatGPT GPT-6.1-Sol (default)</th>
         <th class="ga">ChatGPT GPT-6-Astra at high reasoning (strongest)</th>
       </tr>
-      <tr>
-        <td class="l">First move</td>
-        <td class="m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">List every agent in use</td>
-        <td class="moved m-co" data-model="Claude Opus 5.5 (strongest)">Pilot 1–2 back-office jobs</td>
+      <tr class="split">
+        <td class="l"><span class="topic">First move</span><span class="verdict">Split (platforms). Changed with model</span></td>
+        <td class="diff m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">List every agent in use</td>
+        <td class="diff m-co" data-model="Claude Opus 5.5 (strongest)">Pilot 1–2 back-office jobs</td>
         <td class="m-gs gstart g-chat gap" data-platform="ChatGPT" data-model="ChatGPT GPT-6.1-Sol (default)">Small trial on a routine internal task</td>
-        <td class="same m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Small trial on a routine internal task</td>
-        <td class="grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Pick one painful, high-volume process (for example, customer complaints) and run AI agents on it for 90 days alongside the people doing it today</td>
+        <td class="m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Small trial on a routine internal task</td>
+        <td class="diff grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Pick one painful, high-volume process (for example, customer complaints) and run AI agents on it for 90 days alongside the people doing it today</td>
       </tr>
-      <tr>
-        <td class="l">Safeguard</td>
-        <td class="m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">Limits and an off switch</td>
-        <td class="moved m-co" data-model="Claude Opus 5.5 (strongest)">Human approval for money and customers, plus traceable actions</td>
+      <tr class="split">
+        <td class="l"><span class="topic">Safeguard</span><span class="verdict">Split (platforms). Changed with model</span></td>
+        <td class="diff m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">Limits and an off switch</td>
+        <td class="diff m-co" data-model="Claude Opus 5.5 (strongest)">Human approval for money and customers, plus traceable actions</td>
         <td class="m-gs gstart g-chat gap" data-platform="ChatGPT" data-model="ChatGPT GPT-6.1-Sol (default)">Human approval for money and customers</td>
-        <td class="same m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Human approval for money and customers</td>
-        <td class="grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Compare both sides weekly on speed, errors and customer satisfaction. Staff own the results</td>
+        <td class="m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Human approval for money and customers</td>
+        <td class="diff grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Compare both sides weekly on speed, errors and customer satisfaction. Staff own the results</td>
       </tr>
-      <tr>
-        <td class="l">Stance</td>
-        <td class="m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">Control first</td>
-        <td class="moved m-co" data-model="Claude Opus 5.5 (strongest)">Prove it, with controls</td>
+      <tr class="split">
+        <td class="l"><span class="topic">Stance</span><span class="verdict">Split (platforms). Changed with model</span></td>
+        <td class="diff m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">Control first</td>
+        <td class="diff m-co" data-model="Claude Opus 5.5 (strongest)">Prove it, with controls</td>
         <td class="m-gs gstart g-chat gap" data-platform="ChatGPT" data-model="ChatGPT GPT-6.1-Sol (default)">Start small</td>
-        <td class="same m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Start small</td>
-        <td class="grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Prove it, with staff on board</td>
+        <td class="m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Start small</td>
+        <td class="diff grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Prove it, with staff on board</td>
       </tr>
-      <tr>
-        <td class="l">Shift</td>
-        <td class="m-cs" data-model="Claude Sonnet 5.5 (default)"></td>
-        <td class="v m-co gstart g-claude" data-platform="Claude" data-model="Claude Opus 5.5 (strongest)">Moved toward Grok Bot</td>
-        <td class="m-gs" data-model="ChatGPT GPT-6.1-Sol (default)"></td>
-        <td class="v m-ga gstart g-chat gap" data-platform="ChatGPT" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Almost none</td>
-        <td class="v grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">One answer</td>
+      <tr class="split">
+        <td class="l"><span class="topic">Shift</span><span class="verdict">Split (platforms). Changed with model</span></td>
+        <td class="blank m-cs" data-model="Claude Sonnet 5.5 (default)"></td>
+        <td class="diff v m-co gstart g-claude" data-platform="Claude" data-model="Claude Opus 5.5 (strongest)">Moved toward Grok Bot</td>
+        <td class="blank m-gs" data-model="ChatGPT GPT-6.1-Sol (default)"></td>
+        <td class="diff v m-ga gstart g-chat gap" data-platform="ChatGPT" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Almost none</td>
+        <td class="diff v grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">One answer</td>
       </tr>
-      <tr>
-        <td class="l">Bottom line</td>
-        <td class="v bottom gstart g-claude" colspan="2" data-platform="Claude">Prove it</td>
-        <td class="v bottom gstart g-chat gap" colspan="2" data-platform="ChatGPT">Start small</td>
-        <td class="v bottom grok gstart g-grok gap" data-platform="Grok Bot">Staff on board</td>
+      <tr class="split">
+        <td class="l"><span class="topic">Bottom line</span><span class="verdict">Split (platforms)</span></td>
+        <td class="diff v bottom gstart g-claude" colspan="2" data-platform="Claude">Prove it</td>
+        <td class="diff v bottom gstart g-chat gap" colspan="2" data-platform="ChatGPT">Start small</td>
+        <td class="diff v bottom grok gstart g-grok gap" data-platform="Grok Bot">Staff on board</td>
       </tr>
     </table>
   </div>
   <p class="col-note">Grok Bot doesn't use one fixed model. It picks a model for each task and doesn't show which one it used (<a href="https://cursor.com/help/grok-bot/models">Grok Bot's help page</a>). So its answer is labelled by date, not by model version.</p>
 
   <h2>2. How much to invest in bottom-up AI</h2>
+  <div class="vs">
+    <div>
+      <h3>Where they agree</h3>
+      <ul>
+        <li>All three put roughly 30% toward bottom-up work. Grok Bot says 30–40%.</li>
+        <li>Claude Opus 5.5 (strongest) and Grok Bot both count ideas other teams pick up.</li>
+        <li>Claude and ChatGPT both name tools, training and time as what that share pays for.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Where they split</h3>
+      <ul>
+        <li>Grok Bot pays that share mostly in staff time and adds recognition for whoever finds the win. Claude and ChatGPT spend it on tools, training and time.</li>
+        <li>Grok Bot’s main risk is leaders who don’t listen. Claude names sprawl and data leaks. ChatGPT names gains that stay local.</li>
+        <li>Claude Sonnet 5.5 (default) counts weekly users and workflows. ChatGPT counts savings and returns. Grok Bot counts ideas other teams copy without being told.</li>
+      </ul>
+    </div>
+    <p class="within">Within Claude, Claude Sonnet 5.5 (default) to Claude Opus 5.5 (strongest) becomes sharper: about 30% rather than 20–30%, plus 5–10% of a team’s week and ideas other teams adopt. Within ChatGPT, ChatGPT GPT-6.1-Sol (default) to ChatGPT GPT-6-Astra at high reasoning (strongest) stays almost word for word.</p>
+  </div>
   <div class="table-scroll">
     <table>
       <tr class="heads">
@@ -273,51 +322,51 @@
         <th class="gs gap">ChatGPT GPT-6.1-Sol (default)</th>
         <th class="ga">ChatGPT GPT-6-Astra at high reasoning (strongest)</th>
       </tr>
-      <tr>
-        <td class="l">Bottom-up share</td>
-        <td class="m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">20–30%</td>
-        <td class="moved m-co" data-model="Claude Opus 5.5 (strongest)">About 30%</td>
+      <tr class="split">
+        <td class="l"><span class="topic">Bottom-up share</span><span class="verdict">Split (platforms). Changed with model</span></td>
+        <td class="diff m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">20–30%</td>
+        <td class="diff m-co" data-model="Claude Opus 5.5 (strongest)">About 30%</td>
         <td class="m-gs gstart g-chat gap" data-platform="ChatGPT" data-model="ChatGPT GPT-6.1-Sol (default)">30%</td>
-        <td class="same m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">30%</td>
-        <td class="grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">30–40%, mostly paid in staff time rather than cash</td>
+        <td class="m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">30%</td>
+        <td class="diff grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">30–40%, mostly paid in staff time rather than cash</td>
       </tr>
-      <tr>
-        <td class="l">Detail</td>
-        <td class="m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">Tools, training, time, grants</td>
-        <td class="moved m-co" data-model="Claude Opus 5.5 (strongest)">Adds 5–10% of a team’s week</td>
+      <tr class="split">
+        <td class="l"><span class="topic">Detail</span><span class="verdict">Split (platforms). Changed with model</span></td>
+        <td class="diff m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">Tools, training, time, grants</td>
+        <td class="diff m-co" data-model="Claude Opus 5.5 (strongest)">Adds 5–10% of a team’s week</td>
         <td class="m-gs gstart g-chat gap" data-platform="ChatGPT" data-model="ChatGPT GPT-6.1-Sol (default)">Tools, training, time</td>
-        <td class="same m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Tools, training, time</td>
-        <td class="grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Recognition for whoever finds the win</td>
+        <td class="m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Tools, training, time</td>
+        <td class="diff grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Recognition for whoever finds the win</td>
       </tr>
-      <tr>
-        <td class="l">Measure</td>
-        <td class="m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">Weekly users, workflows</td>
-        <td class="moved m-co" data-model="Claude Opus 5.5 (strongest)">Ideas other teams adopt; checked hours saved</td>
+      <tr class="split">
+        <td class="l"><span class="topic">Measure</span><span class="verdict">Split (platforms). Changed with model</span></td>
+        <td class="diff m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">Weekly users, workflows</td>
+        <td class="diff m-co" data-model="Claude Opus 5.5 (strongest)">Ideas other teams adopt; checked hours saved</td>
         <td class="m-gs gstart g-chat gap" data-platform="ChatGPT" data-model="ChatGPT GPT-6.1-Sol (default)">Savings and returns, quarterly</td>
-        <td class="same m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Same, against a baseline</td>
-        <td class="grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Ideas other teams copy without being told</td>
+        <td class="m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Same, against a baseline</td>
+        <td class="diff grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Ideas other teams copy without being told</td>
       </tr>
-      <tr>
-        <td class="l">Main risk</td>
-        <td class="m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">Sprawl and data leaks</td>
-        <td class="same m-co" data-model="Claude Opus 5.5 (strongest)">Scattered pilots and data leaks</td>
-        <td class="m-gs gstart g-chat gap" data-platform="ChatGPT" data-model="ChatGPT GPT-6.1-Sol (default)">Scattered, local gains</td>
-        <td class="same m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Scattered, local gains</td>
-        <td class="grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Leaders who don’t listen, so good ideas die locally</td>
+      <tr class="split">
+        <td class="l"><span class="topic">Main risk</span><span class="verdict">Split (platforms)</span></td>
+        <td class="diff m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">Sprawl and data leaks</td>
+        <td class="diff m-co" data-model="Claude Opus 5.5 (strongest)">Scattered pilots and data leaks</td>
+        <td class="diff m-gs gstart g-chat gap" data-platform="ChatGPT" data-model="ChatGPT GPT-6.1-Sol (default)">Scattered, local gains</td>
+        <td class="diff m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Scattered, local gains</td>
+        <td class="diff grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Leaders who don’t listen, so good ideas die locally</td>
       </tr>
-      <tr>
-        <td class="l">Shift</td>
-        <td class="m-cs" data-model="Claude Sonnet 5.5 (default)"></td>
-        <td class="v m-co gstart g-claude" data-platform="Claude" data-model="Claude Opus 5.5 (strongest)">Sharper and more specific</td>
-        <td class="m-gs" data-model="ChatGPT GPT-6.1-Sol (default)"></td>
-        <td class="v m-ga gstart g-chat gap" data-platform="ChatGPT" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Almost word for word</td>
-        <td class="v grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">One answer</td>
+      <tr class="split">
+        <td class="l"><span class="topic">Shift</span><span class="verdict">Split (platforms). Changed with model</span></td>
+        <td class="blank m-cs" data-model="Claude Sonnet 5.5 (default)"></td>
+        <td class="diff v m-co gstart g-claude" data-platform="Claude" data-model="Claude Opus 5.5 (strongest)">Sharper and more specific</td>
+        <td class="blank m-gs" data-model="ChatGPT GPT-6.1-Sol (default)"></td>
+        <td class="diff v m-ga gstart g-chat gap" data-platform="ChatGPT" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Almost word for word</td>
+        <td class="diff v grok m-gb gstart g-grok gap" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">One answer</td>
       </tr>
-      <tr>
-        <td class="l">Bottom line</td>
-        <td class="v bottom gstart g-claude" colspan="2" data-platform="Claude">Count adoption</td>
-        <td class="v bottom gstart g-chat gap" colspan="2" data-platform="ChatGPT">About 30%</td>
-        <td class="v bottom grok gstart g-grok gap" data-platform="Grok Bot">People first</td>
+      <tr class="split">
+        <td class="l"><span class="topic">Bottom line</span><span class="verdict">Split (platforms)</span></td>
+        <td class="diff v bottom gstart g-claude" colspan="2" data-platform="Claude">Count adoption</td>
+        <td class="diff v bottom gstart g-chat gap" colspan="2" data-platform="ChatGPT">About 30%</td>
+        <td class="diff v bottom grok gstart g-grok gap" data-platform="Grok Bot">People first</td>
       </tr>
     </table>
   </div>
