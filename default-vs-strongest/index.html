@@ -67,7 +67,7 @@
   .table-scroll { margin: 8px 0 4px; }
   table { width: 100%; border-collapse: separate; border-spacing: 6px; table-layout: fixed; }
   th { color: #fff; padding: 8px 10px; font-size: 12.5px; border-radius: 6px; text-align: left; font-weight: 650; line-height: 1.3; }
-  th.l { background: none; color: var(--ink); width: 148px; }
+  th.l { background: none; color: var(--ink); width: 168px; }
   th.plat { text-align: center; font-size: 13px; letter-spacing: 0.04em; }
   th.plat.claude { background: #c96442; }
   th.plat.chat { background: #10a37f; }
@@ -176,15 +176,15 @@
     <div>
       <h3>Where they agree</h3>
       <ul>
-        <li>No row is the same point across all three. None of these cells is merged.</li>
+        <li>Who leads: one senior leader in charge.</li>
+        <li>Guardrails: clear limits, and a way to stop the agents.</li>
       </ul>
     </div>
     <div>
       <h3>Where they split</h3>
       <ul>
-        <li>Claude Sonnet 5.5 (default) says list every agent and control first.</li>
-        <li>ChatGPT GPT-6.1-Sol (default) says a small trial on a routine internal task, and start small, with human approval for money and customers.</li>
-        <li>Grok Bot runs one painful process for 90 days beside the people who do it today, and has staff own the results, including customer satisfaction.</li>
+        <li>First move: Claude Sonnet 5.5 (default) says list every agent. ChatGPT GPT-6.1-Sol (default) says a small trial. Grok Bot runs one painful process for 90 days beside the people who do it today.</li>
+        <li>The specific safeguard and the stance also differ: limits and an off switch, human approval, or a weekly comparison with staff owning the results. Control first, start small, or prove it with staff on board.</li>
       </ul>
     </div>
   </div>
@@ -195,6 +195,14 @@
         <th class="gb" title="Grok Bot doesn't use one fixed model. It picks a model for each task and doesn't show which one it used. So its answer is labelled by date, not by model version.">Grok Bot (11 Oct 2026)</th>
         <th class="cs">Claude Sonnet 5.5 (default)</th>
         <th class="gs">ChatGPT GPT-6.1-Sol (default)</th>
+      </tr>
+      <tr class="agree">
+        <td class="l"><span class="topic">Who leads</span><span class="verdict">Agree</span></td>
+        <td class="agreed" colspan="3">One senior leader in charge</td>
+      </tr>
+      <tr class="agree">
+        <td class="l"><span class="topic">Guardrails</span><span class="verdict">Agree</span></td>
+        <td class="agreed" colspan="3">Clear limits, and a way to stop the agents</td>
       </tr>
       <tr class="split">
         <td class="l"><span class="topic">First move</span><span class="verdict">Split</span></td>
@@ -223,15 +231,17 @@
     <div>
       <h3>Where they agree</h3>
       <ul>
-        <li>No row is the same point. The shares sit near 30%, but the answers are 20–30%, 30%, and 30–40% paid mostly in staff time.</li>
+        <li>Core split: mostly top-down, with a real slice bottom-up.</li>
+        <li>What bottom-up buys: tool access, training and protected time.</li>
+        <li>Winners: move proven ideas into the main programme.</li>
       </ul>
     </div>
     <div>
       <h3>Where they split</h3>
       <ul>
-        <li>Claude Sonnet 5.5 (default) names tools, training, time and grants, counts weekly users and workflows, and warns of sprawl and data leaks.</li>
-        <li>ChatGPT GPT-6.1-Sol (default) names tools, training and time, counts savings and returns each quarter, and warns of scattered, local gains.</li>
-        <li>Grok Bot pays the share mostly in staff time, adds recognition for whoever finds the win, counts ideas other teams copy without being told, and names leaders who don’t listen.</li>
+        <li>The share is 20–30%, 30%, or 30–40% paid mostly in staff time.</li>
+        <li>Extra spend differs: grants, nothing beyond tools and training and time, or recognition for whoever finds the win.</li>
+        <li>How to measure and the main risk differ: weekly users, savings and returns, or ideas other teams copy. Sprawl and data leaks, scattered local gains, or leaders who don’t listen.</li>
       </ul>
     </div>
   </div>
@@ -243,20 +253,32 @@
         <th class="cs">Claude Sonnet 5.5 (default)</th>
         <th class="gs">ChatGPT GPT-6.1-Sol (default)</th>
       </tr>
+      <tr class="agree">
+        <td class="l"><span class="topic">Core split</span><span class="verdict">Agree</span></td>
+        <td class="agreed" colspan="3">Mostly top-down, with a real slice bottom-up</td>
+      </tr>
+      <tr class="agree">
+        <td class="l"><span class="topic">What bottom-up buys</span><span class="verdict">Agree</span></td>
+        <td class="agreed" colspan="3">Tool access, training and protected time</td>
+      </tr>
+      <tr class="agree">
+        <td class="l"><span class="topic">Winners</span><span class="verdict">Agree</span></td>
+        <td class="agreed" colspan="3">Move proven ideas into the main programme</td>
+      </tr>
       <tr class="split">
-        <td class="l"><span class="topic">Bottom-up share</span><span class="verdict">Split</span></td>
+        <td class="l"><span class="topic">Share</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">30–40%, mostly paid in staff time rather than cash</td>
         <td class="m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">20–30%</td>
         <td class="m-gs gstart g-chat" data-platform="ChatGPT" data-model="ChatGPT GPT-6.1-Sol (default)">30%</td>
       </tr>
       <tr class="split">
-        <td class="l"><span class="topic">Detail</span><span class="verdict">Split</span></td>
+        <td class="l"><span class="topic">Extra spend</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Recognition for whoever finds the win</td>
         <td class="m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">Tools, training, time, grants</td>
         <td class="m-gs gstart g-chat" data-platform="ChatGPT" data-model="ChatGPT GPT-6.1-Sol (default)">Tools, training, time</td>
       </tr>
       <tr class="split">
-        <td class="l"><span class="topic">Measure</span><span class="verdict">Split</span></td>
+        <td class="l"><span class="topic">How to measure</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Ideas other teams copy without being told</td>
         <td class="m-cs gstart g-claude" data-platform="Claude" data-model="Claude Sonnet 5.5 (default)">Weekly users, workflows</td>
         <td class="m-gs gstart g-chat" data-platform="ChatGPT" data-model="ChatGPT GPT-6.1-Sol (default)">Savings and returns, quarterly</td>
@@ -273,8 +295,8 @@
 
   <div class="insights">
     <article>
-      <h3>The three defaults do not share a first move</h3>
-      <p>Claude Sonnet 5.5 (default) says list every agent in use, and its stance is control first. ChatGPT GPT-6.1-Sol (default) says a small trial and start small. Grok Bot picks one painful process and runs it for 90 days beside the people who do it today.</p>
+      <h3>They agree who is in charge, and they split on the first move</h3>
+      <p>All three put one senior leader in charge, with clear limits and a way to stop the agents. They do not share a first move. Claude Sonnet 5.5 (default) says list every agent in use. ChatGPT GPT-6.1-Sol (default) says a small trial. Grok Bot picks one painful process and runs it for 90 days beside the people who do it today.</p>
     </article>
     <article>
       <h3>Grok Bot already puts people in the answer</h3>
@@ -290,15 +312,16 @@
     <div>
       <h3>Where they agree</h3>
       <ul>
-        <li>No row is the same point across all three. Claude Opus 5.5 (strongest) and ChatGPT GPT-6-Astra at high reasoning (strongest) both call for human approval on money and customers. Grok Bot does not, so that row stays split.</li>
+        <li>Who leads: one senior leader in charge.</li>
+        <li>Guardrails: clear limits, and a way to stop the agents.</li>
+        <li>Where to start: one limited piece of work. Claude Sonnet 5.5 (default) had said list every agent. Claude Opus 5.5 (strongest) now says a pilot, and the other two already said a trial or one process.</li>
       </ul>
     </div>
     <div>
       <h3>Where they split</h3>
       <ul>
-        <li>Claude Opus 5.5 (strongest) says pilot one or two back-office jobs, and prove it, with controls.</li>
-        <li>ChatGPT GPT-6-Astra at high reasoning (strongest) stays on a small trial and start small.</li>
-        <li>Grok Bot still runs one painful process for 90 days beside the people who do it today, with staff owning the results.</li>
+        <li>First move: one painful process for 90 days beside the people who do it today, a pilot of one or two back-office jobs, or a small trial on a routine internal task.</li>
+        <li>The specific safeguard and the stance still differ. Claude Opus 5.5 (strongest) and ChatGPT GPT-6-Astra at high reasoning (strongest) both say human approval for money and customers. Grok Bot has staff own the results. The stance is prove it with staff, prove it with controls, or start small.</li>
       </ul>
     </div>
   </div>
@@ -309,6 +332,18 @@
         <th class="gb" title="Grok Bot doesn't use one fixed model. It picks a model for each task and doesn't show which one it used. So its answer is labelled by date, not by model version.">Grok Bot (11 Oct 2026)</th>
         <th class="co">Claude Opus 5.5 (strongest)</th>
         <th class="ga">ChatGPT GPT-6-Astra at high reasoning (strongest)</th>
+      </tr>
+      <tr class="agree">
+        <td class="l"><span class="topic">Who leads</span><span class="verdict">Agree</span></td>
+        <td class="agreed" colspan="3">One senior leader in charge</td>
+      </tr>
+      <tr class="agree">
+        <td class="l"><span class="topic">Guardrails</span><span class="verdict">Agree</span></td>
+        <td class="agreed" colspan="3">Clear limits, and a way to stop the agents</td>
+      </tr>
+      <tr class="agree">
+        <td class="l"><span class="topic">Where to start</span><span class="verdict">Agree</span></td>
+        <td class="agreed" colspan="3">One limited piece of work</td>
       </tr>
       <tr class="split">
         <td class="l"><span class="topic">First move</span><span class="verdict">Split</span></td>
@@ -337,16 +372,17 @@
     <div>
       <h3>Where they agree</h3>
       <ul>
-        <li>No row is the same point across all three. Claude Opus 5.5 (strongest) and Grok Bot both count ideas other teams pick up. ChatGPT GPT-6-Astra at high reasoning (strongest) counts savings and returns, so the measure row stays split.</li>
-        <li>About 30%, 30%, and 30–40% mostly in staff time sit near each other. They are not the same answer.</li>
+        <li>Core split: mostly top-down, with a real slice bottom-up.</li>
+        <li>What bottom-up buys: tool access, training and protected time. Claude Opus 5.5 (strongest) adds 5–10% of a team’s week on top of that.</li>
+        <li>Winners: move proven ideas into the main programme. Counting ideas other teams adopt, or savings and returns, are two ways of saying which ideas earn a place.</li>
       </ul>
     </div>
     <div>
       <h3>Where they split</h3>
       <ul>
-        <li>Claude Opus 5.5 (strongest) adds 5–10% of a team’s week, and names scattered pilots and data leaks.</li>
-        <li>ChatGPT GPT-6-Astra at high reasoning (strongest) names tools, training and time, and scattered, local gains.</li>
-        <li>Grok Bot pays the share mostly in staff time, adds recognition, and names leaders who don’t listen.</li>
+        <li>The share is about 30%, 30%, or 30–40% paid mostly in staff time. Those are not the same figure.</li>
+        <li>Extra spend differs: 5–10% of a team’s week, tools and training and time with no further extra, or recognition for whoever finds the win.</li>
+        <li>How to measure and the main risk differ. Claude Opus 5.5 (strongest) names scattered pilots and data leaks. ChatGPT GPT-6-Astra at high reasoning (strongest) names scattered, local gains. Grok Bot names leaders who don’t listen.</li>
       </ul>
     </div>
   </div>
@@ -358,20 +394,32 @@
         <th class="co">Claude Opus 5.5 (strongest)</th>
         <th class="ga">ChatGPT GPT-6-Astra at high reasoning (strongest)</th>
       </tr>
+      <tr class="agree">
+        <td class="l"><span class="topic">Core split</span><span class="verdict">Agree</span></td>
+        <td class="agreed" colspan="3">Mostly top-down, with a real slice bottom-up</td>
+      </tr>
+      <tr class="agree">
+        <td class="l"><span class="topic">What bottom-up buys</span><span class="verdict">Agree</span></td>
+        <td class="agreed" colspan="3">Tool access, training and protected time</td>
+      </tr>
+      <tr class="agree">
+        <td class="l"><span class="topic">Winners</span><span class="verdict">Agree</span></td>
+        <td class="agreed" colspan="3">Move proven ideas into the main programme</td>
+      </tr>
       <tr class="split">
-        <td class="l"><span class="topic">Bottom-up share</span><span class="verdict">Split</span></td>
+        <td class="l"><span class="topic">Share</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">30–40%, mostly paid in staff time rather than cash</td>
         <td class="m-co gstart g-claude" data-platform="Claude" data-model="Claude Opus 5.5 (strongest)">About 30%</td>
         <td class="m-ga gstart g-chat" data-platform="ChatGPT" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">30%</td>
       </tr>
       <tr class="split">
-        <td class="l"><span class="topic">Detail</span><span class="verdict">Split</span></td>
+        <td class="l"><span class="topic">Extra spend</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Recognition for whoever finds the win</td>
         <td class="m-co gstart g-claude" data-platform="Claude" data-model="Claude Opus 5.5 (strongest)">Adds 5–10% of a team’s week</td>
         <td class="m-ga gstart g-chat" data-platform="ChatGPT" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Tools, training, time</td>
       </tr>
       <tr class="split">
-        <td class="l"><span class="topic">Measure</span><span class="verdict">Split</span></td>
+        <td class="l"><span class="topic">How to measure</span><span class="verdict">Split</span></td>
         <td class="m-gb gstart g-grok" data-platform="Grok Bot" data-model="Grok Bot (11 Oct 2026)">Ideas other teams copy without being told</td>
         <td class="m-co gstart g-claude" data-platform="Claude" data-model="Claude Opus 5.5 (strongest)">Ideas other teams adopt; checked hours saved</td>
         <td class="m-ga gstart g-chat" data-platform="ChatGPT" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Same, against a baseline</td>
@@ -389,7 +437,7 @@
   <div class="insights">
     <article>
       <h3>Claude Opus 5.5 (strongest) moved closer to Grok Bot</h3>
-      <p>It left “list every agent” and said pilot one or two back-office jobs and prove it. On what to count, it left weekly users and workflows and said ideas other teams adopt. That is the view Grok Bot already held.</p>
+      <p>It left “list every agent” and said pilot one or two back-office jobs and prove it. All three strongest answers now start with one limited piece of work, so that row agrees. The exact first move is still a split. On what to count, Claude Opus 5.5 (strongest) left weekly users and workflows and said ideas other teams adopt. That is the view Grok Bot already held.</p>
       <p>It did not take up Grok Bot’s safeguard or its main risk. Staff still own Grok Bot’s results. Claude Opus 5.5 (strongest) still asks for human approval on money and customers, and still names scattered pilots and data leaks.</p>
     </article>
     <article>
