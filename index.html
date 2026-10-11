@@ -484,6 +484,7 @@ const clusters = {
 };
 
 const projects = [
+  { title: "Default vs strongest models: what changed?", description: "I asked the same two leadership questions of Claude Sonnet 5.5 (default), Claude Opus 5.5 (strongest), ChatGPT GPT-6.1-Sol (default) and ChatGPT GPT-6-Astra at high reasoning (strongest). The answers were generated on 11 Oct 2026. Orange shows where the stronger model changed its answer; green means it stayed the same. They already agreed on one accountable leader, human approval for money or customers, about 30% for bottom-up work, and the risk of scattered pilots and data leaks. Claude Opus 5.5 (strongest) moved from listing every agent to piloting one or two jobs; ChatGPT GPT-6-Astra at high reasoning (strongest) barely moved. On familiar questions the best AIs now agree, so the edge is your own context.", cluster: "Tools & Dashboards", emoji: "⚖️", date: "2026-10-11", tools: ["Claude Sonnet 5.5 (default)", "Claude Opus 5.5 (strongest)", "ChatGPT GPT-6.1-Sol (default)", "ChatGPT GPT-6-Astra at high reasoning (strongest)"], link: "https://kr48vr.github.io/allcandesign/default-vs-strongest/", links: [], image: "images/default-vs-strongest.png", imageAlt: "Comparison table for Claude Sonnet 5.5 (default), Claude Opus 5.5 (strongest), ChatGPT GPT-6.1-Sol (default) and ChatGPT GPT-6-Astra at high reasoning (strongest). Answers generated on 11 Oct 2026. Orange cells changed; green cells stayed the same." },
   { title: "Where is AI now?", description: "A four-box map of what AI is, and what 742 collected pieces say", cluster: "Tools & Dashboards", emoji: "🧭", date: "2026-10-10", tools: [], link: "https://kr48vr.github.io/ai-map/", links: [], image: "images/where-is-ai-now.svg" },
   { title: "Bayesian Odds Board", description: "Weekly-updated odds on how AI is changing work and business, with the evidence behind each move.", cluster: "Tools & Dashboards", emoji: "🎲", date: "2026-10-06", tools: [], link: "https://kr48vr.github.io/odds-board/", links: [{ label: "Team of bots odds", url: "https://kr48vr.github.io/team-of-bots/odds/" }], image: "images/bayesian-odds-board.png" },
   { title: "Secret Levels", description: "A game-style set of short maths videos for 15-year-olds that take school topics (such as simultaneous equations → linear algebra) all the way up to today's AI, with an XP bar and a tip for teachers. King made this first, then used the Kill Bill reel and Hidden Masters as later experiments.", cluster: "Videos", emoji: "🎮", date: "2026-10-05", tools: ["Claude"], link: "https://claude.ai/artifact/YbWToWcitg4x55Q6kgsdyk", links: [], image: "images/secret-levels.png" },
@@ -840,7 +841,7 @@ function buildGrid() {
 
     return `<div class="project-card" data-idx="${p.origIdx}">
       <div class="card-img-wrap">
-        ${p.image ? `<img src="${p.image}" alt="" loading="lazy" onerror="this.style.display='none'">` : ""}
+        ${p.image ? `<img src="${p.image}" alt="${(p.imageAlt || "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;")}" loading="lazy" onerror="this.style.display='none'">` : ""}
         <button class="card-locate-btn" onclick="event.stopPropagation();highlightInConstellation(${p.origIdx})" title="Find in constellation">✦</button>
       </div>
       <div class="card-cluster-bar" style="background:${col}"></div>
