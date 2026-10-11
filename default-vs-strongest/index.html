@@ -69,13 +69,14 @@
     border-radius: 10px;
     padding: 14px 16px 16px;
     border-top: 4px solid #ccc;
+    min-width: 0;
   }
   .split .stayed { border-top-color: var(--green); background: var(--green-soft); }
   .split .changed { border-top-color: var(--orange-line); background: var(--orange-soft); }
   .split h2 { margin: 0 0 8px; font-size: 1.02rem; }
   .split p { margin: 0; font-size: 0.98rem; }
-  .table-scroll { overflow-x: auto; margin: 8px 0 4px; }
-  table { width: 100%; border-collapse: separate; border-spacing: 6px; table-layout: fixed; min-width: 720px; }
+  .table-scroll { margin: 8px 0 4px; }
+  table { width: 100%; border-collapse: separate; border-spacing: 6px; table-layout: fixed; }
   th { color: #fff; padding: 8px 10px; font-size: 12.5px; border-radius: 6px; text-align: left; font-weight: 650; line-height: 1.3; }
   th.l { background: none; color: var(--ink); width: 132px; }
   th small { display: block; font-weight: 500; opacity: 0.92; }
@@ -89,14 +90,43 @@
   td.same { background: var(--green-soft); border: 2px solid var(--green-line); color: #444; }
   td.v { font-weight: 700; text-align: center; background: none; font-size: 13px; }
   .insights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 8px; }
-  .insights article { background: #111; color: #fff; border-radius: 10px; padding: 16px; font-size: 0.95rem; line-height: 1.45; }
+  .insights article { background: #111; color: #fff; border-radius: 10px; padding: 16px; font-size: 0.95rem; line-height: 1.45; min-width: 0; overflow-wrap: break-word; }
   .insights h2 { color: #ffcc80; font-size: 1rem; margin: 0 0 8px; }
   .insights p { margin: 0 0 8px; }
   .insights p:last-child { margin: 0; }
   .foot { font-size: 13px; color: #666; margin-top: 16px; max-width: 68ch; }
-  @media (max-width: 800px) {
+  @media (max-width: 1000px) {
     .split, .insights { grid-template-columns: 1fr; }
     h1 { font-size: 1.4rem; }
+    .wrap { padding: 22px 16px 48px; }
+    table { display: block; border-spacing: 0; }
+    table tr { display: block; margin: 0 0 18px; }
+    table tr:first-child { display: none; }
+    td {
+      display: block;
+      width: auto;
+      margin: 0 0 8px;
+    }
+    td.l {
+      padding: 2px 0 4px;
+      margin: 0;
+      font-size: 15px;
+    }
+    td:empty { display: none; }
+    td[data-model] { padding: 10px 12px; }
+    td[data-model]::before {
+      content: attr(data-model);
+      display: block;
+      font-size: 12.5px;
+      font-weight: 700;
+      line-height: 1.35;
+      margin: -2px 0 6px;
+    }
+    td.m-cs::before { color: #6b3a28; }
+    td.m-co::before { color: #9a3e22; }
+    td.m-gs::before { color: #0b5c48; }
+    td.m-ga::before { color: #0a7a5e; }
+    td.v { text-align: left; }
   }
 </style>
 </head>
@@ -135,31 +165,31 @@
       </tr>
       <tr>
         <td class="l">First move</td>
-        <td>List every agent in use</td>
-        <td class="moved">Pilot 1–2 back-office jobs</td>
-        <td>Small trial on a routine internal task</td>
-        <td class="same">Small trial on a routine internal task</td>
+        <td class="m-cs" data-model="Claude Sonnet 5.5 (default)">List every agent in use</td>
+        <td class="moved m-co" data-model="Claude Opus 5.5 (strongest)">Pilot 1–2 back-office jobs</td>
+        <td class="m-gs" data-model="ChatGPT GPT-6.1-Sol (default)">Small trial on a routine internal task</td>
+        <td class="same m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Small trial on a routine internal task</td>
       </tr>
       <tr>
         <td class="l">Safeguard</td>
-        <td>Limits and an off switch</td>
-        <td class="moved">Human approval for money and customers, plus traceable actions</td>
-        <td>Human approval for money and customers</td>
-        <td class="same">Human approval for money and customers</td>
+        <td class="m-cs" data-model="Claude Sonnet 5.5 (default)">Limits and an off switch</td>
+        <td class="moved m-co" data-model="Claude Opus 5.5 (strongest)">Human approval for money and customers, plus traceable actions</td>
+        <td class="m-gs" data-model="ChatGPT GPT-6.1-Sol (default)">Human approval for money and customers</td>
+        <td class="same m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Human approval for money and customers</td>
       </tr>
       <tr>
         <td class="l">Stance</td>
-        <td>Control first</td>
-        <td class="moved">Prove it, with controls</td>
-        <td>Start small</td>
-        <td class="same">Start small</td>
+        <td class="m-cs" data-model="Claude Sonnet 5.5 (default)">Control first</td>
+        <td class="moved m-co" data-model="Claude Opus 5.5 (strongest)">Prove it, with controls</td>
+        <td class="m-gs" data-model="ChatGPT GPT-6.1-Sol (default)">Start small</td>
+        <td class="same m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Start small</td>
       </tr>
       <tr>
         <td class="l">Shift</td>
-        <td></td>
-        <td class="v">Big move toward the others</td>
-        <td></td>
-        <td class="v">Almost none</td>
+        <td class="m-cs" data-model="Claude Sonnet 5.5 (default)"></td>
+        <td class="v m-co" data-model="Claude Opus 5.5 (strongest)">Big move toward the others</td>
+        <td class="m-gs" data-model="ChatGPT GPT-6.1-Sol (default)"></td>
+        <td class="v m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Almost none</td>
       </tr>
     </table>
   </div>
@@ -176,38 +206,38 @@
       </tr>
       <tr>
         <td class="l">Bottom-up share</td>
-        <td>20–30%</td>
-        <td class="moved">About 30%</td>
-        <td>30%</td>
-        <td class="same">30%</td>
+        <td class="m-cs" data-model="Claude Sonnet 5.5 (default)">20–30%</td>
+        <td class="moved m-co" data-model="Claude Opus 5.5 (strongest)">About 30%</td>
+        <td class="m-gs" data-model="ChatGPT GPT-6.1-Sol (default)">30%</td>
+        <td class="same m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">30%</td>
       </tr>
       <tr>
         <td class="l">Detail</td>
-        <td>Tools, training, time, grants</td>
-        <td class="moved">Adds 5–10% of a team’s week</td>
-        <td>Tools, training, time</td>
-        <td class="same">Tools, training, time</td>
+        <td class="m-cs" data-model="Claude Sonnet 5.5 (default)">Tools, training, time, grants</td>
+        <td class="moved m-co" data-model="Claude Opus 5.5 (strongest)">Adds 5–10% of a team’s week</td>
+        <td class="m-gs" data-model="ChatGPT GPT-6.1-Sol (default)">Tools, training, time</td>
+        <td class="same m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Tools, training, time</td>
       </tr>
       <tr>
         <td class="l">Measure</td>
-        <td>Weekly users, workflows</td>
-        <td class="moved">Ideas other teams adopt; checked hours saved</td>
-        <td>Savings and returns, quarterly</td>
-        <td class="same">Same, against a baseline</td>
+        <td class="m-cs" data-model="Claude Sonnet 5.5 (default)">Weekly users, workflows</td>
+        <td class="moved m-co" data-model="Claude Opus 5.5 (strongest)">Ideas other teams adopt; checked hours saved</td>
+        <td class="m-gs" data-model="ChatGPT GPT-6.1-Sol (default)">Savings and returns, quarterly</td>
+        <td class="same m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Same, against a baseline</td>
       </tr>
       <tr>
         <td class="l">Main risk</td>
-        <td>Sprawl and data leaks</td>
-        <td class="same">Scattered pilots and data leaks</td>
-        <td>Scattered, local gains</td>
-        <td class="same">Scattered, local gains</td>
+        <td class="m-cs" data-model="Claude Sonnet 5.5 (default)">Sprawl and data leaks</td>
+        <td class="same m-co" data-model="Claude Opus 5.5 (strongest)">Scattered pilots and data leaks</td>
+        <td class="m-gs" data-model="ChatGPT GPT-6.1-Sol (default)">Scattered, local gains</td>
+        <td class="same m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Scattered, local gains</td>
       </tr>
       <tr>
         <td class="l">Shift</td>
-        <td></td>
-        <td class="v">Sharper and more specific</td>
-        <td></td>
-        <td class="v">Almost word for word</td>
+        <td class="m-cs" data-model="Claude Sonnet 5.5 (default)"></td>
+        <td class="v m-co" data-model="Claude Opus 5.5 (strongest)">Sharper and more specific</td>
+        <td class="m-gs" data-model="ChatGPT GPT-6.1-Sol (default)"></td>
+        <td class="v m-ga" data-model="ChatGPT GPT-6-Astra at high reasoning (strongest)">Almost word for word</td>
       </tr>
     </table>
   </div>
