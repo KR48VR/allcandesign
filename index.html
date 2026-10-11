@@ -344,6 +344,73 @@
   @media (min-width: 641px) and (max-width: 900px) {
     .project-grid { grid-template-columns: repeat(2, 1fr); }
   }
+
+  /* ==============================
+     START-HERE TOUR
+     ============================== */
+  .tour-caption {
+    text-align: center;
+    font-size: 0.74rem; font-weight: 500; letter-spacing: 0.4px;
+    color: rgba(245,166,35,0.85);
+    padding: 6px 16px 0;
+  }
+  .tour-caption .tc-dot {
+    display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    background: #FFC56B; box-shadow: 0 0 8px 2px rgba(245,166,35,0.55);
+    margin-right: 7px; vertical-align: 1px;
+  }
+  .tour-stage { position: relative; }
+  .tour-layer { position: absolute; inset: 0; pointer-events: none; }
+  .tour-label {
+    position: absolute; left: 0; top: 0;
+    display: flex; align-items: flex-start; gap: 7px;
+    max-width: 210px;
+    text-decoration: none; color: #E8ECF1;
+    pointer-events: auto;
+    opacity: 0; transition: opacity 0.6s ease;
+    text-shadow: 0 0 6px #0B1120, 0 0 3px #0B1120, 0 0 12px #0B1120;
+  }
+  .tour-label.shown { opacity: 1; }
+  .tour-label.align-right { flex-direction: row-reverse; text-align: right; }
+  .tour-label .tl-num {
+    flex: none; width: 18px; height: 18px; border-radius: 50%;
+    border: 1px solid rgba(245,166,35,0.6);
+    color: #F5A623; font-family: 'Playfair Display', serif; font-size: 0.7rem;
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px; text-shadow: none; background: rgba(11,17,32,0.6);
+  }
+  .tour-label .tl-title {
+    display: block;
+    font-family: 'Playfair Display', serif; font-size: 0.86rem; font-weight: 500;
+    line-height: 1.25; color: #F7E7C6;
+  }
+  .tour-label .tl-why {
+    display: block; font-size: 0.7rem; line-height: 1.4;
+    color: rgba(232,236,241,0.62); margin-top: 2px;
+  }
+  .tour-label:hover .tl-title, .tour-label:focus-visible .tl-title { color: #F5A623; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  .tour-label:focus-visible { outline: none; }
+  .tour-label:focus-visible .tl-num { box-shadow: 0 0 0 2px rgba(245,166,35,0.6); }
+  .tour-list { display: none; }
+  .constellation-wrap.tour-compact .tour-layer { display: none; }
+  .constellation-wrap.tour-compact .tour-list {
+    display: block; list-style: none;
+    max-width: 520px; margin: 0 auto; padding: 4px 22px 10px;
+  }
+  .tour-list li { display: flex; gap: 10px; align-items: baseline; padding: 5px 0; }
+  .tour-list .tl-n {
+    flex: none; font-family: 'Playfair Display', serif; color: #F5A623;
+    font-size: 0.9rem; width: 12px; text-align: right;
+  }
+  .tour-list a { text-decoration: none; color: inherit; }
+  .tour-list .tl-title {
+    font-family: 'Playfair Display', serif; font-size: 0.92rem; color: #F7E7C6;
+  }
+  .tour-list a:hover .tl-title, .tour-list a:focus-visible .tl-title { color: #F5A623; text-decoration: underline; text-underline-offset: 3px; }
+  .tour-list .tl-why { display: block; font-size: 0.74rem; color: rgba(232,236,241,0.55); line-height: 1.4; margin-top: 1px; }
+  @media (prefers-reduced-motion: reduce) {
+    .tour-label { transition: none; }
+  }
 </style>
 </head>
 <body>
@@ -360,7 +427,24 @@
 
 <!-- ============ CONSTELLATION ============ -->
 <section class="constellation-wrap" id="constellationWrap">
-  <canvas id="constellation"></canvas>
+  <div class="tour-caption"><span class="tc-dot" aria-hidden="true"></span>Start here: follow the five lit dots.</div>
+  <div class="tour-stage">
+    <canvas id="constellation"></canvas>
+    <div class="tour-layer" id="tourLayer">
+      <a class="tour-label" data-tour="0" href="https://kr48vr.github.io/team-of-bots/" target="_blank" rel="noopener" aria-label="1. Team of bots: See how one leader runs a team of AI agents."><span class="tl-num">1</span><span class="tl-text"><span class="tl-title">Team of bots</span><span class="tl-why">See how one leader runs a team of AI agents.</span></span></a>
+      <a class="tour-label" data-tour="1" href="https://kr48vr.github.io/odds-board/" target="_blank" rel="noopener" aria-label="2. Bayesian Odds Board: Watch us score our own judgement, in public."><span class="tl-num">2</span><span class="tl-text"><span class="tl-title">Bayesian Odds Board</span><span class="tl-why">Watch us score our own judgement, in public.</span></span></a>
+      <a class="tour-label" data-tour="2" href="https://claude.ai/code/artifact/ab117a16-fc5b-439c-b8c8-97f0eea20c63" target="_blank" rel="noopener" aria-label="3. AI Models & Markets: Where AI progress meets the money."><span class="tl-num">3</span><span class="tl-text"><span class="tl-title">AI Models & Markets</span><span class="tl-why">Where AI progress meets the money.</span></span></a>
+      <a class="tour-label" data-tour="3" href="https://kr48vr.github.io/Future-of-Work-Icebergs/" target="_blank" rel="noopener" aria-label="4. Iceberg Index: What AI means for workers, country by country."><span class="tl-num">4</span><span class="tl-text"><span class="tl-title">Iceberg Index</span><span class="tl-why">What AI means for workers, country by country.</span></span></a>
+      <a class="tour-label" data-tour="4" href="https://king-mission-control-2026.pplx.app/" target="_blank" rel="noopener" aria-label="5. Apollo 13 — Mission Control: History as a lens on leading people and machines."><span class="tl-num">5</span><span class="tl-text"><span class="tl-title">Apollo 13 — Mission Control</span><span class="tl-why">History as a lens on leading people and machines.</span></span></a>
+    </div>
+  </div>
+  <ol class="tour-list" id="tourList" aria-label="Start here: five builds">
+    <li><span class="tl-n">1</span><a href="https://kr48vr.github.io/team-of-bots/" target="_blank" rel="noopener"><span class="tl-title">Team of bots</span><span class="tl-why">See how one leader runs a team of AI agents.</span></a></li>
+    <li><span class="tl-n">2</span><a href="https://kr48vr.github.io/odds-board/" target="_blank" rel="noopener"><span class="tl-title">Bayesian Odds Board</span><span class="tl-why">Watch us score our own judgement, in public.</span></a></li>
+    <li><span class="tl-n">3</span><a href="https://claude.ai/code/artifact/ab117a16-fc5b-439c-b8c8-97f0eea20c63" target="_blank" rel="noopener"><span class="tl-title">AI Models & Markets</span><span class="tl-why">Where AI progress meets the money.</span></a></li>
+    <li><span class="tl-n">4</span><a href="https://kr48vr.github.io/Future-of-Work-Icebergs/" target="_blank" rel="noopener"><span class="tl-title">Iceberg Index</span><span class="tl-why">What AI means for workers, country by country.</span></a></li>
+    <li><span class="tl-n">5</span><a href="https://king-mission-control-2026.pplx.app/" target="_blank" rel="noopener"><span class="tl-title">Apollo 13 — Mission Control</span><span class="tl-why">History as a lens on leading people and machines.</span></a></li>
+  </ol>
 </section>
 
 <!-- ============ INFO BAR ============ -->
@@ -495,6 +579,7 @@ function resize() {
   canvas.style.height = H + "px";
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   layoutNodes();
+  tourAfterLayout();
 }
 
 function layoutNodes() {
@@ -602,10 +687,12 @@ function draw() {
     ctx.beginPath(); ctx.arc(rn.x, rn.y, rn.radius + 5 + Math.sin(time * 2) * 2, 0, Math.PI * 2); ctx.stroke();
   });
 
+  drawTourUnder();
+
   // Nodes
   nodes.forEach((n, i) => {
-    if (!paused) { n.x += Math.sin(time*0.5+i*1.3)*0.15; n.y += Math.cos(time*0.4+i*0.9)*0.1; }
-    const col = clusters[n.project.cluster]?.color || "#fff";
+    if (!paused && !n.tour) { n.x += Math.sin(time*0.5+i*1.3)*0.15; n.y += Math.cos(time*0.4+i*0.9)*0.1; }
+    const col = n.tour ? TOUR_AMBER : (clusters[n.project.cluster]?.color || "#fff");
     const isH = hoveredNode === n, isHL = highlightedIndex === n.index;
     const r = ((isH||isHL) ? n.radius*1.8 : n.radius) + (paused ? 0 : Math.sin(time+i)*0.5);
 
@@ -636,6 +723,7 @@ function draw() {
 
   // Labels
   nodes.forEach((n, i) => {
+    if (n.tour) return;
     const isH = hoveredNode === n, isHL = highlightedIndex === n.index;
     let short = n.project.title.split(" — ")[0].trim();
     if (short.length > 26) short = short.slice(0,23) + "…";
@@ -644,6 +732,7 @@ function draw() {
     ctx.fillText(short, n.x, n.y + (n.project.companion ? n.radius+20 : n.radius+14));
   });
 
+  drawTourOver();
   requestAnimationFrame(draw);
 }
 
@@ -676,7 +765,9 @@ canvas.addEventListener("mousemove", e => {
 canvas.addEventListener("mouseleave", () => { hoveredNode = null; hideInfoBar(); });
 
 // CLICK constellation node → scroll to grid card
-canvas.addEventListener("click", () => {
+canvas.addEventListener("click", e => {
+  const tn = (hoveredNode && hoveredNode.tour) ? hoveredNode : tourHitAt(e.clientX, e.clientY, 12);
+  if (tn) { window.open(tn.tourLink, "_blank", "noopener"); return; }
   if (!hoveredNode) return;
   hideInfoBar();
   scrollToCard(hoveredNode.index);
@@ -684,6 +775,7 @@ canvas.addEventListener("click", () => {
 canvas.addEventListener("touchstart", e => {
   const rect = canvas.getBoundingClientRect();
   const t = e.touches[0], mx = t.clientX - rect.left, my = t.clientY - rect.top;
+  if (tourHitAt(t.clientX, t.clientY, 15)) return; // let the click open the project
   for (let i = nodes.length - 1; i >= 0; i--) {
     const n = nodes[i];
     if ((mx-n.x)**2 + (my-n.y)**2 < (n.radius+15)**2) { scrollToCard(n.index); e.preventDefault(); break; }
@@ -769,6 +861,236 @@ function buildGrid() {
 
 function fmtDate(d) { return new Date(d+"T00:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}); }
 document.addEventListener("keydown", e => { if (e.key === "Escape") hideInfoBar(); });
+
+
+// ============================================================
+// START-HERE TOUR — five lit nodes joined by a self-drawing line
+// (hooks into resize/layoutNodes/draw/click above)
+// ============================================================
+const TOUR = [{"title": "Team of bots", "short": "Team of bots", "why": "See how one leader runs a team of AI agents.", "link": "https://kr48vr.github.io/team-of-bots/"}, {"title": "Bayesian Odds Board", "short": "Bayesian Odds Board", "why": "Watch us score our own judgement, in public.", "link": "https://kr48vr.github.io/odds-board/"}, {"title": "AI Models & Markets — GPQA-Diamond vs Stock Markets vs AI Investment", "short": "AI Models & Markets", "why": "Where AI progress meets the money.", "link": "https://claude.ai/code/artifact/ab117a16-fc5b-439c-b8c8-97f0eea20c63"}, {"title": "Iceberg Index — AI Labour Exposure Across Countries", "short": "Iceberg Index", "why": "What AI means for workers, country by country.", "link": "https://kr48vr.github.io/Future-of-Work-Icebergs/"}, {"title": "Apollo 13 — Mission Control (Then → Now)", "short": "Apollo 13 — Mission Control", "why": "History as a lens on leading people and machines.", "link": "https://king-mission-control-2026.pplx.app/"}];
+const TOUR_AMBER = "#F5A623";
+const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const tourWrap = document.getElementById("constellationWrap");
+const tourLabels = [...document.querySelectorAll(".tour-label")];
+let tourNodes = [], tourPath = [], tourCum = [], tourLen = 0, tourHit = [];
+let tourCompact = false, tourPlace = [], tourBadge = [];
+let tourProgress = reduceMotion ? 1 : 0, tourStarted = reduceMotion, tourLast = 0, tourHover = -1;
+const TOUR_MS = 2600;
+
+function tourAfterLayout() {
+  tourNodes = TOUR.map((t, k) => {
+    const n = nodes.find(m => m.project.title === t.title);
+    if (n) { n.tour = k + 1; n.tourLink = t.link; n.radius = n.radius * 1.35; }
+    return n;
+  });
+  // Curved path through the five nodes, sampled so it can be drawn progressively
+  tourPath = []; tourHit = [0];
+  for (let k = 0; k < tourNodes.length - 1; k++) {
+    const a = tourNodes[k], b = tourNodes[k+1];
+    const mx = (a.x+b.x)/2, my = (a.y+b.y)/2, dx = b.x-a.x, dy = b.y-a.y, L = Math.hypot(dx,dy);
+    const bend = Math.min(60, L*0.16) * (k % 2 ? -1 : 1);
+    const cx = mx - dy/L*bend, cy = my + dx/L*bend;
+    const steps = Math.max(12, Math.round(L/6));
+    for (let s = (k ? 1 : 0); s <= steps; s++) {
+      const t = s/steps, u = 1-t;
+      tourPath.push([u*u*a.x + 2*u*t*cx + t*t*b.x, u*u*a.y + 2*u*t*cy + t*t*b.y]);
+    }
+    tourHit.push(tourPath.length - 1);
+  }
+  tourCum = [0];
+  for (let i = 1; i < tourPath.length; i++) tourCum.push(tourCum[i-1] + Math.hypot(tourPath[i][0]-tourPath[i-1][0], tourPath[i][1]-tourPath[i-1][1]));
+  tourLen = tourCum[tourCum.length-1] || 1;
+  placeTourLabels();
+}
+
+// Pick a position for each label: inside the map, clear of the other labels,
+// the lit dots and the tour line, and covering as few other dots as possible.
+function placeTourLabels() {
+  const PAD = 8, layer = document.getElementById("tourLayer");
+  tourLabels.forEach(l => { l.classList.remove("align-right"); l.style.transform = ""; });
+  tourWrap.classList.remove("tour-compact");
+  const sizes = tourLabels.map(l => [l.offsetWidth, l.offsetHeight]);
+  const segs = [];
+  for (let i = 1; i < tourPath.length; i += 2) segs.push([tourPath[i-1], tourPath[Math.min(i+1, tourPath.length-1)]]);
+  const others = nodes.filter(n => !n.tour);
+  // the map's own small text: node titles under each dot and the cluster headings
+  const textRects = [];
+  ctx.save(); ctx.font = "400 8px Inter";
+  others.forEach(m => {
+    let short = m.project.title.split(" — ")[0].trim(); if (short.length > 26) short = short.slice(0,23) + "…";
+    const tw = ctx.measureText(short).width, ty = m.y + (m.project.companion ? m.radius+20 : m.radius+14);
+    textRects.push({x: m.x - tw/2, y: ty - 8, w: tw, h: 10, wt: 45});
+  });
+  ctx.font = "600 9px Inter";
+  const seen = new Set();
+  nodes.forEach(m => { if (seen.has(m.project.cluster)) return; seen.add(m.project.cluster);
+    const tw = ctx.measureText(m.project.cluster.toUpperCase()).width;
+    textRects.push({x: m.baseX - tw/2, y: m.baseY - 49, w: tw, h: 22, wt: 25}); });
+  ctx.restore();
+  const cands = tourNodes.map((n, k) => {
+    const [w, h] = sizes[k], out = [];
+    const R = n.radius + 6;
+    for (const d of [R+6, R+22, R+44]) {
+      out.push({x: n.x+d, y: n.y-9, side: "L", d});            // right of dot, title level
+      out.push({x: n.x+d, y: n.y-h/2, side: "L", d});
+      out.push({x: n.x+d, y: n.y-h+9, side: "L", d});
+      out.push({x: n.x-d-w, y: n.y-9, side: "R", d});          // left of dot
+      out.push({x: n.x-d-w, y: n.y-h/2, side: "R", d});
+      out.push({x: n.x-d-w, y: n.y-h+9, side: "R", d});
+      out.push({x: n.x-9, y: n.y-d-h, side: "L", d});          // above
+      out.push({x: n.x-w+9, y: n.y-d-h, side: "R", d});
+      out.push({x: n.x-9, y: n.y+d, side: "L", d});            // below
+      out.push({x: n.x-w+9, y: n.y+d, side: "R", d});
+    }
+    return out.map(c => ({...c, w, h}));
+  });
+  const ov = (a, b, p) => a.x < b.x+b.w+p && b.x < a.x+a.w+p && a.y < b.y+b.h+p && b.y < a.y+a.h+p;
+  const inR = (r, x, y, p) => x > r.x-p && x < r.x+r.w+p && y > r.y-p && y < r.y+r.h+p;
+  const segHits = (r, s) => { for (let t = 0; t <= 1; t += 0.2) { const x = s[0][0]+(s[1][0]-s[0][0])*t, y = s[0][1]+(s[1][1]-s[0][1])*t; if (inR(r,x,y,3)) return true; } return false; };
+  // cost of a label on its own
+  const solo = cands.map((cs, k) => cs.map(c => {
+    let hard = 0, soft = c.d * 0.6;
+    if (c.x < PAD || c.y < PAD || c.x+c.w > W-PAD || c.y+c.h > H-PAD) hard++;
+    tourNodes.forEach(m => { if (inR(c, m.x, m.y, m.radius+10)) hard++; });
+    others.forEach(m => { if (inR(c, m.x, m.y, 7)) soft += 30; });
+    textRects.forEach(t => { if (ov(c, t, 3)) soft += t.wt; });
+    segs.forEach(s => { if (segHits(c, s)) soft += 25; });
+    return {hard, soft};
+  }));
+  const pair = (a, b) => ov(a, b, 10) ? 1 : 0;
+  // greedy start then coordinate descent
+  let pick = cands.map((cs, k) => { let best = 0; cs.forEach((c, i) => { const s = solo[k][i], b = solo[k][best]; if (s.hard*1e4+s.soft < b.hard*1e4+b.soft) best = i; }); return best; });
+  const total = (p) => { let hard = 0, soft = 0;
+    p.forEach((i, k) => { hard += solo[k][i].hard; soft += solo[k][i].soft; for (let j = k+1; j < p.length; j++) hard += pair(cands[k][i], cands[j][p[j]]); });
+    return [hard, soft]; };
+  for (let pass = 0; pass < 8; pass++) {
+    let improved = false;
+    for (let k = 0; k < pick.length; k++) {
+      let [bh, bs] = total(pick), bi = pick[k];
+      cands[k].forEach((c, i) => { const t = pick.slice(); t[k] = i; const [h, s] = total(t); if (h < bh || (h === bh && s < bs - 0.01)) { bh = h; bs = s; bi = i; } });
+      if (bi !== pick[k]) { pick[k] = bi; improved = true; }
+    }
+    if (!improved) break;
+  }
+  // number badges on the dots (used when labels don't fit): choose the clearest corner
+  tourBadge = [];
+  tourNodes.forEach((n, k) => {
+    const o = n.radius + 7;
+    const opts = [[o, -o+2], [-o, -o+2], [o, o-2], [-o, o-2], [0, -o-3], [o+3, 0], [-o-3, 0]];
+    let best = null, bestS = Infinity;
+    opts.forEach(([dx, dy], oi) => {
+      const r = {x: n.x+dx-9, y: n.y+dy-9, w: 18, h: 18}; let sc = oi * 0.5;
+      if (r.x < 2 || r.y < 2 || r.x+r.w > W-2 || r.y+r.h > H-2) sc += 1e4;
+      textRects.forEach(t => { if (ov(r, t, 1)) sc += t.wt; });
+      others.forEach(m => { if (inR(r, m.x, m.y, m.radius+1)) sc += 40; });
+      tourNodes.forEach(m => { if (inR(r, m.x, m.y, m.radius+2)) sc += 1e3; });
+      tourBadge.forEach(b => { if (ov(r, {x: b.x-9, y: b.y-9, w: 18, h: 18}, 2)) sc += 1e3; });
+      segs.forEach(sg => { if (segHits(r, sg)) sc += 20; });
+      if (sc < bestS) { bestS = sc; best = {x: n.x+dx, y: n.y+dy}; }
+    });
+    tourBadge.push(best);
+  });
+  const [hard] = total(pick);
+  tourCompact = hard > 0 || W < 560;
+  tourWrap.classList.toggle("tour-compact", tourCompact);
+  tourPlace = pick.map((i, k) => cands[k][i]);
+  tourLabels.forEach((l, k) => {
+    const c = tourPlace[k];
+    l.classList.toggle("align-right", c.side === "R");
+    l.style.transform = `translate(${Math.round(c.x)}px, ${Math.round(c.y)}px)`;
+  });
+  layer.dataset.placement = tourCompact ? "compact" : "labels";
+}
+
+function tourTick() {
+  const now = performance.now();
+  if (tourStarted && !paused && tourProgress < 1) tourProgress = Math.min(1, tourProgress + (now - tourLast) / TOUR_MS);
+  tourLast = now;
+  // reveal each label as the line reaches its dot
+  const drawnLen = tourLen * easeTour(tourProgress);
+  tourLabels.forEach((l, k) => l.classList.toggle("shown", tourStarted && drawnLen >= tourCum[tourHit[k]] - 1));
+}
+function easeTour(t) { return t < 0.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2; }
+
+function drawTourUnder() {
+  if (!tourPath.length) return;
+  tourTick();
+  const L = tourLen * easeTour(tourProgress);
+  // line
+  if (L > 0) {
+    ctx.save(); ctx.lineCap = "round"; ctx.lineJoin = "round";
+    const pass = (w, a, blur) => {
+      ctx.strokeStyle = `rgba(245,166,35,${a})`; ctx.lineWidth = w; ctx.shadowColor = "rgba(245,166,35,0.6)"; ctx.shadowBlur = blur;
+      ctx.beginPath(); ctx.moveTo(tourPath[0][0], tourPath[0][1]);
+      let tip = tourPath[0];
+      for (let i = 1; i < tourPath.length; i++) {
+        if (tourCum[i] <= L) { ctx.lineTo(tourPath[i][0], tourPath[i][1]); tip = tourPath[i]; }
+        else { const f = (L - tourCum[i-1]) / (tourCum[i] - tourCum[i-1]); tip = [tourPath[i-1][0] + (tourPath[i][0]-tourPath[i-1][0])*f, tourPath[i-1][1] + (tourPath[i][1]-tourPath[i-1][1])*f]; ctx.lineTo(tip[0], tip[1]); break; }
+      }
+      ctx.stroke(); return tip;
+    };
+    pass(7, 0.07, 0); pass(3, 0.14, 10); const tip = pass(1.4, 0.7, 6);
+    if (tourProgress < 1) { ctx.shadowBlur = 14; ctx.fillStyle = "rgba(255,214,140,0.95)"; ctx.beginPath(); ctx.arc(tip[0], tip[1], 2.4, 0, Math.PI*2); ctx.fill(); }
+    ctx.restore();
+  }
+  // leader lines from dot to label
+  if (!tourCompact) tourPlace.forEach((c, k) => {
+    const n = tourNodes[k]; if (!tourLabels[k].classList.contains("shown")) return;
+    const ax = c.side === "R" ? c.x + c.w - 9 : c.x + 9, ay = c.y + 9;   // centre of the number badge
+    const d = Math.hypot(ax-n.x, ay-n.y); if (d < n.radius + 22) return;
+    const ux = (ax-n.x)/d, uy = (ay-n.y)/d;
+    ctx.strokeStyle = "rgba(245,166,35,0.35)"; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(n.x + ux*(n.radius+4), n.y + uy*(n.radius+4)); ctx.lineTo(ax - ux*11, ay - uy*11); ctx.stroke();
+  });
+  // warm glow behind each lit dot
+  tourNodes.forEach((n, k) => {
+    const lit = drawnLenReached(k);
+    const pulse = (reduceMotion || paused) ? 0 : Math.sin(time*1.6 + k)*0.06;
+    const a = (lit ? 0.32 : 0.16) + pulse + (tourHover === k ? 0.15 : 0);
+    const R = n.radius * (tourHover === k ? 7 : 5.5);
+    const g = ctx.createRadialGradient(n.x, n.y, n.radius*0.6, n.x, n.y, R);
+    g.addColorStop(0, `rgba(245,166,35,${a})`); g.addColorStop(1, "rgba(245,166,35,0)");
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(n.x, n.y, R, 0, Math.PI*2); ctx.fill();
+  });
+}
+function drawnLenReached(k) { return tourStarted && tourLen * easeTour(tourProgress) >= tourCum[tourHit[k]] - 1; }
+
+function drawTourOver() {
+  if (!tourNodes.length) return;
+  tourNodes.forEach((n, k) => {
+    // bright ring on each lit dot
+    ctx.strokeStyle = `rgba(255,205,120,${drawnLenReached(k) ? 0.75 : 0.35})`; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.arc(n.x, n.y, n.radius + 3, 0, Math.PI*2); ctx.stroke();
+    // numbers on the dots when labels don't fit
+    if (tourCompact) {
+      const nx = tourBadge[k].x, ny = tourBadge[k].y;
+      ctx.save(); ctx.font = "600 11px Inter"; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.fillStyle = "rgba(11,17,32,0.9)"; ctx.beginPath(); ctx.arc(nx, ny, 8.5, 0, Math.PI*2); ctx.fill();
+      ctx.strokeStyle = "rgba(245,166,35,0.75)"; ctx.lineWidth = 1; ctx.stroke();
+      ctx.fillStyle = "#F5A623"; ctx.fillText(String(k+1), nx, ny + 0.5); ctx.restore();
+    }
+  });
+}
+
+function tourStart() { if (tourStarted) return; tourStarted = true; tourLast = performance.now(); }
+if (!reduceMotion) {
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { tourStart(); io.disconnect(); } }, { threshold: 0.35 });
+    io.observe(canvas);
+  } else tourStart();
+}
+tourLabels.forEach((l, k) => {
+  l.addEventListener("mouseenter", () => { tourHover = k; });
+  l.addEventListener("mouseleave", () => { tourHover = -1; });
+  l.addEventListener("focus", () => { tourHover = k; });
+  l.addEventListener("blur", () => { tourHover = -1; });
+});
+function tourHitAt(clientX, clientY, pad) {
+  const rect = canvas.getBoundingClientRect(), mx = clientX - rect.left, my = clientY - rect.top;
+  return tourNodes.find(n => n && (mx-n.x)**2 + (my-n.y)**2 < (n.radius+pad)**2) || null;
+}
+// labels need the real font metrics before they are measured
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if (nodes.length) placeTourLabels(); });
 
 // ============================================================
 // INIT
