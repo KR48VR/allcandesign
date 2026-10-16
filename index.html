@@ -318,6 +318,29 @@
     border: 1px solid rgba(255,255,255,0.06);
   }
   .card-link.secondary:hover { background: rgba(255,255,255,0.1); }
+  .card-private-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    margin-bottom: 7px;
+    border-radius: 8px;
+    border: 1px solid rgba(245,166,35,0.6);
+    background: rgba(245,166,35,0.15);
+    color: #F5A623;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+  .card-private-note {
+    padding: 6px 13px;
+    border-radius: 8px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: rgba(255,255,255,0.04);
+    color: rgba(232,236,241,0.55);
+    border: 1px dashed rgba(255,255,255,0.15);
+    cursor: default;
+  }
 
   /* ==============================
      FOOTER
@@ -448,7 +471,7 @@
   <div class="montage" id="montage"></div>
   <div class="hero-overlay">
     <h1>All Can Create. All Can Design.</h1>
-    <p>58 PROJECTS MAPPED &middot; 2026</p>
+    <p>59 PROJECTS MAPPED &middot; 2026</p>
   </div>
   <div class="hero-fade"></div>
 </section>
@@ -519,6 +542,7 @@ const projects = [
   { title: "Spirits up: a starry night of pick-me-ups", description: "A starry night of pick-me-up notes. Tap a star to reveal its picture and quote, or browse them all on the gallery wall below.", cluster: "Visual Narratives", emoji: "🌟", date: "2026-10-15", tools: ["Grok Bot"], link: "https://kr48vr.github.io/spirits-up/", links: [], image: "images/spirits-up.svg" },
   { title: "Same AI. Same day. Four different worlds.", description: "How King and Grok Bot turned one Andrej Karpathy post about how the world uses AI into ten kids' videos in five languages, from cartoon town to Beijing, Hong Kong and Little India. A fun, interactive creativity guide: flip cards, before-and-after sliders, a city picker, a QA quiz and a try-it-yourself prompt builder.", cluster: "Videos", emoji: "🧒", date: "2026-10-14", tools: ["Grok Bot", "Grok Imagine", "Higgsfield"], link: "https://kr48vr.github.io/karpathy-video-guide/", links: [], image: "images/karpathy-video-guide.svg" },
   { title: "Default vs strongest models: what changed?", description: "The same two leadership questions, put to Grok Bot, ChatGPT and Claude, on everyday and strongest models. One AI changed its answer, one barely moved, and the best ones now agree.", cluster: "Tools & Dashboards", emoji: "⚖️", date: "2026-10-11", tools: ["Grok Bot", "Claude Opus 5.5", "GPT-6-Astra"], link: "https://kr48vr.github.io/default-vs-strongest/", links: [], image: "images/default-vs-strongest.png", imageAlt: "Comparison table for Grok Bot (11 Oct 2026), Claude Sonnet 5.5 (default), Claude Opus 5.5 (strongest), ChatGPT GPT-6.1-Sol (default) and ChatGPT GPT-6-Astra at high reasoning (strongest). Answers generated on 11 Oct 2026. Orange cells changed; green cells stayed the same. Grok Bot has one answer." },
+  { title: "Black Boxes and Verification/Feedback Loops", description: "Private. A nine-step interactive page for leaders: every scientific law is a black box that verification and feedback only partly open, and AI is the newest one. King's own copy only.", cluster: "Tools & Dashboards", emoji: "🔒", date: "2026-10-11", tools: [], private: true, link: "", links: [], image: "images/black-boxes-private.svg", imageAlt: "A closed black box with a lock and a feedback loop arrow, marked Private" },
   { title: "Where is AI now?", description: "A four-box map that sorts where AI really stands today, from simple tool to near-expert, built from 742 collected pieces. It cuts through claims that AI is 'already as smart as people' or 'just hype', and shows where it actually helps at work.", cluster: "Tools & Dashboards", emoji: "🧭", date: "2026-10-10", tools: [], link: "https://kr48vr.github.io/ai-map/", links: [], image: "images/where-is-ai-now.svg" },
   { title: "Bayesian Odds Board", description: "Weekly-updated odds on how AI is changing work and business. Each question carries a chance that moves only when new evidence arrives, with every move and its source shown, so you can see what's getting likelier and why.", cluster: "Tools & Dashboards", emoji: "🎲", date: "2026-10-06", tools: [], link: "https://kr48vr.github.io/odds-board/", links: [{ label: "Team of bots odds", url: "https://kr48vr.github.io/team-of-bots/odds/" }], image: "images/bayesian-odds-board.png" },
   { title: "Secret Levels", description: "A game-style set of short maths videos for 15-year-olds that take school topics (such as simultaneous equations → linear algebra) all the way up to today's AI, with an XP bar and a tip for teachers. King made this first, then used the Kill Bill reel and Hidden Masters as later experiments.", cluster: "Videos", emoji: "🎮", date: "2026-10-05", tools: ["Claude"], link: "https://claude.ai/artifact/YbWToWcitg4x55Q6kgsdyk", links: [{ label: "Behind the scenes + teacher guide", url: "https://claude.ai/artifact/6pMdKgGKieMovvjwvvkH7Y" }], image: "images/secret-levels.png" },
@@ -874,8 +898,10 @@ function buildGrid() {
   document.getElementById("projectGrid").innerHTML = sorted.map(p => {
     const cl = clusters[p.cluster]; const col = cl?.color || "#F5A623";
     let companionHTML = p.companion ? `<div class="card-companion">⇄ Paired with: ${p.companion}</div>` : "";
-    let linksHTML = `<a href="${p.link}" target="_blank" class="card-link primary">View Project →</a>`;
-    (p.links || []).forEach(l => { linksHTML += `<a href="${l.url}" target="_blank" class="card-link secondary">${l.label}</a>`; });
+    let linksHTML = p.private
+      ? `<span class="card-private-note">Private project: King's own copy only</span>`
+      : `<a href="${p.link}" target="_blank" class="card-link primary">View Project →</a>`;
+    if (!p.private) (p.links || []).forEach(l => { linksHTML += `<a href="${l.url}" target="_blank" class="card-link secondary">${l.label}</a>`; });
 
     return `<div class="project-card" data-idx="${p.origIdx}">
       <div class="card-img-wrap">
@@ -884,6 +910,7 @@ function buildGrid() {
       </div>
       <div class="card-cluster-bar" style="background:${col}"></div>
       <div class="card-content">
+        ${p.private ? `<div class="card-private-badge">Private: not public</div>` : ""}
         <div class="card-cluster-label" style="color:${col}">${p.emoji} ${cl?.cardLabel || p.cluster}</div>
         <div class="card-title">${p.title}</div>
         <div class="card-desc">${p.description}</div>
