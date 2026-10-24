@@ -117,13 +117,19 @@ body.tab2 #ctl{opacity:1}body.tab2 #ctl button{background:#fff;border:1.5px soli
 
 
 body.tab2 #stage{visibility:hidden}
+#t2pick{position:sticky;top:0;z-index:3;display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:8px 4px;margin:0 -4px 6px;background:#f3ddd6;border-bottom:1px solid #e3c4b6}
+#t2pick button{font:700 13.5px NS,sans-serif;border:1.5px solid #B9562A;background:#fff;color:#B9562A;border-radius:999px;padding:6px 12px;cursor:pointer;white-space:nowrap;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+#t2pick button:hover{background:#fbeee6}#t2pick button.on{background:#B9562A;color:#fff}
+#t2pick .n{display:inline-block;width:18px;height:18px;line-height:18px;border-radius:50%;background:#B9562A;color:#fff;font-size:11px;margin-right:5px;text-align:center}#t2pick button.on .n{background:#fff;color:#B9562A}
+@media(max-width:480px){#t2pick button{font-size:12px;padding:5px 9px}}
+
 </style></head><body><div id="stage"><div id="cap"></div><div id="phone"><div id="screen">
 <div id="view"><div id="chat"></div></div>
 <div id="hdr"><div class="time">11:30</div><div class="batt"></div><div class="circ" style="left:30px">&#x2039;</div><div class="pill"><div class="av"></div>Promi</div><div class="circ" style="right:30px;font-size:30px">•••</div></div>
 <div id="bar"><div id="plus">+</div><div id="inp" class="ph"><span>Ask Promi</span></div><div id="mic"></div><div id="voice">|ıl|ı</div></div>
 </div></div><div id="end"><div>Refining our practices<br>together</div></div></div>
 <div id="tabs" role="tablist"><button id="tb1" class="on" role="tab">1 &middot; The chat</button><button id="tb2" role="tab">2 &middot; Tech support tickets</button></div>
-<div id="t2"><div id="t2in"><div id="t2list"></div></div></div>
+<div id="t2"><div id="t2in"><div id="t2pick" role="toolbar" aria-label="Choose a ticket example"></div><div id="t2list"></div></div></div>
 <div id="ctl"><button id="bR" title="Restart (Home / R)">&#8634; Restart</button><button id="bB" title="Back (Left)">&#8249; Back</button><span id="cnt"></span><button id="bN" title="Next (Right / Space)">Next &#8250;</button></div>
 <script>
 const D={"M1": "In the liner notes, we can also talk about the inspiration behind Cold War ... And then make a small link to Grace and respect ie lesson 9", "M3": "Oh did we link chef to lesson 2 too? Small one?", "M6": "Can you check why I said each lesson should stand alone? It might be a different context", "P2": ["I'll set Lesson 10 up in that order: 好敵手 as the title, Cold War first with 惺惺相惜, then Wenger and Adams to reinforce 好敵手, then Lincoln and Seward (metanoia) and Mandela and Pienaar (Ubuntu). ...", "On the Lesson 9 link: you asked on 23 Oct that each lesson stand alone and not be tied to one other lesson. I can still touch on grace and respect in a sentence without naming Lesson 9. Is that OK?"], "P4": ["Yes. Lesson 5, the Chef lesson, has one small link in its liner notes: \"Lesson 2 made the same point at a soya milk stall in Singapore,\" ... It went in before your 23 Oct rule that each lesson should stand alone.", "... I can add the same kind of one-sentence nod to grace and respect, linking to Lesson 9, in Lesson 10's liner notes. Or I can leave both lessons fully standalone and take the Chef link out. Which would you like?"], "P5": ["Lesson 5 keeps its Chef link to Lesson 2, and Lesson 10 will get a one-sentence nod to Lesson 9's grace and respect in its liner notes. ..."], "P7": ["Good thought. I'm checking what you actually said on 23 Oct about lessons standing alone."], "P8": ["Checked your 23 Oct messages. It was a different context. On Fri 23 Oct at 9:21pm SGT we were picking Lesson 8's theme word ...", "You replied: \"We don't have to link it too tightly to lesson seven. All the lessons are standalone and all connected in some way, so no need to link it specifically and too tightly to any single lesson.\"", "So you weren't banning links. You were stopping me from building one lesson's case on another. ... I've already updated my notes to say that."], "B": "Keep every lesson fully standalone (remove Chef's link)", "caps": ["1. King suggests a link", "2. Promi checks a past rule", "3. They choose together", "4. King asks for the real context", "5. Promi corrects its own note"]};
@@ -191,7 +197,7 @@ function msg(m,fresh,key){const W=WHO[m.w];let s='<div class="msg '+W.c+(fresh?'
 function ladder(t,j){const seen=new Set();t.steps.slice(0,j+1).forEach(s=>s.forEach(m=>seen.add(m.w)));const fixed=j==t.steps.length-1;
  const L=[['k','King files'],['b','Bot acks'],['p','Person picks up'],['r',t.res[0]=='ok'?'Fixed &amp; closed':'Tracked']];
  return '<div class="lad">'+L.map(([w,l],i)=>'<span class="lv '+(WHO[w]?WHO[w].c:w)+((w=='r'?fixed:seen.has(w))?' on':'')+'">'+l+'</span>'+(i<3?'<span class="ar">&rarr;</span>':'')).join('')+'</div>'}
-function t2go(n){t2s=n;const st=t2steps[n]||['intro'];let h='';
+var t2go=function(n){t2s=n;const st=t2steps[n]||['intro'];let h='';
  if(st[0]=='intro'){h='<h1>Filing a Grok Bot support ticket: one email</h1><p class="sub">4 real tickets from King’s Gmail, quoted word for word. Times in SGT. IDs and links redacted.</p>'+legend()+'<div class="tip">Press <b>Next</b> (or &rarr; / Space) to step through each ticket as a timeline.</div>'}
  else if(st[0]=='frame'){h='<div class="frame fresh"><h2>The detail that used to put people off</h2><p>A useful bug report needs exact times, app versions, IDs, screenshots, what was retested and what changed. Finding and assembling all of that by hand is why many people never file.</p><p>King’s '+kMsgs.length+' emails across these 4 tickets carried exactly that detail. His bots pulled it together, so filing took one ask.</p><div class="who3"><div><b>King</b>: complete tickets without the legwork</div><div><b>Support</b>: can escalate on the first reply, with no back-and-forth</div><div><b>Grok Bot</b>: bugs reproduced, fixed and confirmed by retests</div></div>'+legend()+'</div>'}
  else if(st[0]=='end'){h='<div id="t2end" class="fresh"><b>What it shows</b><br>4 tickets, '+kMsgs.length+' detailed emails from King, each drafted with his bots. The support bot replied with a ticket number within 5 minutes every time, and escalated three to a person. Two are confirmed fixed by King’s retests and closed by a person. The other two are known issues under investigation.</div>'+legend()}
@@ -207,6 +213,13 @@ function setTab(n){TAB=n;document.body.classList.toggle('tab2',n==2);document.ge
 document.getElementById('tabs').addEventListener('click',e=>e.stopPropagation());document.getElementById('t2').addEventListener('click',e=>e.stopPropagation());
 document.getElementById('tb1').onclick=()=>setTab(1);document.getElementById('tb2').onclick=()=>setTab(2);
 addEventListener('keydown',e=>{if(TAB==1&&e.key=='2')setTab(2)});
+const CH=[['Intro',0]];let _o=2;const CHN=['Imagine Extend','Bot handoff','@bot on X','Disk growth'];TK.forEach((t,i)=>{CH.push([CHN[i],_o,i]);_o+=t.steps.length});CH.push(['Summary',t2steps.length-1]);
+const pk=document.getElementById('t2pick');pk.innerHTML=CH.map((c,k)=>'<button data-s="'+c[1]+'" title="'+(c.length>2?'Shift+'+(c[2]+1):'')+'">'+(c.length>2?'<span class="n">'+(c[2]+1)+'</span>':'')+c[0]+'</button>').join('');
+pk.addEventListener('click',e=>{const b=e.target.closest('button');if(b)t2go(+b.dataset.s)});
+function t2lab(n){const st=t2steps[n];if(st[0]=='intro'||st[0]=='frame')return 'Intro · '+(n+1)+'/2';if(st[0]=='end')return 'Summary';return 'Ticket '+(st[0]+1)+' · step '+(st[1]+1)+'/'+TK[st[0]].steps.length}
+const _go=t2go;t2go=function(n){_go(n);document.getElementById('cnt').textContent=t2lab(n);const st=t2steps[n];const act=st[0]=='intro'||st[0]=='frame'?0:st[0]=='end'?CH.length-1:st[0]+1;[...pk.children].forEach((b,k)=>{b.classList.toggle('on',k==act);b.setAttribute('aria-pressed',k==act)})};
+addEventListener('keydown',e=>{if(TAB==2&&e.shiftKey&&/^Digit[1-4]$/.test(e.code)){e.preventDefault();e.stopImmediatePropagation();t2go(CH[+e.code[5]][1])}},true);
+
 
 
 </script></body></html>
