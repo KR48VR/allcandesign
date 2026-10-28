@@ -166,6 +166,13 @@ body.tab4 #ctl button:hover{background:#B9562A;color:#fff}
 #t4 .chip{display:inline-flex;align-items:center;gap:6px;margin:0 0 12px 48px;padding:5px 12px;border-radius:999px;background:#fff;border:1px solid #e3c4b6;font-size:13px;color:#6b4a3a}
 #t4 .xpd ul.now li{font-size:14.5px}
 #t4 code{font:13px ui-monospace,Menlo,Consolas,monospace;background:#f3ece6;border-radius:5px;padding:1px 5px;word-break:break-all}
+
+@media(min-width:601px){
+#tabs{flex-direction:column;top:12px;left:12px;bottom:auto;width:208px;gap:4px;padding:8px;font-size:15px;border-radius:14px}
+#tabs button{text-align:left;white-space:normal;line-height:1.25;padding:12px 14px;font-size:15px}
+#tabs .lg{display:inline}#tabs .sh{display:none}
+#t2,#t3,#t4{top:0;left:240px}
+}
 </style></head><body><div id="stage"><div id="cap"></div><div id="phone"><div id="screen">
 <div id="view"><div id="chat"></div></div>
 <div id="hdr"><div class="time">11:30</div><div class="batt"></div><div class="circ" style="left:30px">&#x2039;</div><div class="pill"><div class="av"></div>Promi</div><div class="circ" style="right:30px;font-size:30px">•••</div></div>
@@ -185,7 +192,7 @@ const steps=[ // each: list of actions
  {cap:2,add:{k:'p',t:D.P5},auto:true},{cap:3,add:{k:'u',t:D.M6}},{cap:3,add:{k:'p',t:D.P7}},{cap:4,add:{k:'p',t:D.P8}},{cap:4,end:true}];
 let TAB=1,step=0,busy=false,timers=[],gen=0,cardEl=null;
 const chat=document.getElementById('chat'),inp=document.getElementById('inp'),cap=document.getElementById('cap'),endEl=document.getElementById('end');
-function fit(){const s=Math.min(innerWidth/1080,innerHeight/1920);const st=document.getElementById('stage');st.style.transform='scale('+s+') translate(-50%,-50%)'}
+function fit(){const off=innerWidth>600?240:0,W=innerWidth-off;const s=Math.min(W/1080,innerHeight/1920);const st=document.getElementById('stage');st.style.left=(off+W/2)+'px';st.style.transform='scale('+s+') translate(-50%,-50%)'}
 addEventListener('resize',fit);fit();
 function T(f,ms){const g=gen;const id=setTimeout(()=>{if(g===gen)f()},ms);timers.push(id);return id}
 function cancel(){gen++;timers.forEach(id=>{clearTimeout(id);clearInterval(id)});timers=[];busy=false;chat.querySelectorAll('.dots').forEach(d=>d.remove())}
