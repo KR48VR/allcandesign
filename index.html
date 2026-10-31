@@ -471,7 +471,7 @@
   <div class="montage" id="montage"></div>
   <div class="hero-overlay">
     <h1>All Can Create. All Can Design.</h1>
-    <p>62 PROJECTS MAPPED &middot; 2026</p>
+    <p><span id="project-count">62</span> PROJECTS MAPPED &middot; 2026</p>
   </div>
   <div class="hero-fade"></div>
 </section>
@@ -1243,6 +1243,7 @@ if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { if
 // ============================================================
 // INIT
 // ============================================================
+document.getElementById("project-count").textContent = projects.length;
 window.addEventListener("resize", resize);
 buildMontage();
 resize();
