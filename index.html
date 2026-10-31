@@ -24,15 +24,10 @@
     position: relative;
     overflow: hidden;
   }
-  .montage {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(105px, 1fr));
-    grid-auto-rows: 68px;
-    gap: 2px;
-  }
-  .montage-cell {
-    overflow: hidden;
-  }
+  .hero { height: 280px; }
+  .montage { display: flex; flex-direction: column; gap: 2px; height: 100%; }
+  .montage-row { display: flex; gap: 2px; flex: 1 1 0; min-height: 0; }
+  .montage-cell { overflow: hidden; flex: 1 1 0; min-width: 0; }
   .montage-cell img {
     width: 100%;
     height: 100%;
@@ -59,15 +54,16 @@
   }
   .hero-overlay h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 2.2rem;
+    font-size: 3.2rem;
+    line-height: 1.1;
     font-weight: 500;
     color: #F5A623;
     letter-spacing: 0.5px;
     margin-bottom: 8px;
   }
   .hero-overlay p {
-    font-size: 0.85rem;
-    color: rgba(232,236,241,0.5);
+    font-size: 1.15rem;
+    color: rgba(232,236,241,0.75);
     font-weight: 300;
     letter-spacing: 2px;
   }
@@ -360,8 +356,8 @@
      RESPONSIVE
      ============================== */
   @media (max-width: 640px) {
-    .hero-overlay h1 { font-size: 1.5rem; }
-    .montage { grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); grid-auto-rows: 52px; }
+    .hero-overlay h1 { font-size: 2.3rem; } .hero-overlay p { font-size: 0.95rem; }
+    .hero { height: 230px; }
     .project-grid { grid-template-columns: 1fr; }
     .info-bar { padding: 6px 16px 10px; }
     .info-bar .ib-instruction, .info-bar .ib-sep, .info-bar.active .ib-details { display: none; }
@@ -470,7 +466,7 @@
 <section class="hero">
   <div class="montage" id="montage"></div>
   <div class="hero-overlay">
-    <h1>All Can Create. All Can Design.</h1>
+    <h1>All Can Create.<br>All Can Design.</h1>
     <p><span id="project-count">62</span> PROJECTS MAPPED &middot; 2026</p>
   </div>
   <div class="hero-fade"></div>
@@ -606,15 +602,37 @@ const projects = [
 // ============================================================
 // MONTAGE — dense tiled hero
 // ============================================================
-function buildMontage() {
+let montageImgs = [], montageRows = 0;
+function layoutMontage() {
   const el = document.getElementById("montage");
-  // Collect all images, allow duplicates to fill rows densely
-  const imgs = projects.map(p => p.image).filter(Boolean);
-  // Duplicate to ensure at least 3 full rows on wide screens
-  const pool = [...imgs, ...imgs].slice(0, Math.max(imgs.length, 40));
-  el.innerHTML = pool.map(src =>
-    `<div class="montage-cell"><img src="${src}" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`
-  ).join("");
+  const n = montageImgs.length;
+  if (!n) return;
+  const W = el.clientWidth, H = el.clientHeight;
+  let best = 1, bestDiff = Infinity;
+  for (let r = 1; r <= n; r++) {
+    const aspect = (W / (n / r)) / (H / r);
+    const d = Math.abs(Math.log(aspect / 1.5));
+    if (d < bestDiff) { bestDiff = d; best = r; }
+  }
+  if (best === montageRows) return;
+  montageRows = best;
+  const base = Math.floor(n / best), extra = n % best;
+  let i = 0, html = "";
+  for (let r = 0; r < best; r++) {
+    const count = base + (r < extra ? 1 : 0);
+    html += '<div class="montage-row">';
+    for (let k = 0; k < count; k++, i++) {
+      html += `<div class="montage-cell"><img src="${montageImgs[i]}" alt="" loading="lazy" onerror="this.parentElement.style.display='none'"></div>`;
+    }
+    html += "</div>";
+  }
+  el.innerHTML = html;
+}
+function buildMontage() {
+  montageImgs = projects.map(p => p.image).filter(Boolean);
+  montageRows = 0;
+  layoutMontage();
+  window.addEventListener("resize", layoutMontage);
 }
 
 // ============================================================
