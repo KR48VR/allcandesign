@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Teaching blackboard">
+  <rect width="512" height="512" rx="96" fill="#1a2420"/>
+  <rect x="76" y="64" width="360" height="268" rx="22" fill="#24312c" stroke="#f4f0e6" stroke-width="10"/>
+  <path d="M118 250 Q196 96 286 250" fill="none" stroke="#ff5d5d" stroke-width="12" stroke-linecap="round"/>
+  <path d="M150 214 C186 214 186 168 222 168 C258 168 258 250 294 250 C330 250 330 196 366 196 C392 196 404 214 418 220" fill="none" stroke="#5ee0d6" stroke-width="10" stroke-linecap="round"/>
+  <rect x="286" y="372" width="146" height="30" rx="15" fill="#f4f0e6" transform="rotate(-18 359 387)"/>
+  <rect x="414" y="366" width="28" height="30" rx="8" fill="#e7d3a4" transform="rotate(-18 359 387)"/>
+</svg>
