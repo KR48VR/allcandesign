@@ -293,8 +293,8 @@ document.addEventListener('selectstart',e=>e.preventDefault());
 build(0);
 
 /* Tab 6 uses the same phone. Empty open; every line is a step. */
-const caps6=["1. King asks if the room is still needed","2. Chief of Staff recommends retiring it","3. King retires it and asks to teach the case","4. They keep the history instead of deleting","5. They plan to hide it later if unused"];
-const END6="When a simpler practice replaces an older one, retire the old channel instead of leaving it running as a duplicate. A coordination room can outlive its job. Retiring does not mean deleting: keep the history, and hide the room later if you still do not need it.";
+const caps6=["1. King asks if the room is still needed","2. Chief of Staff recommends retiring it","3. King retires it and asks to teach the case","4. They keep the history instead of deleting","5. They plan to hide it later if unused","King decides to keep it visible for trainings"];
+const END6="When a simpler practice replaces an older one, retire the old channel instead of leaving it running as a duplicate. A coordination room can outlive its job. Retiring does not mean deleting: keep the history, and you can leave the room visible if you still want to show it — for example in trainings.";
 const items6=[];
 const steps6=[
 {cap:0,add:{k:'u',t:"with the 7pm digest, do we still need the inTake group?"}},
@@ -309,7 +309,9 @@ const steps6=[
 {cap:4,add:{k:'p',t:["Your plan is the right one: keep inTake for now so the old notes are easy to find, then hide it rather than delete it if we still don’t need it.","I can’t move sidebar rows from here, and once the room stays quiet it shouldn’t keep jumping up with new messages anyway. Hiding later is better than deleting, because the history stays and you can still open it if something comes up.","I’ll check with you on Sunday, 22 November 2026 at 10:00am Singapore time. If we still don’t need the room, I’ll ask then whether to hide it. I won’t hide or delete it unless you say so."]}},
 {cap:4,add:{k:'u',t:"please include what we did here in what you are discussing with Grok Bot about updating the Refining Practices page"}},
 {cap:4,add:{k:'p',t:"I’ll add this step — keep inTake for now, then hide it after two weeks if we still don’t need it — to the refining-practices note I’m working on with Grok Bot."}},
-{cap:4,end:true}
+{cap:5,add:{k:'u',t:"Great! On second thoughts, we don’t need to hide intake after two weeks, in case we wanna keep showing it during our trainings"}},
+{cap:5,add:{k:'p',t:"We’ll leave inTake visible, then — not hidden after two weeks, and not deleted. The old notes stay easy to find, and you can still open the room when you want to show it in a training. I’ve cancelled the check I had set for 22 November. The room stays retired: no new routine posts there."}},
+{cap:5,end:true}
 ];
 const phoneAt={1:0,6:0};
 let phoneOn=1;
