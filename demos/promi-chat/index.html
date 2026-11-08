@@ -197,23 +197,40 @@ body.tab5 #ctl button:hover{background:#B9562A;color:#fff}
 #t5 figure.shot{margin:14px 0 0}
 #t5 figure.shot img{width:100%;height:auto;display:block;border-radius:10px;border:1px solid #e3c4b6;background:#fff}
 #t5 figure.shot figcaption{font-size:13px;line-height:1.4;color:#6b4a3a;margin-top:6px}
+#t6{position:fixed;top:56px;left:0;right:0;bottom:52px;display:none;z-index:8;overflow:auto;background:linear-gradient(#faeee4,#e6c9d0);font-family:NS,-apple-system,'Segoe UI',Roboto,sans-serif;color:#2b1d16}
+body.tab6 #t6{display:block}
+body.tab6 #stage{visibility:hidden}
+body.tab6{background:#f3ddd6}
+body.tab6 #ctl{opacity:1}
+body.tab6 #ctl button{background:#fff;border:1.5px solid #B9562A;color:#B9562A;font-weight:700;padding:7px 12px}
+body.tab6 #ctl button:hover{background:#B9562A;color:#fff}
+#t6 h1{font-size:22px;text-align:center;margin:6px 0 10px}
+#t6 .trk button.sg{font:inherit;text-align:left;cursor:pointer;background:#fff;transition:transform .12s,box-shadow .12s}
+#t6 .trk button.sg:hover{transform:translateY(-2px);box-shadow:0 3px 10px rgba(0,0,0,.15)}
+#t6 .trk button:focus-visible{outline:3px solid #c0562b;outline-offset:2px}
+#t6 .trk button.sg.cur{box-shadow:0 0 0 3px #c0562b;transform:translateY(-1px)}
+#t6in{max-width:880px;margin:0 auto;padding:8px 14px 24px}
+#t6 .frame h2{font-size:20px}
+#t6 .frame{border-top:6px solid #B9562A}
+#t6 .frame p{margin:0}
 @media(max-width:600px){#tabs{flex-wrap:wrap;max-width:calc(100vw - 20px)}}
 
 @media(min-width:601px){
 #tabs{flex-direction:column;top:12px;left:12px;bottom:auto;width:208px;gap:4px;padding:8px;font-size:15px;border-radius:14px}
 #tabs button{text-align:left;white-space:normal;line-height:1.25;padding:12px 14px;font-size:15px}
 #tabs .lg{display:inline}#tabs .sh{display:none}
-#t2,#t3,#t4,#t5{top:0;left:240px}
+#t2,#t3,#t4,#t5,#t6{top:0;left:240px}
 }
 </style></head><body><div id="stage"><div id="cap"></div><div id="phone"><div id="screen">
 <div id="view"><div id="chat"></div></div>
 <div id="hdr"><div class="time">11:30</div><div class="batt"></div><div class="circ" style="left:30px">&#x2039;</div><div class="pill"><div class="av"></div>Promi</div><div class="circ" style="right:30px;font-size:30px">•••</div></div>
 <div id="bar"><div id="plus">+</div><div id="inp" class="ph"><span>Ask Promi</span></div><div id="mic"></div><div id="voice">|ıl|ı</div></div>
 </div></div><div id="end"><div>Refining our practices<br>together</div></div></div>
-<div id="tabs" role="tablist"><button id="tb1" class="on" role="tab" aria-selected="true">1 &middot; <span class="lg">Refining practices</span><span class="sh">Practices</span></button><button id="tb2" role="tab" aria-selected="false">2 &middot; <span class="lg">Tech support tickets</span><span class="sh">Tickets</span></button><button id="tb3" role="tab" aria-selected="false">3 &middot; <span class="lg">PPT to PDF cleanup</span><span class="sh">Cleanup</span></button><button id="tb4" role="tab" aria-selected="false">4 &middot; <span class="lg">Search Console setup</span><span class="sh">Search</span></button><button id="tb5" role="tab" aria-selected="false">5 &middot; <span class="lg">Meeting note-taker</span><span class="sh">Notes</span></button></div>
+<div id="tabs" role="tablist"><button id="tb1" class="on" role="tab" aria-selected="true">1 &middot; <span class="lg">Refining practices</span><span class="sh">Practices</span></button><button id="tb2" role="tab" aria-selected="false">2 &middot; <span class="lg">Tech support tickets</span><span class="sh">Tickets</span></button><button id="tb3" role="tab" aria-selected="false">3 &middot; <span class="lg">PPT to PDF cleanup</span><span class="sh">Cleanup</span></button><button id="tb4" role="tab" aria-selected="false">4 &middot; <span class="lg">Search Console setup</span><span class="sh">Search</span></button><button id="tb5" role="tab" aria-selected="false">5 &middot; <span class="lg">Meeting note-taker</span><span class="sh">Notes</span></button><button id="tb6" role="tab" aria-selected="false">6 &middot; <span class="lg">Retiring a room</span><span class="sh">Room</span></button></div>
 <div id="t3"><div id="t2in"><div id="t3list"></div></div></div>
 <div id="t4"><div id="t4in"><div id="t4list"></div></div></div>
 <div id="t5"><div id="t5in"><div id="t5list"></div></div></div>
+<div id="t6"><div id="t6in"><div id="t6list"></div></div></div>
 <div id="t2"><div id="t2in"><div id="t2pick" role="toolbar" aria-label="Choose a ticket example"></div><div id="t2list"></div></div></div>
 <div id="ctl"><button id="bR" title="Restart (Home / R)">&#8634; Restart</button><button id="bB" title="Back (Left)">&#8249; Back</button><span id="cnt"></span><button id="bN" title="Next (Right / Space)">Next &#8250;</button></div>
 <script>
@@ -402,13 +419,13 @@ function t4go(n){t4s=n;const S=T4[n];let h='<h1>Search Console set-up, by chat</
  const f=t4l.querySelectorAll('.tl .fresh');const sc=document.getElementById('t4');if(f.length&&n>1)f[f.length-1].scrollIntoView({block:'end',behavior:'smooth'});else sc.scrollTop=0}
 function t4next(){if(t4s<T4.length-1)t4go(t4s+1)}function t4prev(){if(t4s>0)t4go(t4s-1)}
 function t4key(e){const k=e.key;if((k=='Enter'||k==' ')&&e.target.closest&&e.target.closest('button'))return;if(k=='ArrowRight'||k==' '||k=='PageDown'||k=='Enter'){e.preventDefault();t4next()}else if(k=='ArrowLeft'||k=='PageUp'||k=='Backspace'){e.preventDefault();t4prev()}else if(k=='Home'||k=='r'||k=='R'){e.preventDefault();t4go(0)}}
-setTab=function(n){TAB=n;[1,2,3,4,5].forEach(i=>{document.body.classList.toggle('tab'+i,n==i&&i>1);const b=document.getElementById('tb'+i);b.classList.toggle('on',n==i);b.setAttribute('aria-selected',n==i)});if(n==2)t2go(t2s);else if(n==3)t3go(t3s);else if(n==4)t4go(t4s);else if(n==5)t5go(t5s);else upd();t5fit()};
+setTab=function(n){TAB=n;[1,2,3,4,5,6].forEach(i=>{document.body.classList.toggle('tab'+i,n==i&&i>1);const b=document.getElementById('tb'+i);b.classList.toggle('on',n==i);b.setAttribute('aria-selected',n==i)});if(n==2)t2go(t2s);else if(n==3)t3go(t3s);else if(n==4)t4go(t4s);else if(n==5)t5go(t5s);else if(n==6)t6go(t6s);else upd();t5fit()};
 document.getElementById('tb1').onclick=()=>setTab(1);document.getElementById('tb2').onclick=()=>setTab(2);document.getElementById('tb3').onclick=()=>setTab(3);document.getElementById('tb4').onclick=()=>setTab(4);
 document.getElementById('t4').addEventListener('click',e=>e.stopPropagation());
-document.getElementById('bN').onclick=()=>TAB==5?t5next():TAB==4?t4next():TAB==3?t3next():TAB==2?t2next():next();
-document.getElementById('bB').onclick=()=>TAB==5?t5prev():TAB==4?t4prev():TAB==3?t3prev():TAB==2?t2prev():prev();
-document.getElementById('bR').onclick=()=>TAB==5?t5go(0):TAB==4?t4go(0):TAB==3?t3go(0):TAB==2?t2go(0):restart();
-addEventListener('keydown',e=>{if(e.shiftKey||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key=='4'&&TAB!=4){e.preventDefault();e.stopImmediatePropagation();setTab(4)}else if(e.key=='5'&&TAB!=5){e.preventDefault();e.stopImmediatePropagation();setTab(5)}else if(TAB==4){if(e.key=='1'||e.key=='2'||e.key=='3'){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}else{e.stopImmediatePropagation();t4key(e)}}},true);
+document.getElementById('bN').onclick=()=>TAB==6?t6next():TAB==5?t5next():TAB==4?t4next():TAB==3?t3next():TAB==2?t2next():next();
+document.getElementById('bB').onclick=()=>TAB==6?t6prev():TAB==5?t5prev():TAB==4?t4prev():TAB==3?t3prev():TAB==2?t2prev():prev();
+document.getElementById('bR').onclick=()=>TAB==6?t6go(0):TAB==5?t5go(0):TAB==4?t4go(0):TAB==3?t3go(0):TAB==2?t2go(0):restart();
+addEventListener('keydown',e=>{if(e.shiftKey||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key=='4'&&TAB!=4){e.preventDefault();e.stopImmediatePropagation();setTab(4)}else if(e.key=='5'&&TAB!=5){e.preventDefault();e.stopImmediatePropagation();setTab(5)}else if(e.key=='6'&&TAB!=6){e.preventDefault();e.stopImmediatePropagation();setTab(6)}else if(TAB==4){if(e.key=='1'||e.key=='2'||e.key=='3'){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}else{e.stopImmediatePropagation();t4key(e)}}},true);
 
 
 /* ===== TAB 5: Meeting note-taker =====
@@ -432,8 +449,59 @@ function t5next(){if(t5s<T5.length-1)t5go(t5s+1)}function t5prev(){if(t5s>0)t5go
 function t5key(e){const k=e.key;if((k=='Enter'||k==' ')&&e.target.closest&&e.target.closest('button'))return;if(k=='ArrowRight'||k==' '||k=='PageDown'||k=='Enter'){e.preventDefault();t5next()}else if(k=='ArrowLeft'||k=='PageUp'||k=='Backspace'){e.preventDefault();t5prev()}else if(k=='Home'||k=='r'||k=='R'){e.preventDefault();t5go(0)}}
 document.getElementById('tb5').onclick=()=>setTab(5);
 document.getElementById('t5').addEventListener('click',e=>e.stopPropagation());
-addEventListener('keydown',e=>{if(e.shiftKey||e.ctrlKey||e.metaKey||e.altKey)return;if(TAB==5){if(e.key=='1'||e.key=='2'||e.key=='3'||e.key=='4'){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}else{e.stopImmediatePropagation();t5key(e)}}},true);
-function t5fit(){const tabs=document.getElementById('tabs');const narrow=innerWidth<=600;const box=tabs.getBoundingClientRect();const wrap=narrow&&box.height>52;const top=wrap?(Math.ceil(box.bottom)+6)+'px':'';['t2','t3','t4','t5'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.top=top})}
+addEventListener('keydown',e=>{if(e.shiftKey||e.ctrlKey||e.metaKey||e.altKey)return;if(TAB==5){if(e.key=='1'||e.key=='2'||e.key=='3'||e.key=='4'){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}else{e.stopImmediatePropagation();t5key(e)}}else if(TAB==6){if(e.key=='1'||e.key=='2'||e.key=='3'||e.key=='4'||e.key=='5'){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}else{e.stopImmediatePropagation();t6key(e)}}},true);
+function t5fit(){const tabs=document.getElementById('tabs');const narrow=innerWidth<=600;const box=tabs.getBoundingClientRect();const wrap=narrow&&box.height>52;const top=wrap?(Math.ceil(box.bottom)+6)+'px':'';['t2','t3','t4','t5','t6'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.top=top})}
 addEventListener('resize',t5fit);t5fit();
+
+/* ===== TAB 6: Retiring a room =====
+   Approved public wording. No privacy subtitle. */
+const T6 = [
+  {
+    "track": "inTake",
+    "h": "What inTake was for",
+    "body": "We created inTake on 11 September 2026 as the single place for dated, stacking team reports, with a clear-list King would skim and clear."
+  },
+  {
+    "track": "Replaced",
+    "h": "What replaced the evening clear-list",
+    "body": "On 9 October 2026 he asked for one 7pm daily digest from Chief of Staff instead, to stop information overload. Rooms became optional for him. The digest replaced the inTake evening clear-list. The automated evening list itself was stopped on 13 October 2026."
+  },
+  {
+    "track": "Lingered",
+    "h": "What lingered",
+    "body": "After that, leftover bulletin-board posts continued: short daily experiment notes and other report notes. Those same notes were already being saved for the daily digest, and he was not expected to read the room."
+  },
+  {
+    "track": "Decision",
+    "h": "The decision",
+    "body": "On 8 November 2026 he asked whether we still needed inTake given the digest. The answer was no: the digest had taken over its original job. He said retire it. Chief of Staff told the room and the bots who posted there to stop, and to keep using the digest inbox."
+  },
+  {
+    "track": "Stayed",
+    "h": "What stayed",
+    "body": "orGym, adLab, siMlab, and kumBaya stay, because each still has a job the digest does not replace."
+  },
+  {
+    "track": "Kept",
+    "h": "What we kept",
+    "body": "We did not delete the room, so the old notes stay easy to find. The plan is to leave it parked for two weeks, then hide it from the sidebar if we still do not need it — hide, not delete, so the history can still be opened later. That check is set for 22 November 2026."
+  },
+  {
+    "track": "Shows",
+    "h": "What it shows",
+    "body": "When a simpler practice replaces an older one, retire the old channel instead of leaving it running as a duplicate. A coordination room can outlive its job. Retiring does not mean deleting: keep the history, and hide the room later if you still do not need it."
+  }
+];
+let t6s=0;const t6l=document.getElementById('t6list');
+function trk6(n){return '<div class="trk">'+T6.map((s,i)=>{const done=i<n,cur=i===n;const cls=done?'d':cur?'r cur':'pd';const aria='Jump to '+s.h;return '<button type="button" class="sg '+cls+'" data-j="'+i+'" aria-label="'+e2(aria)+'"'+(cur?' aria-current="step"':'')+'><div class="sn">'+(done?'&#10003;':i+1)+'</div><div class="sl"><b>'+e2(s.track)+'</b><span>'+(done?'Done':cur?'In progress':'Pending')+'</span></div></button>'}).join('<div class="sa">&rarr;</div>')+'</div>'}
+function t6go(n){t6s=n;const S=T6[n];let h='<h1>Retiring a room</h1>'+trk6(n);
+ h+='<div class="frame fresh"><h2>'+e2(S.h)+'</h2><p>'+e2(S.body)+'</p></div>';
+ t6l.innerHTML=h;document.getElementById('cnt').textContent='step '+n+' / '+(T6.length-1);
+ document.getElementById('t6').scrollTop=0}
+t6l.addEventListener('click',e=>{const b=e.target.closest('[data-j]');if(b)t6go(+b.dataset.j)});
+function t6next(){if(t6s<T6.length-1)t6go(t6s+1)}function t6prev(){if(t6s>0)t6go(t6s-1)}
+function t6key(e){const k=e.key;if((k=='Enter'||k==' ')&&e.target.closest&&e.target.closest('button'))return;if(k=='ArrowRight'||k==' '||k=='PageDown'||k=='Enter'){e.preventDefault();t6next()}else if(k=='ArrowLeft'||k=='PageUp'||k=='Backspace'){e.preventDefault();t6prev()}else if(k=='Home'||k=='r'||k=='R'){e.preventDefault();t6go(0)}}
+document.getElementById('tb6').onclick=()=>setTab(6);
+document.getElementById('t6').addEventListener('click',e=>e.stopPropagation());
 
 </script></body></html>
