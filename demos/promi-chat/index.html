@@ -212,6 +212,10 @@ body.tab6 .pill{left:50%;width:auto;transform:translateX(-50%);padding-right:26p
 body.tab6 #end div{height:auto;min-height:400px;padding:40px 52px;box-sizing:border-box;font-size:31px;line-height:1.38}
 body.tab6 #end .endline{display:block;width:100%;min-width:0;white-space:normal;text-align:center;font:inherit}
 .sysnote{margin:2px 48px 22px;text-align:center;font-size:26px;line-height:36px;color:#7a6558;font-weight:600}
+.attach{width:fit-content;max-width:100%;margin:0 0 22px;padding:8px;border-radius:24px;box-sizing:border-box;animation:in .35s ease-out}
+.attach.su{margin-left:auto;background:#B9562A}
+.attach.sp{background:#f2f2f2}
+.attach img{display:block;width:416px;max-width:100%;height:auto;border-radius:16px;background:#fff}
 #t6 h1{font-size:22px;text-align:center;margin:6px 0 10px}
 #t6 .trk button.sg{font:inherit;text-align:left;cursor:pointer;background:#fff;transition:transform .12s,box-shadow .12s}
 #t6 .trk button.sg:hover{transform:translateY(-2px);box-shadow:0 3px 10px rgba(0,0,0,.15)}
@@ -258,6 +262,7 @@ function cancel(){gen++;timers.forEach(id=>{clearTimeout(id);clearInterval(id)})
 function el(it,anim,sel){const e=document.createElement('div');
  if(it.k=='card'){e.className='card'+(sel?' done':'');e.innerHTML='<h4>Small links between lessons?</h4><div class="opt'+(sel?' sel':'')+'" id="optA"><i>A</i><span>Keep Chef\'s link, add one to Lesson 9</span><b class="chk">&#10003;</b></div><div class="opt b2" id="optB"><i>B</i><span>'+D.B+'</span></div><div class="hint">&#9757; Tap to choose</div>';cardEl=e}
  else if(it.k=='note'){e.className='sysnote';e.textContent=it.t}
+ else if(it.k=='img'){e.className='attach '+(it.side=='p'?'sp':'su');const img=document.createElement('img');img.alt=it.alt||'';img.src=it.src;if(it.w)img.width=it.w;if(it.h)img.height=it.h;if(it.src2)img.setAttribute('srcset',it.src+' 1x, '+it.src2+' 2x');e.appendChild(img)}
  else{const paras=Array.isArray(it.t)?it.t:[it.t];e.className='b '+it.k;e.innerHTML=paras.map(p=>'<p>'+p+'</p>').join('')}
  if(!anim)e.classList.add('noanim');chat.appendChild(e);return e}
 function scroll(instant){const vh=1600-130-30;const y=Math.max(0,chat.scrollHeight-vh);if(instant){chat.style.transition='none';chat.style.transform='translateY('+(-y)+'px)';void chat.offsetHeight;chat.style.transition=''}else chat.style.transform='translateY('+(-y)+'px)'}
@@ -266,16 +271,17 @@ function setInput(t){if(t){inp.className='';inp.innerHTML='<span>'+esc(t)+'<b cl
 function upd(){if(TAB==1||TAB==6)document.getElementById('cnt').textContent=step+' / '+steps.length}
 function build(n){cancel();chat.innerHTML='';cardEl=null;setInput('');endEl.style.display='none';
  items.forEach(it=>el(it,false));let c=0;
- for(let i=0;i<n;i++){const s=steps[i];c=s.cap;if(s.end){endEl.style.display='flex';continue}el(s.add,false,s.add.k=='card'&&n>i+1);if(s.note)el({k:'note',t:s.note},false)}
+ for(let i=0;i<n;i++){const s=steps[i];c=s.cap;if(s.end){endEl.style.display='flex';continue}el(s.add,false,s.add.k=='card'&&n>i+1);if(s.img)el(s.img,false);if(s.note)el({k:'note',t:s.note},false)}
  cap.textContent=caps[c];step=n;upd();scroll(true);requestAnimationFrame(()=>scroll(true))}
+function afterStep(s,done){const note=()=>{if(s.note)T(()=>{el({k:'note',t:s.note},true);scroll();done()},400);else done()};if(s.img)T(()=>{el(s.img,true);scroll();note()},400);else note()}
 function run(i){const s=steps[i];busy=true;cap.textContent=caps[s.cap];step=i+1;upd();
  const done=()=>{busy=false};
  if(s.end){endEl.style.display='flex';return done()}
- const a=s.add;
- if(a.k=='u'){let n=0;const g=gen;const iv=setInterval(()=>{if(g!==gen){clearInterval(iv);return}n++;setInput(a.t.slice(0,n));if(n>=a.t.length){clearInterval(iv);T(()=>{setInput('');el(a,true);scroll();if(s.note)T(()=>{el({k:'note',t:s.note},true);scroll();done()},400);else done()},350)}},1000/14);timers.push(iv)}
+ const a=s.add;const fin=()=>afterStep(s,done);
+ if(a.k=='u'){let n=0;const g=gen;const iv=setInterval(()=>{if(g!==gen){clearInterval(iv);return}n++;setInput(a.t.slice(0,n));if(n>=a.t.length){clearInterval(iv);T(()=>{setInput('');el(a,true);scroll();fin()},350)}},1000/14);timers.push(iv)}
  else if(a.k=='p'){const d=document.createElement('div');d.className='dots';d.innerHTML='<span></span><span></span><span></span>';chat.appendChild(d);scroll();
-   T(()=>{d.remove();el(a,true);scroll();done()},1000)}
- else{el(a,true);requestAnimationFrame(()=>scroll());done()}}
+   T(()=>{d.remove();el(a,true);scroll();fin()},1000)}
+ else{el(a,true);requestAnimationFrame(()=>scroll());fin()}}
 function atCard(){return step===3&&cardEl&&!cardEl.classList.contains('done')}
 function chooseA(){if(!atCard()||busy)return;busy=true;cardEl.querySelector('#optA').classList.add('sel');
  T(()=>{cardEl.classList.add('done');busy=false;run(3)},700)}
@@ -302,7 +308,7 @@ const steps6=[
 {cap:2,add:{k:'u',t:"Retire it. and let grok bot know to capture it as yet another case study of how we refined practices? work with him to see how best to communicate and teach this, and update the refining practice webpage/page?"}},
 {cap:2,add:{k:'p',t:"Retiring inTake now. I’ll tell the bots to stop posting there, then work with Grok Bot on capturing this as a refining-practices case and updating the page."}},
 {cap:2,add:{k:'p',t:["inTake is retired. I told the bots who were still posting there to stop, and to keep filing those notes to the digest inbox. The other groups — orGym, adLab, siMlab, and kumBaya — stay as they are. The old inTake chat is still here if you want to look back.","I’ve asked Grok Bot to capture this as another case on the refining practices page, as a story about retiring a process once a simpler one replaces it. I’ll send you the page when the update is live."]}},
-{cap:3,add:{k:'u',t:"will you be deleted the group (see second row), or that is you and shouldn't be deleted?"},note:"He sent a screenshot of the chat list."},
+{cap:3,add:{k:'u',t:"will you be deleted the group (see second row), or that is you and shouldn't be deleted?"},img:{k:'img',side:'u',src:'tab6/frosted-sidebar-light.png?v=043602d6346c',src2:'tab6/frosted-sidebar-light@2x.png?v=9786ee3632a4',w:416,h:306,alt:'Chat list screenshot. The sharp row is Chief of Staff, and the preview reads: King decided today (8 Novem…'}},
 {cap:3,add:{k:'p',t:"That’s me — Chief of Staff — in the second row, with the note that the room is retired. I left myself in inTake on purpose so the old chat history stays put. I won’t delete that group. If you’d rather it disappear from your list, say so and I’ll see what we can do without losing the history."}},
 {cap:3,add:{k:'p',t:"To be sure: don’t delete your usual chat with me. The retired room is the one named inTake. The second row is just my note that we were retiring it; I stayed in that room so the old messages remain."}},
 {cap:4,add:{k:'u',t:"maybe you can move it to the bottom, and if after two weeks we don't need it, we can hide it from the sidebar? any better suggestions?"}},
