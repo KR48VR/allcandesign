@@ -755,7 +755,7 @@ const T8 = [
 let t8s=0;const t8l=document.getElementById('t8list');
 function trk8(n){return '<div class="trk">'+T8.map((s,i)=>{const done=i<n,cur=i===n;const cls=done?'d':cur?'r cur':'pd';return '<button type="button" class="sg '+cls+'" data-j="'+i+'" aria-label="'+e2('Jump to '+s.h)+'"'+(cur?' aria-current="step"':'')+'><div class="sn">'+(done?'&#10003;':i+1)+'</div><div class="sl"><b>'+e2(s.track)+'</b><span>'+(done?'Done':cur?'In progress':'Pending')+'</span></div></button>'}).join('<div class="sa">&rarr;</div>')+'</div>'}
 function t8shots(list){return (list||[]).map(s=>'<figure class="shot"><img src="'+s.src+'" alt="'+e2(s.alt)+'"><figcaption>'+e2(s.cap)+'</figcaption></figure>').join('')}
-function t8chat(b){const lines=(b.lines||[]).map(l=>{const side=l.who==='king'?'king':'bot';const nm=l.who==='king'?'King':'Promi';return '<div class="line '+side+'"><div class="nm">'+nm+'</div><div class="bub">'+e2(l.t)+'</div></div>'}).join('');return '<div class="chatbit"><p class="chatnote">'+e2(b.note||'')+'</p>'+lines+'</div>'}
+function t8chat(b){const lines=(b.lines||[]).map(l=>{const side=l.who==='king'?'king':'bot';const nm=l.who==='king'?'King':'Grok Bot';return '<div class="line '+side+'"><div class="nm">'+nm+'</div><div class="bub">'+e2(l.t)+'</div></div>'}).join('');return '<div class="chatbit"><p class="chatnote">'+e2(b.note||'')+'</p>'+lines+'</div>'}
 function t8flow(flow){let html='';(flow||[]).forEach(b=>{
   if(b.k==='p')html+='<p>'+e2(b.t)+'</p>';
   else if(b.k==='ul')html+='<ul class="lessons">'+b.items.map(t=>'<li>'+e2(t)+'</li>').join('')+'</ul>';
