@@ -687,67 +687,73 @@ document.getElementById('t6').addEventListener('click',e=>e.stopPropagation());
 const T8SUB = "How the One Day film card got onto the portfolio.";
 const T8 = [
   {track:"The kit", h:"Read the folder before you publish", flow:[
-    {k:"p", t:"The folder to read was Portfolio Film Kit. Its README, “Portfolio Film Kit: start here”, was the list of what belonged on the site."},
+    {k:"p", t:"King asked to put the final film from the Portfolio Film Kit Drive folder onto the portfolio, with the Mac Downloads zip as a fallback."},
+    {k:"p", t:"The folder to read was Portfolio Film Kit. Its README, “Portfolio Film Kit: start here”, listed what belonged on the site."},
     {k:"ul", items:[
-      "It named 13 versions.",
-      "It pointed at Films → 10_v9_FINAL_one-day.mp4 as the final film.",
-      "It named the four making-of pages."
+      "13 versions.",
+      "Films → 10_v9_FINAL_one-day.mp4 as the final film (v9, 1:48).",
+      "The four making-of pages."
     ]},
-    {k:"p", t:"A zip sitting in Mac Downloads was only the starter kit, the engine. It was not the movie."},
+    {k:"p", t:"The zip in Mac Downloads was only the starter kit, the engine. It was not the movie."},
     {k:"shots", shots:[{src:"tab8/readme-films-table.png", alt:"The films table from the README, listing 13 versions. The last row is 10_v9_FINAL_one-day, v9, 1:48.", cap:"The films table in the README. Thirteen versions, and v9 — 10_v9_FINAL_one-day — is the 1:48 final."}]}
   ]},
+  {track:"Empty", h:"The Films folder was empty", flow:[
+    {k:"p", t:"While looking for that final file, the Films folder was empty. It had been created empty on 8 November 2026, the day the README was written."},
+    {k:"p", t:"The README still listed 13 version files as sent on 24 October 2026 from the Claude making session. The names were on the page. The files were not in the folder."},
+    {k:"p", t:"They were not on the Mac, or elsewhere in Drive, either. Only the finished v9 sat on the Desktop, and in the Drive Desktop backup, under a different filename."},
+    {k:"p", t:"King asked: if Films is empty, check whether the earlier versions can be found, and whether they should be swept into the folder."}
+  ]},
+  {track:"Found", h:"The 13 versions were recovered", flow:[
+    {k:"p", t:"King said yes: recover the earlier cuts into Films."},
+    {k:"p", t:"On 11 October 2026 King’s Claude account was set up on the shared computer, as a backup to his Mac. It was signed in in the browser, and it was also available from the terminal. Recovery used that already-signed-in browser. It was not a terminal command."},
+    {k:"p", t:"All 13 lengths matched the README. They were uploaded into the private Films folder, and the sharing on that folder was left as it was. The kit and the Films folder stay private."},
+    {k:"shots", shots:[{src:"tab8/films-folder.jpg", alt:"Films folder. The path is My Drive, Portfolio Film Kit, Films. The list includes 10_v9_FINAL_one-day.mp4 and the other version files.", cap:"The Films folder after the upload. Path: My Drive > Portfolio Film Kit > Films. 10_v9_FINAL_one-day.mp4 is in the list."}]}
+  ]},
   {track:"The card", h:"The card is the film, not the portfolio", flow:[
-    {k:"p", t:"King refined what the card was for. It is about the video about the portfolio, not the portfolio itself. The portfolio already lists the designs."},
-    {k:"p", t:"So the card prefers the four Claude making-of pages, and it does not link back to the live portfolio. The only tool credited is Claude. The larger crew on the end card stays off this card."},
-    {k:"chat", note:"A short reconstruction in the Grok Bot chat, of that check. Not a saved transcript.", lines:[
-      {who:"king", t:"This card is for the film about the portfolio, not a second copy of the portfolio. The designs are already listed there."},
-      {who:"bot", t:"Then the links are the four making-of pages, and the only tool on the card is Claude."}
+    {k:"p", t:"A caption draft had also suggested linking the live portfolio, and asked whether to list the larger end-card crew."},
+    {k:"p", t:"King refined that. He prefers the four private Claude making-of pages over a live portfolio link, because this card is about how the video was made, not about the portfolio page. The designs already sit there. For the same reason, only Claude is credited — not the larger end-card crew. He also asked to check ElevenLabs. That check comes next."},
+    {k:"chat", note:"A short reconstruction in the Grok Bot chat, of that refinement. Not a saved transcript.", lines:[
+      {who:"king", t:"I prefer the private Claude links over a live portfolio link. We are talking about how we created the video, not about the portfolio page — the designs already sit there."},
+      {who:"bot", t:"Then the links are the four making-of pages, and the only tool on the card is Claude."},
+      {who:"king", t:"You don’t need to list the larger crew, because I built it with Claude."}
     ]}
   ]},
   {track:"ElevenLabs", h:"ElevenLabs was on the end card only", flow:[
-    {k:"p", t:"On 11 October 2026 King’s Claude account was set up on the shared computer, as a backup to his Mac. It was signed in in the browser, and it was also available from the terminal. That is why the making session could be opened later, in a browser that was already signed in. The film versions were recovered that way."},
-    {k:"p", t:"ElevenLabs was not used to make this film. It only appears on the end-card CREW list in the starter kit, written in beside ChatGPT, Gemini, and the other tools that built the portfolio worlds."},
+    {k:"p", t:"King didn’t think ElevenLabs was used, and asked for a check. It was not used to make this film."},
+    {k:"p", t:"It only appears on the end-card CREW list in the starter kit, written in beside ChatGPT, Gemini, and the other tools that built the portfolio worlds."},
     {k:"p", t:"The line on that card is “We built them to show how we can design a more human future.” Under CAST it says “Everyone these worlds were built for.” The soundtrack is an original score written in code. The kit brief asked, “Is there a voice-over, or does showing do the work?” Showing won."},
     {k:"shots", shots:[{src:"tab8/end-card-crew.jpg", alt:"End card. CREW lists Claude, ChatGPT, Gemini, Grok, Perplexity, Codex, NotebookLM, ElevenLabs, Google AI Studio, Higgsfield, and Groq. CAST: Everyone these worlds were built for.", cap:"The end card in the starter kit. ElevenLabs is one name in that CREW line. It was not used to make this film."}]}
   ]},
-  {track:"Empty", h:"The Films folder was empty", flow:[
-    {k:"p", t:"The Films folder was created empty on 8 November 2026, the day the README was written."},
-    {k:"p", t:"The README still listed 13 version files as sent on 24 October 2026, from the Claude session. The names were on the page. The files were not in the folder."}
-  ]},
-  {track:"Found", h:"The 13 versions were recovered", flow:[
-    {k:"p", t:"All 13 versions were recovered by opening the making session in the browser that was already signed in. Their lengths matched the README. They were uploaded into the private Films folder, and the sharing on that folder was left as it was."},
-    {k:"p", t:"The kit and the Films folder stay private."},
-    {k:"shots", shots:[{src:"tab8/films-folder.jpg", alt:"Films folder. The path is My Drive, Portfolio Film Kit, Films. The list includes 10_v9_FINAL_one-day.mp4 and the other version files.", cap:"The Films folder after the upload. Path: My Drive > Portfolio Film Kit > Films. 10_v9_FINAL_one-day.mp4 is in the list."}]}
-  ]},
   {track:"Two checks", h:"Two decisions, checked with King", flow:[
-    {k:"p", t:"Before anything went up, two decisions were checked with King."},
-    {k:"ul", items:[
-      "The card: the four Claude making-of pages, not a link to the live portfolio. Claude only, as the tool. And a check that ElevenLabs was not used to make the film.",
-      "The film: YouTube Unlisted, and the film kit stays private for now."
-    ]},
-    {k:"chat", note:"A short reconstruction in the Grok Bot chat, of those two checks. Not a saved transcript.", lines:[
-      {who:"king", t:"Before this goes up, check two things with me."},
-      {who:"bot", t:"The card links the four making-of pages, not the live portfolio. The only tool named is Claude. ElevenLabs was not used to make the film."},
-      {who:"king", t:"That’s right. Put the film on YouTube as Unlisted, and leave the film kit private."}
-    ]},
-    {k:"shots", shots:[{src:"tab8/youtube-studio-unlisted.jpg", alt:"YouTube Studio video details. Title All Can Create — One Day. Visibility Unlisted. The description includes the four making-of links.", cap:"YouTube Studio. Visibility is Unlisted. The description carries the four making-of links."}]}
+    {k:"p", t:"After the films were in the folder and the card wording was settled, King asked if the film was being made to go live. Nothing public had started yet."},
+    {k:"p", t:"Two things would go public, and they were checked with him: should the film be Public or Unlisted on YouTube, and should the film kit folder be shared so visitors can open that link."},
+    {k:"p", t:"King chose Unlisted, and to keep the film kit private for now."},
+    {k:"chat", note:"A short reconstruction in the Grok Bot chat, of that go-live check. Not a saved transcript.", lines:[
+      {who:"king", t:"Are you working on making it go live?"},
+      {who:"bot", t:"Not yet. Two things would go public: should the film be Public or Unlisted, and should the film kit be shared so visitors can open that link?"},
+      {who:"king", t:"Unlisted. Keep the film kit private for now."}
+    ]}
   ]},
   {track:"Live", h:"The film went on the portfolio", flow:[
-    {k:"p", t:"The film went up as Unlisted on YouTube, with the first frame as the thumbnail. The card carries the same four Claude links, and so does the YouTube description."},
+    {k:"p", t:"The film went up as Unlisted on YouTube, with the first frame as the thumbnail. The card carries the same four Claude links, and so does the YouTube description. There is no public film-kit link."},
+    {k:"shots", shots:[
+      {src:"tab8/youtube-studio-unlisted.jpg", alt:"YouTube Studio video details. Title All Can Create — One Day. Visibility Unlisted. The description includes the four making-of links.", cap:"YouTube Studio. Visibility is Unlisted. The description carries the four making-of links."},
+      {src:"tab8/youtube-watch.jpg", alt:"The YouTube watch page for All Can Create — One Day, Unlisted, with the four making-of links in the description.", cap:"The watch page. Unlisted, and the four links are in the description."}
+    ]},
     {k:"p", t:"That card landed in PR #53. It sat taller than the cards beside it: the caption was longer, and the four links stacked one per row."},
     {k:"shots", shots:[
       {src:"tab8/grid-before.jpg", alt:"The portfolio row before the height tweak. One Day is on the right, with its making-of links stacked.", cap:"Before. One Day on the right, links stacked, taller than Ipsos and Living Digital 2040."},
       {src:"tab8/card-before.jpg", alt:"The One Day card before the tweak: a long caption, then View Project, then four making-of buttons each on their own row.", cap:"The card up close, before the tweak."}
     ]},
-    {k:"p", t:"PR #54 shortened the caption and put the making-of labels two to a row: Making of One Day, How We Made It, Film Playbook, and Director’s Cut Storyboard. Ipsos and Living Digital 2040 now share that row."},
+    {k:"p", t:"King asked to make it shorter so it didn’t look so much longer than the entries beside it. PR #54 shortened the caption and put the making-of labels two to a row: Making of One Day, How We Made It, Film Playbook, and Director’s Cut Storyboard."},
     {k:"shots", shots:[
       {src:"tab8/three-card-row-after.jpg", alt:"After the height tweak: Ipsos, Living Digital 2040, and One Day in one row, close in height.", cap:"After. The same three cards, close in height."},
-      {src:"tab8/card-phone-after.jpg", alt:"The shorter One Day card on a phone. Making of One Day sits with View Project. How We Made It sits with Film Playbook.", cap:"The same card on a phone. Two links on a row, where they fit."},
-      {src:"tab8/youtube-watch.jpg", alt:"The YouTube watch page for All Can Create — One Day, Unlisted, with the four making-of links in the description.", cap:"The watch page. Unlisted, and the four links are in the description."}
+      {src:"tab8/card-phone-after.jpg", alt:"The shorter One Day card on a phone. Making of One Day sits with View Project. How We Made It sits with Film Playbook.", cap:"The same card on a phone. Two links on a row, where they fit."}
     ]}
   ]},
   {track:"This tab", h:"This tab is the example", flow:[
-    {k:"p", t:"This tab is the episode itself, so the whole thing can be used as an example of teaching, and of working with agents. Read the folder. Check the facts. Ask before publishing. Then show the work."},
+    {k:"p", t:"After the card was live, this tab was added so the whole thing can be used as an example of teaching, and of working with agents."},
+    {k:"p", t:"The through-line, now in the order it happened: read the folder, notice what is missing, recover it, refine the brief, check the facts, ask before publishing, then show the work."},
     {k:"p", t:"The live card is on the portfolio. The film is the Unlisted video."},
     {k:"links"}
   ]}
