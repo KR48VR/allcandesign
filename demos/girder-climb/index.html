@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="theme-color" content="#07060f" />
+<meta name="application-name" content="Girder Climb" />
+<title>Girder Climb</title>
+<style>
+  :root {
+    --bg: #07060f;
+    --bg2: #100d1c;
+    --paper: #f6f0e6;
+    --dim: #b7ae9f;
+    --amber: #ffb020;
+    --cyan: #2ee0ea;
+    --rust: #e25a28;
+    --btn: #1b1730;
+    --line: #3a3358;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #1a1430 0%, transparent 55%),
+      var(--bg);
+    color: var(--paper);
+    font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+  }
+  #app {
+    height: 100%;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: env(safe-area-inset-top) 12px env(safe-area-inset-bottom);
+  }
+  .topbar {
+    width: min(920px, 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 10px 4px 8px;
+  }
+  .brand {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .brand b {
+    letter-spacing: 0.16em;
+    font-size: 13px;
+    color: var(--cyan);
+  }
+  .brand span { font-size: 12px; color: var(--dim); }
+  .tools { display: flex; gap: 8px; flex-wrap: wrap; }
+  .ghost {
+    appearance: none;
+    border: 1px solid var(--line);
+    background: var(--btn);
+    color: var(--paper);
+    border-radius: 999px;
+    padding: 8px 14px;
+    font: 650 13px/1 inherit;
+    cursor: pointer;
+  }
+  .ghost:hover { border-color: var(--cyan); }
+  #stage {
+    position: relative;
+    flex: 1;
+    width: min(920px, 100%);
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  canvas {
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    background: #08070f;
+    border-radius: 14px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.55), 0 0 0 1px #2c2744;
+  }
+  .overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: linear-gradient(180deg, rgba(7,6,15,.28), rgba(7,6,15,.72));
+    border-radius: 14px;
+  }
+  .overlay.hidden { display: none; }
+  .card {
+    width: min(420px, 100%);
+    text-align: center;
+    padding: 28px 24px 24px;
+    background: linear-gradient(180deg, rgba(22,18,40,.92), rgba(10,8,20,.94));
+    border: 1px solid #3d3560;
+    border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.45);
+  }
+  .card h1 {
+    margin: 0 0 8px;
+    font-size: clamp(32px, 8vw, 46px);
+    line-height: .95;
+    letter-spacing: -0.03em;
+    background: linear-gradient(180deg, #fff6dd 0%, #ffb020 55%, #e25a28 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .card p { margin: 0 0 18px; color: var(--dim); font-size: 15px; line-height: 1.45; }
+  .play {
+    appearance: none;
+    width: 100%;
+    border: 0;
+    border-radius: 14px;
+    padding: 14px 18px;
+    font: 750 18px/1 inherit;
+    letter-spacing: 0.08em;
+    color: #1a1206;
+    background: linear-gradient(180deg, #ffd56a, #ffb020 55%, #e89410);
+    box-shadow: 0 8px 0 #9a5a08, 0 14px 24px rgba(0,0,0,.35);
+    cursor: pointer;
+  }
+  .play:active { transform: translateY(3px); box-shadow: 0 5px 0 #9a5a08; }
+  .hint { margin-top: 14px; font-size: 12px; color: #8b8496; }
+  #hud {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(420px, calc(100% - 24px));
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    pointer-events: none;
+    font: 750 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: 0.04em;
+    text-shadow: 0 1px 2px #000;
+    color: #fff6dd;
+  }
+  #hud.hidden { display: none; }
+  #controls {
+    width: min(920px, 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 12px 4px 10px;
+  }
+  .cluster, .actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+  .pad, .jump, .go {
+    appearance: none;
+    border: 1px solid #3a3358;
+    color: var(--paper);
+    cursor: pointer;
+    font: 750 13px/1 inherit;
+  }
+  .pad {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #2a2544, #151225);
+    box-shadow: inset 0 2px 0 rgba(255,255,255,.08), 0 6px 0 #0a0812;
+  }
+  .jump {
+    width: 86px;
+    height: 58px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 35% 30%, #5eeaf0, #129aa6);
+    color: #042328;
+    box-shadow: 0 6px 0 #0b5c64;
+  }
+  .go {
+    height: 58px;
+    padding: 0 18px;
+    border-radius: 999px;
+    background: radial-gradient(circle at 35% 30%, #3a3358, #1b1730);
+    box-shadow: 0 6px 0 #0a0812;
+  }
+  .pad:active, .jump:active, .go:active { transform: translateY(3px); box-shadow: none; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="topbar">
+    <div class="brand">
+      <b>GIRDER CLIMB</b>
+      <span id="tagline">Four stages · ramps, lifts, belts, pins</span>
+    </div>
+    <div class="tools">
+      <button class="ghost" id="muteBtn" type="button">Sound on</button>
+      <button class="ghost" id="fullBtn" type="button">Fullscreen</button>
+    </div>
+  </div>
+  <div id="stage">
+    <canvas id="game" width="448" height="512"></canvas>
+    <div id="hud" class="hidden">
+      <div>SCORE <span id="scoreEl">000000</span></div>
+      <div>HI <span id="hiEl">000000</span></div>
+      <div>LV <span id="lvEl">1</span></div>
+      <div>LIVES <span id="livesEl">3</span></div>
+    </div>
+    <div class="overlay" id="titleScreen">
+      <div class="card">
+        <h1>Girder Climb</h1>
+        <p>Four stages: climb the ramps, ride the lifts, survive the belts, and pull the pins to free your friend.</p>
+        <button class="play" id="playBtn" type="button">PLAY</button>
+        <div class="hint">Arrows or WASD to move · Space to jump<br/>On a phone, use the buttons below</div>
+      </div>
+    </div>
+    <div class="overlay hidden" id="endScreen">
+      <div class="card">
+        <h1 id="endTitle">You made it</h1>
+        <p id="endText">Score 0</p>
+        <button class="play" id="againBtn" type="button">PLAY AGAIN</button>
+      </div>
+    </div>
+  </div>
+  <div id="controls">
+    <div class="cluster">
+      <button class="pad" data-key="left" type="button">◀</button>
+      <button class="pad" data-key="right" type="button">▶</button>
+      <button class="pad" data-key="up" type="button">▲</button>
+      <button class="pad" data-key="down" type="button">▼</button>
+    </div>
+    <div class="actions">
+      <button class="go" data-key="start" type="button">Start</button>
+      <button class="jump" data-key="jump" type="button">JUMP</button>
+    </div>
+  </div>
+</div>
+<script>
+const W = 448, H = 512;
+const canvas = document.getElementById("game");
+const ctx = canvas.getContext("2d");
+ctx.imageSmoothingEnabled = false;
+
+const ui = {
+  title: document.getElementById("titleScreen"),
+  end: document.getElementById("endScreen"),
+  endTitle: document.getElementById("endTitle"),
+  endText: document.getElementById("endText"),
+  hud: document.getElementById("hud"),
+  score: document.getElementById("scoreEl"),
+  hi: document.getElementById("hiEl"),
+  lv: document.getElementById("lvEl"),
+  lives: document.getElementById("livesEl"),
+  mute: document.getElementById("muteBtn"),
+  full: document.getElementById("fullBtn"),
+};
+
+const keys = { left:false, right:false, up:false, down:false, jump:false, start:false };
+let muted = false;
+let audioCtx = null;
+
+function pad6(n){ return String(Math.max(0, n|0)).padStart(6, "0"); }
+
+function tone(freq, dur, type="square", gain=0.045){
+  if (muted) return;
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = type;
+    o.frequency.value = freq;
+    g.gain.value = gain;
+    g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(); o.stop(audioCtx.currentTime + dur);
+  } catch(e) {}
+}
+
+function surfaceY(g, px){
+  const t = Math.max(0, Math.min(1, (px - g.x) / g.w));
+  return g.yL + t * (g.yR - g.yL);
+}
+
+function laddersFrom(girders, spec){
+  return spec.map((s,i) => {
+    const lo = girders[s[1]], hi = girders[s[2]];
+    const bottom = surfaceY(lo, s[0]);
+    const topFull = surfaceY(hi, s[0]);
+    const top = s[3] ? bottom - (bottom - topFull) * 0.42 : topFull;
+    return { id:i+1, x:s[0], top, bottom, broken: !!s[3] };
+  });
+}
+
+const STAGE_NAMES = ["Ramps","Lifts","Belts","Pins"];
+
+function makeRamps(){
+  const girders = [
+    { x:16, w:416, yL:476, yR:494 },
+    { x:40, w:392, yL:410, yR:394 },
+    { x:16, w:392, yL:324, yR:340 },
+    { x:40, w:392, yL:268, yR:252 },
+    { x:16, w:392, yL:182, yR:198 },
+    { x:16, w:318, yL:114, yR:128 },
+    { x:156, w:148, yL:50, yR:50 },
+  ];
+  return {
+    kind:"ramps", name:"Ramps", winMode:"reach",
+    girders, ladders: laddersFrom(girders, [
+      [86,0,1,false],[228,0,1,true],[358,0,1,false],
+      [48,1,2,false],[188,1,2,false],[336,1,2,false],
+      [78,2,3,false],[248,2,3,false],[378,2,3,false],
+      [58,3,4,false],[198,3,4,false],[328,3,4,false],
+      [98,4,5,false],[248,4,5,false],[224,5,6,false],
+    ]),
+    lifts:[], pins:[], spawnX:36,
+    friendX:204, friendY: surfaceY(girders[6],204)-16,
+    apeX:40, apeY: surfaceY(girders[5],64)-16
+  };
+}
+
+function makeLifts(){
+  const girders = [
+    { x:16, w:416, yL:492, yR:492 },
+    { x:70, w:140, yL:310, yR:310 },
+    { x:248, w:134, yL:310, yR:310 },
+    { x:70, w:140, yL:118, yR:118 },
+    { x:248, w:134, yL:118, yR:118 },
+  ];
+  return {
+    kind:"lifts", name:"Lifts", winMode:"reach",
+    girders,
+    ladders: laddersFrom(girders, [[140,0,1,false],[300,0,2,false]]),
+    lifts: [
+      { x:22, w:48, y:450, minY:118, maxY:492, vy:-1.15 },
+      { x:382, w:46, y:200, minY:118, maxY:492, vy: 1.15 },
+    ],
+    pins:[], spawnX:40,
+    friendX:300, friendY: surfaceY(girders[4],308)-16,
+    apeX:80, apeY: surfaceY(girders[3],100)-16
+  };
+}
+
+function makeBelts(){
+  const girders = [
+    { x:16, w:416, yL:492, yR:492, belt: 1 },
+    { x:16, w:392, yL:400, yR:400, belt:-1 },
+    { x:40, w:392, yL:308, yR:308, belt: 1 },
+    { x:16, w:392, yL:216, yR:216, belt:-1 },
+    { x:80, w:288, yL:118, yR:118, belt: 0 },
+  ];
+  return {
+    kind:"belts", name:"Belts", winMode:"reach",
+    girders,
+    ladders: laddersFrom(girders, [
+      [100,0,1,false],[320,0,1,true],
+      [60,1,2,false],[260,1,2,false],
+      [140,2,3,false],[360,2,3,false],
+      [200,3,4,false],
+    ]),
+    lifts:[], pins:[], spawnX:36,
+    friendX:300, friendY: surfaceY(girders[4],308)-16,
+    apeX:90, apeY: surfaceY(girders[4],110)-16
+  };
+}
+
+function makePins(){
+  const girders = [
+    { x:16, w:416, yL:492, yR:492 },
+    { x:40, w:368, yL:392, yR:392 },
+    { x:16, w:368, yL:292, yR:292 },
+    { x:40, w:368, yL:192, yR:192 },
+    { x:16, w:110, yL:96, yR:96 },
+    { x:190, w:170, yL:92, yR:92 },
+  ];
+  const pinSpots = [[1,90],[1,200],[1,320],[2,70],[2,220],[2,340],[3,130],[3,280]];
+  return {
+    kind:"pins", name:"Pins", winMode:"pins",
+    girders,
+    ladders: laddersFrom(girders, [
+      [90,0,1,false],[240,0,1,false],[360,0,1,true],
+      [70,1,2,false],[200,1,2,false],[330,1,2,false],
+      [90,2,3,false],[250,2,3,false],
+      [70,3,4,false],[260,3,5,false],
+    ]),
+    lifts:[],
+    pins: pinSpots.map(([gi,x]) => ({ x, y: surfaceY(girders[gi], x)-1, got:false })),
+    spawnX:36,
+    friendX:250, friendY: surfaceY(girders[5],258)-16,
+    apeX:28, apeY: surfaceY(girders[4],40)-16
+  };
+}
+
+function makeLevel(level){
+  return [makeRamps, makeLifts, makeBelts, makePins][(level-1) % 4]();
+}
+
+function spawnPlayer(girders, x){
+  const h = 20;
+  return { x, y: surfaceY(girders[0], x+7)-h, w:14, h, vx:0, vy:0, prevY:0, onGround:true, onLadder:false, lad:null, face:1 };
+}
+
+function setTagline(text){
+  const el = document.getElementById("tagline");
+  if (el) el.textContent = text;
+}
+
+function applyLevel(keepScore){
+  const L = makeLevel(G.level);
+  G.girders = L.girders; G.ladders = L.ladders; G.lifts = L.lifts; G.pins = L.pins;
+  G.winMode = L.winMode; G.stageName = L.name; G.stageKind = L.kind;
+  G.friendX = L.friendX; G.friendY = L.friendY; G.apeX = L.apeX; G.apeY = L.apeY;
+  G.player = spawnPlayer(L.girders, L.spawnX);
+  G.barrels = []; G.floats = []; G.dust = [];
+  G.spawnIn = Math.max(46, 96 - G.level*10);
+  G.throwT = 0; G.pause = 0; G.shake = 0;
+  G.invuln = keepScore ? 70 : 0;
+  G.intro = 110;
+  setTagline("Level " + G.level + " · " + L.name);
+}
+
+function createGame(){
+  return {
+    mode:"title", frame:0, score:0, hi: Number(localStorage.getItem("girderClimbHi")||0),
+    lives:3, level:1, player:null, barrels:[], floats:[], dust:[],
+    spawnIn:80, throwT:0, pause:0, invuln:0, jumpWas:false, startWas:false, shake:0,
+    girders:[], ladders:[], lifts:[], pins:[],
+    winMode:"reach", stageName:"Ramps", stageKind:"ramps", intro:0,
+    friendX:204, friendY:34, apeX:40, apeY:98
+  };
+}
+
+var G = createGame();
+applyLevel(false);
+G.mode = "title";
+G.intro = 0;
+setTagline("Four stages · ramps, lifts, belts, pins");
+
+function resetRun(keepScore){
+  applyLevel(keepScore);
+}
+
+function startGame(){
+  G.score = 0; G.lives = 3; G.level = 1;
+  resetRun(false);
+  G.mode = "play";
+  ui.title.classList.add("hidden");
+  ui.end.classList.add("hidden");
+  ui.hud.classList.remove("hidden");
+  if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
+  tone(392,0.08); setTimeout(()=>tone(523,0.12), 80);
+}
+
+function showEnd(title, text, nextStage){
+  ui.endTitle.textContent = title;
+  ui.endText.textContent = text;
+  document.getElementById("againBtn").textContent = nextStage ? "NEXT STAGE" : "PLAY AGAIN";
+  ui.end.classList.remove("hidden");
+}
+
+function saveHi(){
+  if (G.score > G.hi) {
+    G.hi = G.score;
+    localStorage.setItem("girderClimbHi", String(G.hi));
+  }
+}
+
+function allWalkables(){
+  const lifts = (G.lifts||[]).map(l => ({ x:l.x, w:l.w, yL:l.y, yR:l.y, belt:0, lift:true }));
+  return lifts.concat(G.girders);
+}
+
+function findFloor(ent){
+  const fx = ent.x + ent.w*0.5;
+  const feet = ent.y + ent.h;
+  for (const gdr of allWalkables()){
+    if (fx < gdr.x+1 || fx > gdr.x+gdr.w-1) continue;
+    if (Math.abs(surfaceY(gdr,fx) - feet) <= 5) return gdr;
+  }
+  return null;
+}
+
+function barrelSpeed(level){ return 1.28 + level * 0.2; }
+
+function hits(a,b,pad){
+  return a.x+pad < b.x+b.w-pad && a.x+a.w-pad > b.x+pad && a.y+pad < b.y+b.h-pad && a.y+a.h-pad > b.y+pad;
+}
+
+function landOnGirders(ent){
+  if (ent.onLadder) return;
+  const fx = ent.x + ent.w*0.5;
+  const prevFeet = ent.prevY + ent.h;
+  const feet = ent.y + ent.h;
+  if (ent.onGround){
+    let on = null;
+    for (const gdr of allWalkables()){
+      if (fx < gdr.x+1 || fx > gdr.x+gdr.w-1) continue;
+      if (Math.abs(surfaceY(gdr,fx) - feet) <= 5){ on = gdr; break; }
+    }
+    if (on){ ent.y = surfaceY(on,fx) - ent.h; ent.vy = 0; }
+    else ent.onGround = false;
+    return;
+  }
+  if (ent.vy < 0) return;
+  for (const gdr of allWalkables()){
+    if (fx < gdr.x+1 || fx > gdr.x+gdr.w-1) continue;
+    const sy = surfaceY(gdr, fx);
+    if (prevFeet <= sy+3 && feet >= sy-1){
+      ent.y = sy - ent.h; ent.vy = 0; ent.onGround = true;
+      for (let i=0;i<6;i++) G.dust.push({x:fx+(Math.random()-0.5)*8,y:sy, vx:(Math.random()-0.5)*0.6, vy:-Math.random()*0.7, life:16+Math.random()*10});
+      return;
+    }
+  }
+}
+
+function ladderNear(fx, feet){
+  return G.ladders.find(lad => Math.abs(fx-lad.x) <= 9 && feet >= lad.top-6 && feet <= lad.bottom+6) || null;
+}
+
+function loseLife(){
+  G.lives -= 1;
+  G.mode = "died";
+  G.pause = 78;
+  G.shake = 14;
+  tone(180,0.12,"sawtooth",0.05);
+  tone(110,0.22,"sawtooth",0.04);
+}
+
+function update(){
+  G.frame++;
+  if (G.shake>0) G.shake--;
+  const startEdge = keys.start && !G.startWas;
+  G.startWas = keys.start;
+
+  if (G.mode === "title"){
+    if (startEdge) startGame();
+    return;
+  }
+  if (G.mode === "over" || G.mode === "won"){
+    if (startEdge) {
+      ui.end.classList.add("hidden");
+      if (G.mode === "won"){ G.level += 1; resetRun(true); G.mode = "play"; }
+      else { G.mode = "title"; ui.title.classList.remove("hidden"); ui.hud.classList.add("hidden"); setTagline("Four stages · ramps, lifts, belts, pins"); }
+    }
+    return;
+  }
+  if (G.mode === "died"){
+    G.pause--;
+    if (G.pause <= 0){
+      if (G.lives <= 0){
+        saveHi();
+        G.mode = "over";
+        showEnd("Game over", "Score " + G.score);
+        setTagline("Four stages · ramps, lifts, belts, pins");
+      } else {
+        resetRun(true); G.mode = "play"; G.invuln = 90;
+      }
+    }
+    return;
+  }
+
+  for (const lift of G.lifts){
+    lift.y += lift.vy;
+    if (lift.y <= lift.minY){ lift.y = lift.minY; lift.vy = Math.abs(lift.vy); }
+    if (lift.y >= lift.maxY){ lift.y = lift.maxY; lift.vy = -Math.abs(lift.vy); }
+  }
+
+  const p = G.player;
+  p.prevY = p.y;
+  const jumpEdge = keys.jump && !G.jumpWas;
+  G.jumpWas = keys.jump;
+  const fx = p.x + p.w*0.5;
+  const feet = p.y + p.h;
+  const near = ladderNear(fx, feet);
+
+  if (p.onLadder && p.lad){
+    p.vx = 0; p.vy = 0;
+    if (keys.up) p.y -= 1.18;
+    if (keys.down) p.y += 1.18;
+    p.x = p.lad.x - p.w*0.5;
+    if (jumpEdge){
+      p.onLadder = false; p.lad = null; p.onGround = false; p.vy = -6.7;
+      tone(300,0.07);
+    } else {
+      const f2 = p.y + p.h;
+      if (f2 <= p.lad.top+2 && !keys.down){ p.y = p.lad.top-p.h; p.onLadder = false; p.lad = null; p.onGround = true; }
+      else if (f2 >= p.lad.bottom-1 && !keys.up){ p.y = p.lad.bottom-p.h; p.onLadder = false; p.lad = null; p.onGround = true; }
+    }
+  } else {
+    if (keys.left){ p.x -= 1.52; p.face = -1; }
+    if (keys.right){ p.x += 1.52; p.face = 1; }
+    if (jumpEdge && p.onGround){ p.vy = -6.85; p.onGround = false; tone(330,0.08); }
+    if (!p.onGround) p.vy += 0.28;
+    p.y += p.vy;
+    if ((keys.up || keys.down) && near && !near.broken){
+      const canUp = keys.up && feet > near.top+8;
+      const canDown = keys.down && p.onGround && feet < near.bottom-6;
+      if (canUp || canDown){
+        p.onLadder = true; p.lad = near; p.onGround = false; p.vy = 0; p.x = near.x - p.w*0.5;
+      }
+    }
+    landOnGirders(p);
+  }
+  if (p.onGround && !p.onLadder){
+    const floor = findFloor(p);
+    if (floor && floor.belt) p.x += floor.belt * 0.9;
+  }
+  if (p.x < 10) p.x = 10;
+  if (p.x + p.w > W-10) p.x = W-10-p.w;
+  if (p.y > H+30){ loseLife(); return; }
+
+  const apeBox = { x:G.apeX+4, y:G.apeY+8, w:46, h:44 };
+  if (G.invuln<=0 && hits(p, apeBox, 3)){ loseLife(); return; }
+
+  G.throwT++;
+  G.spawnIn--;
+  if (G.spawnIn<=0 && G.barrels.length<9){
+    G.spawnIn = Math.max(42, 100 - G.level*11);
+    G.throwT = 1;
+    G.barrels.push({
+      x:G.apeX+42, y:G.apeY+36, w:12, h:12, vx:barrelSpeed(G.level), vy:0.4,
+      prevY:G.apeY+36, onGround:false, onLadder:false, lad:null, tried:{}, hopped:false
+    });
+    tone(140,0.09,"triangle",0.05);
+  }
+
+  for (let i=G.barrels.length-1; i>=0; i--){
+    const b = G.barrels[i];
+    b.prevY = b.y;
+    const bfx = b.x + b.w*0.5;
+    if (b.onLadder && b.lad){
+      b.x = b.lad.x - b.w*0.5;
+      b.y += 1.35 + G.level*0.08;
+      if (b.y + b.h >= b.lad.bottom-1){
+        b.y = b.lad.bottom - b.h; b.onLadder = false; b.lad = null; b.onGround = true;
+        const floor = findFloor(b);
+        if (floor){
+          if (floor.belt) b.vx = floor.belt * barrelSpeed(G.level) * 1.15;
+          else b.vx = Math.sign(floor.yR-floor.yL) * barrelSpeed(G.level) || b.vx;
+        }
+      }
+    } else {
+      if (!b.onGround) b.vy += 0.3;
+      b.y += b.vy;
+      landOnGirders(b);
+      if (b.onGround){
+        const floor = findFloor(b);
+        if (floor){
+          if (floor.belt) b.vx = floor.belt * barrelSpeed(G.level) * 1.15;
+          else {
+            b.vx = Math.sign(floor.yR-floor.yL) * barrelSpeed(G.level);
+            if (!b.vx) b.vx = barrelSpeed(G.level);
+          }
+        }
+        const down = ladderNear(bfx, b.y+b.h);
+        if (down && !down.broken && !b.tried[down.id] && Math.abs(b.y+b.h-down.top)<8){
+          b.tried[down.id] = true;
+          if (Math.random() < 0.38 + G.level*0.03){
+            b.onLadder = true; b.lad = down; b.onGround = false; b.vx = 0; b.x = down.x - b.w*0.5;
+          }
+        }
+      }
+      b.x += b.vx;
+    }
+    if (b.y>H+20 || b.x<-20 || b.x>W+20){ G.barrels.splice(i,1); continue; }
+    if (!b.hopped && !p.onGround && !p.onLadder){
+      const overlapX = p.x < b.x+b.w && p.x+p.w > b.x;
+      if (overlapX && p.y+p.h < b.y+3 && p.y+p.h > b.y-28){
+        b.hopped = true; G.score += 100;
+        G.floats.push({x:p.x, y:p.y-8, text:"100", life:40});
+        tone(620,0.07);
+      }
+    }
+    if (G.invuln<=0 && hits(p,b,2)){ loseLife(); return; }
+  }
+
+  if (G.invuln>0) G.invuln--;
+  for (let i=G.floats.length-1;i>=0;i--){ G.floats[i].y-=0.45; G.floats[i].life--; if(G.floats[i].life<=0) G.floats.splice(i,1); }
+  for (let i=G.dust.length-1;i>=0;i--){
+    const d = G.dust[i]; d.x+=d.vx; d.y+=d.vy; d.vy+=0.05; d.life--; if(d.life<=0) G.dust.splice(i,1);
+  }
+
+  for (const pin of G.pins){
+    if (pin.got) continue;
+    if (p.x < pin.x+10 && p.x+p.w > pin.x-10 && p.y+p.h > pin.y-16 && p.y < pin.y+6){
+      pin.got = true;
+      G.score += 150;
+      G.floats.push({x:p.x, y:p.y-8, text:"150", life:40});
+      tone(700,0.07);
+    }
+  }
+
+  const nearFriend = p.onGround && p.x+p.w > G.friendX-4 && p.x < G.friendX+18 && Math.abs((p.y+p.h)-(G.friendY+16)) < 12;
+  const pinsOut = G.winMode === "pins" && G.pins.length && G.pins.every(pin => pin.got);
+  if ((G.winMode === "reach" && nearFriend) || pinsOut){
+    const bonus = 1000 * G.level;
+    G.score += bonus;
+    saveHi();
+    G.mode = "won";
+    G.pause = 20;
+    const next = STAGE_NAMES[G.level % 4];
+    const title = G.winMode === "pins" ? "The pins are out" : (G.stageName + " cleared");
+    showEnd(title, "Bonus " + bonus + " · Score " + G.score + " · Next: " + next, true);
+    tone(392,0.1); setTimeout(()=>tone(523,0.14),90); setTimeout(()=>tone(659,0.2),180);
+  }
+
+  ui.score.textContent = pad6(G.score);
+  ui.hi.textContent = pad6(G.hi);
+  ui.lv.textContent = String(G.level);
+  ui.lives.textContent = String(Math.max(0,G.lives));
+}
+
+function blit(px, ox, oy, map, flip=false){
+  const h = px.length, w = px[0].length;
+  for (let y=0;y<h;y++){
+    for (let x=0;x<w;x++){
+      const ch = px[y][flip ? (w-1-x) : x];
+      const col = map[ch];
+      if (!col) continue;
+      ctx.fillStyle = col;
+      ctx.fillRect(ox+x, oy+y, 1, 1);
+    }
+  }
+}
+
+const C_SCOUT = { h:"#1a2430", s:"#ffd0a8", j:"#1ec9a8", d:"#127a6c", p:"#1a3344", b:"#0d1a22", e:"#1a120c", w:"#f7f3ea" };
+const SCOUT_IDLE = [
+  "....hhhhhh....",
+  "...hssssssh...",
+  "...hssesssh...",
+  "....ssssss....",
+  "...jjjjjjjj...",
+  "..jjdjjjjdjj..",
+  "..jjjjjjjjjj..",
+  "...j.jjjj.j...",
+  "....pp..pp....",
+  "....pp..pp....",
+  "....bb..bb...."
+];
+const SCOUT_WALK = [
+  "....hhhhhh....",
+  "...hssssssh...",
+  "...hssesssh...",
+  "....ssssss....",
+  "...jjjjjjjj...",
+  "..jjdjjjjdjj..",
+  "..jjjjjjjjjj..",
+  "...j.jjjj.j...",
+  "....pp...pp...",
+  "....pp...pp...",
+  "...bb.....bb.."
+];
+const SCOUT_JUMP = [
+  "....hhhhhh....",
+  "...hssssssh...",
+  "...hssesssh...",
+  "....ssssss....",
+  "..sjjjjjjjjs..",
+  "..jjdjjjjdjj..",
+  "...jjjjjjjj...",
+  "....pp..pp....",
+  "....pp..pp....",
+  "...bb....bb...",
+  ".............."
+];
+const C_APE = { f:"#7a3f1c", d:"#4a220e", m:"#c48a5a", e:"#140c08", n:"#2a160c", h:"#a86a3a" };
+const APE = [
+  "..........hhhhhh..........",
+  ".......hhhffffhhhh.......",
+  "......hffffffffffh......",
+  ".....hffffmmmmffffh.....",
+  ".....fffmmmmmmeemff.....",
+  ".....fffmmmnmmeemff.....",
+  "......fffmmmmmmfff......",
+  ".....dffffffffffffd.....",
+  "....ddffffffffffffdd....",
+  "...dddffffddddffffddd...",
+  "...dddffffffffffffddd...",
+  "....ddffffffffffffdd....",
+  "....dffffffffffffffd....",
+  ".....ddffffffffffdd.....",
+  "......ddd......ddd......",
+  "......ddd......ddd......"
+];
+const C_FRIEND = { h:"#2a3040", s:"#ffd0a8", y:"#ffcc22", o:"#e09410", p:"#2a3040", e:"#1a120c" };
+const FRIEND = [
+  "...hhhhhh...",
+  "..hssssssh..",
+  "..hsseessh..",
+  "...ssssss...",
+  "..yyyyyyyy..",
+  ".yyoyyyyoyy.",
+  ".yyyyyyyyyy.",
+  "...pp..pp...",
+  "...pp..pp...",
+  "...pp..pp..."
+];
+const C_BARREL = { o:"#c46a28", d:"#7a3a12", h:"#e8b06a", s:"#4a220e" };
+const BARREL = [
+  ".dddddddddd.",
+  "dhoooooooohd",
+  "dhoooooooohd",
+  "dssssssssssd",
+  "dhoooooooohd",
+  "dhoooooooohd",
+  "dssssssssssd",
+  "dhoooooooohd",
+  ".dddddddddd."
+];
+
+const GIRDER_PAL = {
+  ramps: { dark:"#6a220f", mid:"#d4562a", hi:"#f0a070", shade:"#8a3014", rivet:"#ffc59a" },
+  lifts: { dark:"#243044", mid:"#6a849c", hi:"#c5d4e0", shade:"#3a5060", rivet:"#e8f0f6" },
+  belts: { dark:"#5a3a10", mid:"#d4a024", hi:"#ffe08a", shade:"#8a6010", rivet:"#fff3c0" },
+  pins:  { dark:"#4a1a28", mid:"#c44a4a", hi:"#f09080", shade:"#7a2830", rivet:"#ffd0a0" },
+};
+
+function drawGirder(gdr){
+  const pal = GIRDER_PAL[G.stageKind] || GIRDER_PAL.ramps;
+  const x1=gdr.x, y1=gdr.yL, x2=gdr.x+gdr.w, y2=gdr.yR;
+  const ang = Math.atan2(y2-y1, x2-x1);
+  const len = Math.hypot(x2-x1, y2-y1);
+  ctx.save();
+  ctx.translate(x1,y1); ctx.rotate(ang);
+  ctx.fillStyle = pal.dark; ctx.fillRect(0, -4, len, 13);
+  ctx.fillStyle = pal.mid; ctx.fillRect(0, -6, len, 11);
+  ctx.fillStyle = pal.hi; ctx.fillRect(0, -6, len, 2);
+  ctx.fillStyle = pal.shade; ctx.fillRect(0, 3, len, 3);
+  ctx.fillStyle = pal.rivet;
+  for (let i=8;i<len-4;i+=14){
+    ctx.fillRect(i, -3, 3, 3);
+    ctx.fillRect(i, 1, 3, 3);
+  }
+  if (gdr.belt){
+    ctx.fillStyle = "rgba(20,12,4,.35)";
+    const scroll = ((G.frame * gdr.belt * 0.7) % 16 + 16) % 16;
+    for (let i=scroll-16; i<len; i+=16){
+      ctx.beginPath();
+      ctx.moveTo(i, -3);
+      ctx.lineTo(i+7, 1);
+      ctx.lineTo(i, 5);
+      ctx.closePath();
+      ctx.fill();
+    }
+  }
+  ctx.restore();
+}
+
+function drawLift(l){
+  drawGirder({ x:l.x, w:l.w, yL:l.y, yR:l.y });
+  ctx.fillStyle = "#dce6ee";
+  ctx.fillRect(l.x+3, l.y-24, 3, 24);
+  ctx.fillRect(l.x+l.w-6, l.y-24, 3, 24);
+  ctx.fillStyle = "rgba(220,230,238,.35)";
+  ctx.fillRect(l.x+6, l.y-22, l.w-12, 2);
+}
+
+function drawPin(pin){
+  ctx.save();
+  ctx.translate(pin.x, pin.y);
+  if (pin.got){
+    ctx.fillStyle = "#3a3358";
+    ctx.fillRect(-3, -2, 6, 4);
+  } else {
+    ctx.fillStyle = "#ffcc22";
+    ctx.beginPath();
+    ctx.moveTo(0, -10);
+    ctx.lineTo(6, -2);
+    ctx.lineTo(0, 4);
+    ctx.lineTo(-6, -2);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = "#fff6c8";
+    ctx.fillRect(-2, -6, 4, 4);
+  }
+  ctx.restore();
+}
+
+function drawLadder(lad){
+  ctx.strokeStyle = lad.broken ? "#1d6c76" : "#2ee0ea";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(lad.x-6, lad.top); ctx.lineTo(lad.x-6, lad.bottom);
+  ctx.moveTo(lad.x+6, lad.top); ctx.lineTo(lad.x+6, lad.bottom);
+  ctx.stroke();
+  ctx.fillStyle = lad.broken ? "#1d6c76" : "#7af0f6";
+  for (let y=lad.top+5; y<lad.bottom-2; y+=7) ctx.fillRect(lad.x-6, y, 12, 2);
+}
+
+function drawBg(){
+  const grd = ctx.createLinearGradient(0,0,0,H);
+  grd.addColorStop(0, "#14102a");
+  grd.addColorStop(0.45, "#0b0a16");
+  grd.addColorStop(1, "#07060f");
+  ctx.fillStyle = grd;
+  ctx.fillRect(-10,-10,W+20,H+20);
+  ctx.fillStyle = "#1b1730";
+  ctx.fillRect(0,0,18,H);
+  ctx.fillRect(W-18,0,18,H);
+  ctx.fillStyle = "#ffb020";
+  for (let y=24;y<H;y+=28){
+    ctx.globalAlpha = 0.35;
+    ctx.fillRect(6, y, 6, 6);
+    ctx.fillRect(W-12, y, 6, 6);
+  }
+  ctx.globalAlpha = 1;
+  ctx.fillStyle = "#2a2448";
+  for (let i=0;i<28;i++){
+    ctx.fillRect((i*73+19)%(W-40)+20, (i*37+12)%90 + 8, 2, 2);
+  }
+}
+
+function draw(){
+  ctx.save();
+  if (G.shake) ctx.translate((Math.random()-0.5)*5, (Math.random()-0.5)*5);
+  drawBg();
+  G.ladders.forEach(drawLadder);
+  G.girders.forEach(drawGirder);
+  G.lifts.forEach(drawLift);
+  G.pins.forEach(drawPin);
+  blit(FRIEND, G.friendX, G.friendY, C_FRIEND);
+  const wave = Math.sin(G.frame/8)*4;
+  ctx.save();
+  ctx.translate(G.friendX+12, G.friendY+10);
+  ctx.rotate((-28+wave)*Math.PI/180);
+  ctx.fillStyle = "#ffd0a8";
+  ctx.fillRect(0,-1,6,3);
+  ctx.restore();
+  blit(APE, G.apeX, G.apeY + Math.sin(G.frame/14)*1.4, C_APE);
+  if (G.throwT>0 && G.throwT<18) {
+    blit(BARREL, G.apeX+44, G.apeY+22, C_BARREL);
+  }
+  for (const b of G.barrels){
+    ctx.save();
+    ctx.translate(b.x+6, b.y+6);
+    ctx.rotate((G.frame/5) * Math.sign(b.vx||1));
+    blit(BARREL, -6, -5, C_BARREL);
+    ctx.restore();
+  }
+  const blink = G.invuln>0 && G.mode==="play" && Math.floor(Date.now()/80)%2===0;
+  if (!blink && (G.mode!=="died" || G.frame%8<5)){
+    const moving = keys.left || keys.right;
+    let spr = SCOUT_IDLE;
+    if (!G.player.onGround && !G.player.onLadder) spr = SCOUT_JUMP;
+    else if (G.player.onLadder) spr = (Math.floor(G.frame/8)%2) ? SCOUT_WALK : SCOUT_IDLE;
+    else if (moving) spr = (Math.floor(G.frame/8)%2) ? SCOUT_WALK : SCOUT_IDLE;
+    blit(spr, Math.round(G.player.x), Math.round(G.player.y), C_SCOUT, G.player.face<0);
+  }
+  ctx.fillStyle = "#c8b48a";
+  for (const d of G.dust){ ctx.globalAlpha = Math.max(0,d.life/18); ctx.fillRect(d.x,d.y,2,2); }
+  ctx.globalAlpha = 1;
+  ctx.font = "bold 11px ui-monospace, monospace";
+  ctx.fillStyle = "#ffe082";
+  for (const f of G.floats){ ctx.globalAlpha = Math.max(0,f.life/40); ctx.fillText(f.text, f.x, f.y); }
+  ctx.globalAlpha = 1;
+  if (G.winMode === "pins" && G.mode === "play"){
+    const left = G.pins.filter(pin => !pin.got).length;
+    ctx.font = "bold 11px ui-monospace, monospace";
+    ctx.fillStyle = "#ffe082";
+    ctx.fillText("PINS " + left, 24, 36);
+  }
+  if (G.intro > 0 && G.mode === "play"){
+    G.intro--;
+    ctx.globalAlpha = Math.min(1, G.intro/18);
+    ctx.fillStyle = "rgba(7,6,15,.72)";
+    ctx.fillRect(74, 214, 300, 64);
+    ctx.strokeStyle = "#ffb020";
+    ctx.strokeRect(74, 214, 300, 64);
+    ctx.fillStyle = "#ffb020";
+    ctx.font = "bold 20px Avenir Next, Segoe UI, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("LEVEL " + G.level + "  ·  " + G.stageName.toUpperCase(), W/2, 252);
+    ctx.fillStyle = "#d7d0c4";
+    ctx.font = "12px Avenir Next, Segoe UI, sans-serif";
+    const hints = {
+      ramps: "Climb the beams and leap the barrels",
+      lifts: "Ride the lifts to the top",
+      belts: "The floors are moving — time your steps",
+      pins: "Pull every gold pin, then you are clear",
+    };
+    ctx.fillText(hints[G.stageKind] || "", W/2, 272);
+    ctx.textAlign = "left";
+    ctx.globalAlpha = 1;
+  }
+  ctx.restore();
+}
+
+function loop(now){
+  if (!loop.last) loop.last = now;
+  let acc = (loop.acc||0) + Math.min(32, now-loop.last);
+  loop.last = now;
+  while (acc >= 1000/60){ update(); acc -= 1000/60; }
+  loop.acc = acc;
+  draw();
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+function applyKey(code, down){
+  if (code==="ArrowLeft"||code==="KeyA") keys.left = down;
+  if (code==="ArrowRight"||code==="KeyD") keys.right = down;
+  if (code==="ArrowUp"||code==="KeyW") keys.up = down;
+  if (code==="ArrowDown"||code==="KeyS") keys.down = down;
+  if (code==="Space"||code==="KeyK") keys.jump = down;
+  if (code==="Space"||code==="Enter") keys.start = down;
+}
+window.addEventListener("keydown", e => {
+  if (["ArrowLeft","ArrowRight","ArrowUp","ArrowDown","Space"].includes(e.code)) e.preventDefault();
+  applyKey(e.code, true);
+});
+window.addEventListener("keyup", e => applyKey(e.code, false));
+
+document.querySelectorAll("[data-key]").forEach(btn => {
+  const name = btn.getAttribute("data-key");
+  const set = ev => { ev.preventDefault(); keys[name] = ev.type.includes("down") || ev.type === "pointerdown"; };
+  const off = ev => { ev.preventDefault(); keys[name] = false; };
+  btn.addEventListener("pointerdown", set);
+  btn.addEventListener("pointerup", off);
+  btn.addEventListener("pointerleave", off);
+  btn.addEventListener("pointercancel", off);
+});
+
+document.getElementById("playBtn").onclick = startGame;
+document.getElementById("againBtn").onclick = () => {
+  ui.end.classList.add("hidden");
+  if (G.mode === "won"){ G.level += 1; resetRun(true); G.mode = "play"; }
+  else startGame();
+};
+ui.mute.onclick = () => { muted = !muted; ui.mute.textContent = muted ? "Sound off" : "Sound on"; };
+ui.full.onclick = async () => {
+  try {
+    if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+    else await document.exitFullscreen();
+  } catch(e) {}
+};
+ui.hi.textContent = pad6(G.hi);
+</script>
+</body>
+</html>
