@@ -144,6 +144,23 @@ footer{background:var(--navy2);color:#cbd5e1;padding:32px 0;font-size:13px}
 @media(max-width:480px){.story{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
+/* ---- Annex: Gallup cross-check (shown below both views) ---- */
+#gallup{padding:48px 0 56px;border-top:1px solid var(--line)}
+#gallup h2{font-size:clamp(28px,3.8vw,42px)}
+.gx-table{width:100%;border-collapse:collapse;font-size:14px}
+.gx-table th,.gx-table td{padding:10px 8px;text-align:right;border-bottom:1px solid var(--line)}
+.gx-table th:first-child,.gx-table td:first-child{text-align:left}
+.gx-table th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);line-height:1.35}
+.gx-table td.num{font-family:"IBM Plex Mono",monospace;font-weight:600;white-space:nowrap}
+.gx-table .grp td{background:var(--chip);font-weight:800;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left}
+.gx-table.left th,.gx-table.left td{text-align:left;vertical-align:top}
+.gx-note{font-size:13px;color:var(--muted);line-height:1.55;margin:10px 0 0}
+.gx-cols{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.gx-facts{margin:0;padding-left:18px;font-size:14.5px;line-height:1.65}
+.gx-facts li{margin:0 0 8px}
+.gx-facts li:last-child{margin-bottom:0}
+@media(max-width:820px){.gx-cols{grid-template-columns:1fr}}
+@media(max-width:640px){.gx-table{font-size:12.5px}.gx-table th,.gx-table td{padding:8px 5px}.gx-table th{font-size:10.5px}}
 /* ---- Merged site: Story / Explore switch + drill-down views ---- */
 .viewswitch{position:sticky;top:0;z-index:45;background:var(--card);border-bottom:1px solid var(--line);padding:10px 0}
 .vs-in{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
@@ -225,7 +242,7 @@ footer{background:var(--navy2);color:#cbd5e1;padding:32px 0;font-size:13px}
 
 <nav class="viewswitch" aria-label="Story or Explore"><div class="wrap vs-in"><div class="vs-group" role="group" aria-label="Choose a view"><button type="button" class="vs-btn" id="vsStory" aria-pressed="true">Story<small>the five-minute read</small></button><button type="button" class="vs-btn" id="vsExplore" aria-pressed="false">Explore<small>drill into the data</small></button></div><span class="vs-note">One survey, one dataset — start with the story, then go as deep as you like.</span></div></nav>
 <div id="view-story">
-<nav class="toc" aria-label="On this page"><div class="wrap"><b>Jump to:</b><a href="#story">The story in 30 seconds</a><a href="#s1">1 · The map</a><a href="#s2">2 · One mood</a><a href="#s3">3 · What’s really linked</a><a href="#s4">4 · What changed</a><a href="#s-opt">5 · Optimism in focus</a><a href="#s5">6 · Two ladders</a><a href="#s6">7 · Country groups</a><a href="#/explore">8 · Explore it yourself</a><a href="#words">Words, in plain English</a><a href="#takeaway">Takeaway</a></div></nav>
+<nav class="toc" aria-label="On this page"><div class="wrap"><b>Jump to:</b><a href="#story">The story in 30 seconds</a><a href="#s1">1 · The map</a><a href="#s2">2 · One mood</a><a href="#s3">3 · What’s really linked</a><a href="#s4">4 · What changed</a><a href="#s-opt">5 · Optimism in focus</a><a href="#s5">6 · Two ladders</a><a href="#s6">7 · Country groups</a><a href="#/explore">8 · Explore it yourself</a><a href="#words">Words, in plain English</a><a href="#takeaway">Takeaway</a><a href="#gallup">Annex · Gallup cross-check</a></div></nav>
 
 <section id="story" style="padding:40px 0 8px"><div class="wrap">
 <div class="kicker">Start here</div><h2 style="font-size:clamp(28px,3.6vw,40px)">The whole story in 30 seconds</h2>
@@ -516,7 +533,76 @@ footer{background:var(--navy2);color:#cbd5e1;padding:32px 0;font-size:13px}
     <div class="table-scroll"><table id="rkTable"></table></div>
   </section>
 </div></div>
-<footer><div class="wrap">Source: Ipsos AI Monitor 2026 (Ipsos, June 2026) — 23,532 adults under 75 across 32 countries, 20 Mar–3 Apr 2026. Analysis: all pairwise cross-tabs (703 pairs, 2026), partial correlations controlling for general positivity, regression &amp; clustering across 38 indicators. The deck publishes per-country values for the 2023–2026 waves and country averages for 2026 only; gaps in the Explore tables are years a country was not asked. Combined dataset (Story section 5): the “more benefits than drawbacks” series is extended to 2022 using Ipsos, <em>Global Opinions and Expectations about AI</em> (January 2022, for the World Economic Forum) — 19,504 adults across 28 countries, fieldwork Nov–Dec 2021. The 2022 values join the deck data for the 26 countries in both surveys; Saudi Arabia and Russia, which the 2026 deck does not cover, appear with their 2022 values only. In that one chart, a missing year between two measured years is interpolated and marked ~ with a dashed segment; years before a country’s first or after its last measurement are left blank — nothing is extrapolated. The 2022 wave’s sample frame differs slightly from the 2026 deck’s, so 2022 is a baseline rather than an identical wave. No other question is extended to 2022. &nbsp;•&nbsp; <a href="https://www.ipsos.com/sites/default/files/ct/news/documents/2026-06/Ipsos-AI-Monitor-2026.pdf" target="_blank" rel="noopener" style="color:#7dd3fc">Original deck (PDF) ↗</a> &nbsp;•&nbsp; <a href="https://www.ipsos.com/en-th/global-opinions-about-ai-january-2022" target="_blank" rel="noopener" style="color:#7dd3fc">2022 Ipsos wave ↗</a></div></footer>
+<section id="gallup" aria-label="Annex: Gallup cross-check"><div class="wrap">
+<div class="kicker">Annex — Independent cross-check</div>
+<h2>Cross-check: Gallup 2026<br/>tells the same story.</h2>
+<p class="sub">A second, independent survey — fielded a few months after Ipsos — found the same ranking: China at the top, Singapore high, the United States near the bottom among rich countries. It does not change anything in the Ipsos findings above. It is a cross-check only: <strong>the two datasets are not merged, and no Ipsos number or chart on this page has changed.</strong></p>
+<div class="plain"><b>In plain English:</b> the questions are not identical, so this is not apples-to-apples. Gallup’s “mostly help” is closest to Ipsos’s “benefits outweigh drawbacks”, and Gallup’s “daily life mostly better” is closest to Ipsos’s life measures. Ipsos’s “excited” is an emotion, not a judgement — it is shown alongside for context, not as the same question.</div>
+<div class="gx-cols">
+<div class="card"><h3 style="font-size:20px;margin-bottom:12px">The two surveys, side by side</h3>
+<table class="gx-table left"><thead><tr><th></th><th>Ipsos AI Monitor 2026</th><th>Microsoft–Gallup 2026</th></tr></thead><tbody>
+<tr><td><strong>Fieldwork</strong></td><td>20 Mar – 3 Apr 2026</td><td>Apr – Jul 2026</td></tr>
+<tr><td><strong>Published</strong></td><td>June 2026</td><td>22 Sep 2026</td></tr>
+<tr><td><strong>Coverage</strong></td><td>32 countries</td><td>First 37 of a planned 140 countries</td></tr>
+<tr><td><strong>Who was asked</strong></td><td>23,532 adults, online via Global Advisor — all adults in the sample</td><td>About 1,000 adults aged 15+ per country, by telephone, face-to-face or online via the Gallup World Poll — these two questions only of adults who are <strong>aware of AI</strong></td></tr>
+<tr><td><strong>Headline</strong></td><td>One overall mood explains most country differences</td><td>Positive feelings outweigh negative ones in <strong>34 of 37</strong> countries; in <strong>25</strong>, a majority of AI-aware adults expect AI to improve their daily lives</td></tr>
+</tbody></table>
+<p class="gx-note">Source: Gallup, “AI Optimism Globally Widespread Despite Uneven Use” — the Microsoft–Gallup AI Adoption Survey, 2026. <a href="https://news.gallup.com/poll/714593/optimism-globally-widespread-despite-uneven.aspx" target="_blank" rel="noopener">Read the Gallup article ↗</a></p>
+</div>
+<div class="card"><h3 style="font-size:20px;margin-bottom:12px">Where they agree — and what Gallup adds</h3>
+<ul class="gx-facts">
+<li><strong>Same ranking:</strong> China top in both, Singapore high in both, the US near the bottom in both.</li>
+<li><strong>Gallup runs hotter</strong> — China 93% vs 85%, Singapore 77% vs 68% on the closest-matching question. That is mostly who was asked: Gallup asks only AI-aware adults, while Ipsos asks all adults in its online sample. Ipsos itself notes its samples in 15 countries, including China and Singapore, skew more urban, educated and affluent.</li>
+<li><strong>New countries:</strong> Gallup covers places Ipsos does not — Vietnam, Nigeria and Malta near the top; Bangladesh, Afghanistan and Malawi near the bottom.</li>
+<li><strong>A worry measure Ipsos does not headline:</strong> 74% of AI-aware Americans say AI makes them feel worried — the highest of any Western high-income country in Gallup’s sample.</li>
+<li><strong>One real divergence — Israel:</strong> Gallup 69% “mostly help” vs Ipsos 51% benefits and 39% excited. Different question, different population, different month — do not read a trend into that one country.</li>
+</ul>
+</div>
+</div>
+<div class="card" style="margin-top:18px"><h3 style="font-size:20px;margin-bottom:6px">The countries both surveys cover</h3><p style="color:var(--muted);font-size:14px;margin:0 0 8px">Only the four countries where the parent comparison has figures from both surveys. Gallup published only its top and bottom five for each question, so a dash means Gallup did not publish that figure — it is left blank, never filled in.</p>
+<table class="gx-table" aria-label="Gallup and Ipsos figures for China, Singapore, the United States and Israel"><thead><tr><th>Country</th><th>Gallup: mostly help</th><th>Ipsos: benefits &gt; drawbacks</th><th>Ipsos: excited</th><th>Gallup: daily life better</th></tr></thead><tbody>
+<tr><td><strong>China</strong></td><td class="num">93%</td><td class="num">85%</td><td class="num">83%</td><td class="num">93%</td></tr>
+<tr><td><strong>Singapore</strong></td><td class="num">77%</td><td class="num">68%</td><td class="num">61%</td><td class="num">83%</td></tr>
+<tr><td><strong>United States</strong></td><td class="num">36%</td><td class="num">38%</td><td class="num">33%</td><td class="num">—</td></tr>
+<tr><td><strong>Israel</strong></td><td class="num">69%</td><td class="num">51%</td><td class="num">39%</td><td class="num">69%</td></tr>
+</tbody></table>
+<p class="gx-note">— for the United States on “daily life better”: Gallup published only the top five and bottom five for that question, and the US was in neither list.</p>
+</div>
+<div class="gx-cols" style="margin-top:18px">
+<div class="card"><h3 style="font-size:19px;margin-bottom:10px">Gallup: “AI will mostly help people in this country”</h3>
+<table class="gx-table" aria-label="Gallup top five and bottom five for mostly help"><tbody>
+<tr class="grp"><td colspan="2">Top five — % mostly help</td></tr>
+<tr><td>China</td><td class="num">93%</td></tr>
+<tr><td>Vietnam</td><td class="num">91%</td></tr>
+<tr><td>Singapore</td><td class="num">77%</td></tr>
+<tr><td>Israel</td><td class="num">69%</td></tr>
+<tr><td>Nigeria</td><td class="num">68%</td></tr>
+<tr class="grp"><td colspan="2">Bottom five — % mostly help</td></tr>
+<tr><td>Afghanistan</td><td class="num">37%</td></tr>
+<tr><td>United States</td><td class="num">36%</td></tr>
+<tr><td>Malawi</td><td class="num">35%</td></tr>
+<tr><td>Egypt</td><td class="num">35%</td></tr>
+<tr><td>Bangladesh</td><td class="num">34%</td></tr>
+</tbody></table></div>
+<div class="card"><h3 style="font-size:19px;margin-bottom:10px">Gallup: “AI will make your daily life mostly better”</h3>
+<table class="gx-table" aria-label="Gallup top five and bottom five for daily life mostly better"><tbody>
+<tr class="grp"><td colspan="2">Top five — % mostly better</td></tr>
+<tr><td>China</td><td class="num">93%</td></tr>
+<tr><td>Vietnam</td><td class="num">91%</td></tr>
+<tr><td>Singapore</td><td class="num">83%</td></tr>
+<tr><td>Malta</td><td class="num">71%</td></tr>
+<tr><td>Israel</td><td class="num">69%</td></tr>
+<tr class="grp"><td colspan="2">Bottom five — % mostly better</td></tr>
+<tr><td>State of Palestine</td><td class="num">41%</td></tr>
+<tr><td>Malawi</td><td class="num">38%</td></tr>
+<tr><td>Afghanistan</td><td class="num">36%</td></tr>
+<tr><td>Egypt</td><td class="num">35%</td></tr>
+<tr><td>Bangladesh</td><td class="num">32%</td></tr>
+</tbody></table></div>
+</div>
+<div class="plain" style="margin:18px 0 0;max-width:none"><b>Does Gallup do this every year?</b> Not confirmed as annual. The AI questions were developed for the 2026 Gallup World Poll — Gallup calls it “the first real test of these items on a global scale” — and the Microsoft partnership is described as ongoing research that will ultimately cover 140 countries. The World Poll itself runs every year, so a repeat is plausible, but no 2027 AI edition or annual cadence has been announced in the material checked. Ipsos, by contrast, <em>is</em> annual — the AI Monitor has run in 2023, 2024, 2025 and 2026.</div>
+</div></section>
+<footer><div class="wrap">Source: Ipsos AI Monitor 2026 (Ipsos, June 2026) — 23,532 adults under 75 across 32 countries, 20 Mar–3 Apr 2026. Analysis: all pairwise cross-tabs (703 pairs, 2026), partial correlations controlling for general positivity, regression &amp; clustering across 38 indicators. The deck publishes per-country values for the 2023–2026 waves and country averages for 2026 only; gaps in the Explore tables are years a country was not asked. Combined dataset (Story section 5): the “more benefits than drawbacks” series is extended to 2022 using Ipsos, <em>Global Opinions and Expectations about AI</em> (January 2022, for the World Economic Forum) — 19,504 adults across 28 countries, fieldwork Nov–Dec 2021. The 2022 values join the deck data for the 26 countries in both surveys; Saudi Arabia and Russia, which the 2026 deck does not cover, appear with their 2022 values only. In that one chart, a missing year between two measured years is interpolated and marked ~ with a dashed segment; years before a country’s first or after its last measurement are left blank — nothing is extrapolated. The 2022 wave’s sample frame differs slightly from the 2026 deck’s, so 2022 is a baseline rather than an identical wave. No other question is extended to 2022. &nbsp;•&nbsp; <a href="https://www.ipsos.com/sites/default/files/ct/news/documents/2026-06/Ipsos-AI-Monitor-2026.pdf" target="_blank" rel="noopener" style="color:#7dd3fc">Original deck (PDF) ↗</a> &nbsp;•&nbsp; <a href="https://www.ipsos.com/en-th/global-opinions-about-ai-january-2022" target="_blank" rel="noopener" style="color:#7dd3fc">2022 Ipsos wave ↗</a> &nbsp;•&nbsp; Cross-check (annex): Microsoft–Gallup AI Adoption Survey 2026 (Gallup, 22 Sep 2026), fieldwork Apr–Jul 2026. &nbsp;•&nbsp; <a href="https://news.gallup.com/poll/714593/optimism-globally-widespread-despite-uneven.aspx" target="_blank" rel="noopener" style="color:#7dd3fc">Gallup article ↗</a></div></footer>
 
 <script>
 const data=[
