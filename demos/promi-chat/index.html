@@ -287,26 +287,75 @@ body.tab8 #ctl button:hover{background:#B9562A;color:#fff}
 #t8 .outs{margin-top:4px}
 #t8 a.out{font:700 15px NS,sans-serif;display:inline-block;margin:0 8px 8px 0;border:1.5px solid #B9562A;background:#fff;color:#B9562A;border-radius:999px;padding:9px 16px;text-decoration:none}
 #t8 a.out:hover{background:#B9562A;color:#fff}
+#t9{position:fixed;top:56px;left:0;right:0;bottom:0;display:none;z-index:8;overflow:auto;background:linear-gradient(#faeee4,#e6c9d0);font-family:NS,-apple-system,'Segoe UI',Roboto,sans-serif;color:#2b1d16}
+body.tab9 #t9{display:block}
+body.tab9 #stage{visibility:hidden}
+body.tab9 #ctl{display:none}
+body.tab9{background:#f3ddd6}
+#t9in{max-width:920px;margin:0 auto;padding:22px 18px 48px}
+#t9 h1{font-size:28px;text-align:center;margin:6px 0 14px}
+#t9 .note p{margin:0 0 12px;font-size:16.5px;line-height:1.55}
+#t9 .note p:last-child{margin-bottom:0}
+#t9 .week{margin-top:18px}
+#t9 .pipe{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr);gap:8px;align-items:stretch}
+#t9 .box{background:#fff;border:1.5px solid #e3c4b6;border-radius:14px;padding:12px 12px 14px;box-shadow:0 2px 10px rgba(0,0,0,.06);text-align:center;min-width:0}
+#t9 .box b{display:block;color:#B9562A;font-size:15px;line-height:1.3}
+#t9 .box span{display:block;margin-top:6px;font-size:13px;line-height:1.35;color:#6b4a3a}
+#t9 .arr{align-self:center;color:#B9562A;font-weight:700;font-size:22px;line-height:1}
+#t9 .back{grid-column:3 / 8;margin-top:4px;color:#B9562A;font-weight:700;font-size:14px;line-height:1.4;text-align:center}
+#t9 .back span{display:block;border-top:2px solid #B9562A;padding-top:6px}
+#t9 .back span:before{content:"← "}
+#t9 .from{margin:22px 0 8px;text-align:center;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#6b4a3a}
+#t9 .sides{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:700px){
+#t9 .pipe{grid-template-columns:1fr;justify-items:center}
+#t9 .box{width:min(100%,280px)}
+#t9 .arr{transform:rotate(90deg)}
+#t9 .back{grid-column:auto;width:min(100%,280px)}
+#t9 .sides{grid-template-columns:1fr}
+}
 @media(max-width:600px){#tabs{flex-wrap:wrap;max-width:calc(100vw - 20px)}}
 
 @media(min-width:601px){
 #tabs{flex-direction:column;top:12px;left:12px;bottom:auto;width:208px;gap:4px;padding:8px;font-size:15px;border-radius:14px}
 #tabs button{text-align:left;white-space:normal;line-height:1.25;padding:12px 14px;font-size:15px}
 #tabs .lg{display:inline}#tabs .sh{display:none}
-#t2,#t3,#t4,#t5,#t6,#t7,#t8{top:0;left:240px}
+#t2,#t3,#t4,#t5,#t6,#t7,#t8,#t9{top:0;left:240px}
 }
 </style></head><body><div id="stage"><div id="cap"></div><div id="phone"><div id="screen">
 <div id="view"><div id="chat"></div></div>
 <div id="hdr"><div class="time">11:30</div><div class="batt"></div><div class="circ" style="left:30px">&#x2039;</div><div class="pill"><div class="av"></div><span id="who">Promi</span></div><div class="circ" style="right:30px;font-size:30px">•••</div></div>
 <div id="bar"><div id="plus">+</div><div id="inp" class="ph"><span>Ask Promi</span></div><div id="mic"></div><div id="voice">|ıl|ı</div></div>
 </div></div><div id="end"><div>Refining our practices<br>together</div></div></div>
-<div id="tabs" role="tablist"><button id="tb1" class="on" role="tab" aria-selected="true">1 &middot; <span class="lg">Refining practices</span><span class="sh">Practices</span></button><button id="tb2" role="tab" aria-selected="false">2 &middot; <span class="lg">Tech support tickets</span><span class="sh">Tickets</span></button><button id="tb3" role="tab" aria-selected="false">3 &middot; <span class="lg">PPT to PDF cleanup</span><span class="sh">Cleanup</span></button><button id="tb4" role="tab" aria-selected="false">4 &middot; <span class="lg">Search Console setup</span><span class="sh">Search</span></button><button id="tb5" role="tab" aria-selected="false">5 &middot; <span class="lg">Meeting note-taker</span><span class="sh">Notes</span></button><button id="tb6" role="tab" aria-selected="false">6 &middot; <span class="lg">Retiring a room</span><span class="sh">Room</span></button><button id="tb7" role="tab" aria-selected="false">7 &middot; <span class="lg">Write to us</span><span class="sh">Write</span></button><button id="tb8" role="tab" aria-selected="false">8 &middot; <span class="lg">One Day</span><span class="sh">One Day</span></button></div>
+<div id="tabs" role="tablist"><button id="tb1" class="on" role="tab" aria-selected="true">1 &middot; <span class="lg">Refining practices</span><span class="sh">Practices</span></button><button id="tb2" role="tab" aria-selected="false">2 &middot; <span class="lg">Tech support tickets</span><span class="sh">Tickets</span></button><button id="tb3" role="tab" aria-selected="false">3 &middot; <span class="lg">PPT to PDF cleanup</span><span class="sh">Cleanup</span></button><button id="tb4" role="tab" aria-selected="false">4 &middot; <span class="lg">Search Console setup</span><span class="sh">Search</span></button><button id="tb5" role="tab" aria-selected="false">5 &middot; <span class="lg">Meeting note-taker</span><span class="sh">Notes</span></button><button id="tb6" role="tab" aria-selected="false">6 &middot; <span class="lg">Retiring a room</span><span class="sh">Room</span></button><button id="tb7" role="tab" aria-selected="false">7 &middot; <span class="lg">Write to us</span><span class="sh">Write</span></button><button id="tb8" role="tab" aria-selected="false">8 &middot; <span class="lg">One Day</span><span class="sh">One Day</span></button><button id="tb9" role="tab" aria-selected="false">9 &middot; <span class="lg">Spam into strategy</span><span class="sh">Spam</span></button></div>
 <div id="t3"><div id="t2in"><div id="t3list"></div></div></div>
 <div id="t4"><div id="t4in"><div id="t4list"></div></div></div>
 <div id="t5"><div id="t5in"><div id="t5list"></div></div></div>
 <div id="t6"><div id="t6in"><div id="t6list"></div></div></div>
 <div id="t7"><div id="t7in"><div id="t7list"></div></div></div>
 <div id="t8"><div id="t8in"><div id="t8list"></div></div></div>
+<div id="t9"><div id="t9in">
+<h1>Spam into strategy</h1>
+<div class="frame note">
+<p>King’s weekly hold of marketing and newsletter mail about AI executive courses became a course list, then an interactive earnings page. Two maps sit with the earnings table: the pitch and who it is for, and the same pitch against the advertised length.</p>
+<p>The page models what universities and teachers earn. The large receipts sit with the university and its partner, not the individual teacher. These courses also stand in for the longer programmes organisations send high-potential leaders on. Week-long executive courses, super-short courses, and briefings are not in the set.</p>
+</div>
+<div class="week pipe">
+<div class="box"><b>Mail</b><span>Marketing and newsletter email</span></div>
+<div class="arr" aria-hidden="true">→</div>
+<div class="box"><b>Course list</b><span>What those emails are offering</span></div>
+<div class="arr" aria-hidden="true">→</div>
+<div class="box"><b>Earnings table</b><span>Pitch × who it is for</span><span>Pitch × advertised length</span></div>
+<div class="arr" aria-hidden="true">→</div>
+<div class="box"><b>Monday check</b><span>Update the table, or not</span></div>
+<div class="back"><span>Each week, back to the course list</span></div>
+</div>
+<p class="from">From that weekly rhythm</p>
+<div class="sides">
+<div class="box"><b>Promi</b><span>Folds the page into existing workshop ideas. A product-market-meaning-money fit lens, not a new item.</span></div>
+<div class="box"><b>Kondo and Crux</b><span>Has the strategy take changed? One short conclusion to King.</span></div>
+</div>
+</div></div>
 <div id="t2"><div id="t2in"><div id="t2pick" role="toolbar" aria-label="Choose a ticket example"></div><div id="t2list"></div></div></div>
 <div id="ctl"><button id="bR" title="Restart (Home / R)">&#8634; Restart</button><button id="bB" title="Back (Left)">&#8249; Back</button><span id="cnt"></span><button id="bN" title="Next (Right / Space)">Next &#8250;</button></div>
 <script>
@@ -584,14 +633,14 @@ function t4go(n){t4s=n;const S=T4[n];let h='<h1>Search Console set-up, by chat</
  const f=t4l.querySelectorAll('.tl .fresh');const sc=document.getElementById('t4');if(f.length&&n>1)f[f.length-1].scrollIntoView({block:'end',behavior:'smooth'});else sc.scrollTop=0}
 function t4next(){if(t4s<T4.length-1)t4go(t4s+1)}function t4prev(){if(t4s>0)t4go(t4s-1)}
 function t4key(e){const k=e.key;if((k=='Enter'||k==' ')&&e.target.closest&&e.target.closest('button'))return;if(k=='ArrowRight'||k==' '||k=='PageDown'||k=='Enter'){e.preventDefault();t4next()}else if(k=='ArrowLeft'||k=='PageUp'||k=='Backspace'){e.preventDefault();t4prev()}else if(k=='Home'||k=='r'||k=='R'){e.preventDefault();t4go(0)}}
-setTab=function(n){if(n==7&&phoneAt[7]<0)document.body.classList.add('t7intro');else document.body.classList.remove('t7intro');TAB=n;[1,2,3,4,5,6,7,8].forEach(i=>{document.body.classList.toggle('tab'+i,n==i&&i>1);const b=document.getElementById('tb'+i);b.classList.toggle('on',n==i);b.setAttribute('aria-selected',n==i)});if(n==2)t2go(t2s);else if(n==3)t3go(t3s);else if(n==4)t4go(t4s);else if(n==5)t5go(t5s);else if(n==8)t8go(t8s);else if(n==1||n==6||n==7)enterPhone(n);else upd();t5fit()};
+setTab=function(n){if(n==7&&phoneAt[7]<0)document.body.classList.add('t7intro');else document.body.classList.remove('t7intro');TAB=n;[1,2,3,4,5,6,7,8,9].forEach(i=>{document.body.classList.toggle('tab'+i,n==i&&i>1);const b=document.getElementById('tb'+i);b.classList.toggle('on',n==i);b.setAttribute('aria-selected',n==i)});if(n==2)t2go(t2s);else if(n==3)t3go(t3s);else if(n==4)t4go(t4s);else if(n==5)t5go(t5s);else if(n==8)t8go(t8s);else if(n==9);else if(n==1||n==6||n==7)enterPhone(n);else upd();t5fit()};
 document.addEventListener('click',function(e){const t=e.target;if(!t.closest)return;const b=t.closest('.opentab');if(!b)return;e.preventDefault();e.stopPropagation();setTab(+b.getAttribute('data-open'))},true);
 document.getElementById('tb1').onclick=()=>setTab(1);document.getElementById('tb2').onclick=()=>setTab(2);document.getElementById('tb3').onclick=()=>setTab(3);document.getElementById('tb4').onclick=()=>setTab(4);
 document.getElementById('t4').addEventListener('click',e=>e.stopPropagation());
 document.getElementById('bN').onclick=()=>TAB==8?t8next():TAB==5?t5next():TAB==4?t4next():TAB==3?t3next():TAB==2?t2next():next();
 document.getElementById('bB').onclick=()=>TAB==8?t8prev():TAB==5?t5prev():TAB==4?t4prev():TAB==3?t3prev():TAB==2?t2prev():prev();
 document.getElementById('bR').onclick=()=>TAB==8?t8go(0):TAB==5?t5go(0):TAB==4?t4go(0):TAB==3?t3go(0):TAB==2?t2go(0):restart();
-addEventListener('keydown',e=>{if(e.shiftKey||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key=='4'&&TAB!=4){e.preventDefault();e.stopImmediatePropagation();setTab(4)}else if(e.key=='5'&&TAB!=5){e.preventDefault();e.stopImmediatePropagation();setTab(5)}else if(e.key=='6'&&TAB!=6){e.preventDefault();e.stopImmediatePropagation();setTab(6)}else if(e.key=='7'&&TAB!=7){e.preventDefault();e.stopImmediatePropagation();setTab(7)}else if(e.key=='8'&&TAB!=8){e.preventDefault();e.stopImmediatePropagation();setTab(8)}else if(TAB==7){if(e.key=='1'||e.key=='2'||e.key=='3'){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}else if((e.key=='Enter'||e.key==' ')&&e.target.closest&&e.target.closest('.opentab'))e.stopImmediatePropagation()}else if(TAB==4){if(e.key=='1'||e.key=='2'||e.key=='3'){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}else{e.stopImmediatePropagation();t4key(e)}}},true);
+addEventListener('keydown',e=>{if(e.shiftKey||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key=='4'&&TAB!=4){e.preventDefault();e.stopImmediatePropagation();setTab(4)}else if(e.key=='5'&&TAB!=5){e.preventDefault();e.stopImmediatePropagation();setTab(5)}else if(e.key=='6'&&TAB!=6){e.preventDefault();e.stopImmediatePropagation();setTab(6)}else if(e.key=='7'&&TAB!=7){e.preventDefault();e.stopImmediatePropagation();setTab(7)}else if(e.key=='8'&&TAB!=8){e.preventDefault();e.stopImmediatePropagation();setTab(8)}else if(e.key=='9'&&TAB!=9){e.preventDefault();e.stopImmediatePropagation();setTab(9)}else if(TAB==9){if(/^[1-8]$/.test(e.key)){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}else if(e.key=='ArrowRight'||e.key=='ArrowLeft'||e.key==' '||e.key=='PageDown'||e.key=='PageUp'||e.key=='Enter'||e.key=='Backspace'||e.key=='Home'||e.key=='r'||e.key=='R'){e.preventDefault();e.stopImmediatePropagation()}}else if(TAB==7){if(e.key=='1'||e.key=='2'||e.key=='3'){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}else if((e.key=='Enter'||e.key==' ')&&e.target.closest&&e.target.closest('.opentab'))e.stopImmediatePropagation()}else if(TAB==4){if(e.key=='1'||e.key=='2'||e.key=='3'){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}else{e.stopImmediatePropagation();t4key(e)}}},true);
 
 
 /* ===== TAB 5: Meeting note-taker =====
@@ -626,7 +675,7 @@ function t5key(e){const k=e.key;if((k=='Enter'||k==' ')&&e.target.closest&&e.tar
 document.getElementById('tb5').onclick=()=>setTab(5);
 document.getElementById('t5').addEventListener('click',e=>e.stopPropagation());
 addEventListener('keydown',e=>{if(e.shiftKey||e.ctrlKey||e.metaKey||e.altKey)return;if(TAB==5){if(e.key=='1'||e.key=='2'||e.key=='3'||e.key=='4'){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}else{e.stopImmediatePropagation();t5key(e)}}else if(TAB==6){if(e.key=='1'||e.key=='2'||e.key=='3'||e.key=='4'||e.key=='5'){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}}},true);
-function t5fit(){const tabs=document.getElementById('tabs');const narrow=innerWidth<=600;const box=tabs.getBoundingClientRect();const wrap=narrow&&box.height>52;const top=wrap?(Math.ceil(box.bottom)+6)+'px':'';['t2','t3','t4','t5','t6','t7','t8'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.top=top})}
+function t5fit(){const tabs=document.getElementById('tabs');const narrow=innerWidth<=600;const box=tabs.getBoundingClientRect();const wrap=narrow&&box.height>52;const top=wrap?(Math.ceil(box.bottom)+6)+'px':'';['t2','t3','t4','t5','t6','t7','t8','t9'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.top=top})}
 addEventListener('resize',t5fit);t5fit();
 
 /* ===== TAB 6 cards: unused. The phone script (steps6) is what plays. =====
@@ -795,6 +844,7 @@ t8l.addEventListener('click',e=>{const b=e.target.closest('[data-j]');if(b)t8go(
 function t8next(){if(t8s<T8.length-1)t8go(t8s+1)}function t8prev(){if(t8s>0)t8go(t8s-1)}
 function t8key(e){const k=e.key;if((k=='Enter'||k==' ')&&e.target.closest&&e.target.closest('button,a'))return;if(k=='ArrowRight'||k==' '||k=='PageDown'||k=='Enter'){e.preventDefault();t8next()}else if(k=='ArrowLeft'||k=='PageUp'||k=='Backspace'){e.preventDefault();t8prev()}else if(k=='Home'||k=='r'||k=='R'){e.preventDefault();t8go(0)}}
 document.getElementById('tb8').onclick=()=>setTab(8);
+document.getElementById('tb9').onclick=()=>setTab(9);
 document.getElementById('t8').addEventListener('click',e=>e.stopPropagation());
 addEventListener('keydown',e=>{if(e.shiftKey||e.ctrlKey||e.metaKey||e.altKey)return;if(TAB!=8)return;e.stopImmediatePropagation();t8key(e)},true);
 
