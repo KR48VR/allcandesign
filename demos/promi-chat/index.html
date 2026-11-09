@@ -273,7 +273,7 @@ body.tab8 #ctl button:hover{background:#B9562A;color:#fff}
 #t8 ul.lessons li{margin:0 0 10px;line-height:1.55}
 #t8 figure.shot{margin:14px 0}
 #t8 figure.shot:last-child{margin-bottom:0}
-#t8 figure.shot img{width:100%;height:auto;display:block;border-radius:10px;border:1px solid #e3c4b6;background:#fff}
+#t8 figure.shot img{max-width:100%;width:auto;height:auto;display:block;margin-left:auto;margin-right:auto;border-radius:10px;border:0;box-shadow:inset 0 0 0 1px #e3c4b6;background:#fff}
 #t8 figure.shot figcaption{font-size:13px;line-height:1.4;color:#6b4a3a;margin-top:6px}
 #t8 .chatbit{margin:4px 0 14px;display:flex;flex-direction:column;gap:8px}
 #t8 .chatnote{font-size:13px;line-height:1.4;color:#6b4a3a;margin:0}
@@ -530,7 +530,7 @@ function t3go(n){t3s=n;const S=T3[n];let h='<h1>Bot-assisted PPT to PDF, Drive b
  else if(S.kind=='end')h+='<div id="t2end" class="fresh"><b>What it shows</b><br>One ask, one approval (“yes do that”), and Kondo finds '+D3.inScope+' files, converts all 33 old decks with no failures after recovering from PowerPoint stalls, copies everything to Drive without overwriting anything, pauses when the Mac runs low on disk, verifies all '+D3.verified+' older files by name and size, and only then moves them to the Mac Trash, recoverable for a week, to be emptied on King’s say-so. '+(FREED?D3.gbFreed+' GB freed once the Trash was emptied.':'Emptying is scheduled for '+D3.emptyScheduled+'; the estimate of about '+D3.gbEstimate+' GB back is confirmed only then.')+' It repeats '+D3.repeats+': list first, delete only with King’s OK.</div>';
  else if(S.kind=='screenshots')h+='<div class="frame fresh"><h2>27 October screenshot cleanup</h2><p>A different task from the 5 November 39 GB Trash-empty already on this tab.</p><figure class="rf"><div class="vw16"><video id="t3vOct27" controls playsinline preload="metadata" aria-label="Screen recording of the 27 October screenshot cleanup: King sent trash all, and 213 Desktop screenshots went to Trash."><source src="tab3-clips/deletion-screen-recording-public-frost-light.mp4" type="video/mp4"></video></div><figcaption>Real recording, 27 October 2026. King sent “trash all,” and 213 Desktop screenshots went to the Mac Trash (0 failed). This clip does not show Trash being emptied: the on-screen note says everything is recoverable until Trash is emptied on Sunday 1 November, and that 10 screen recordings stay on the Desktop.</figcaption></figure></div>';
  else{const shown=T3.slice(0,n+1).filter(x=>!['frame','now','del','end','screenshots'].includes(x.kind));h+='<div class="tl">'+shown.map((x,i)=>cardFor(x,i==shown.length-1)).join('')+'</div>'}
- t3l.innerHTML=h;t3vid();document.getElementById('cnt').textContent='step '+n+' / '+(T3.length-1);
+ t3l.innerHTML=h;t3vid();document.getElementById('cnt').textContent='step '+(n+1)+' / '+T3.length;
  const f=t3l.querySelectorAll('.tl .fresh');const sc=document.getElementById('t3');if(f.length&&n>1)f[f.length-1].scrollIntoView({block:'end',behavior:'smooth'});else sc.scrollTop=0}
 
 function t3vid(){const v=document.getElementById('t3v'),b=document.getElementById('t3vb');if(!v||!b)return;const set=()=>{b.innerHTML=v.paused?'&#9654; Play':'&#10074;&#10074; Pause';b.setAttribute('aria-label',v.paused?'Play video':'Pause video')};v.muted=true;v.onplay=set;v.onpause=set;b.onclick=e=>{e.stopPropagation();v.paused?v.play().catch(set):v.pause()};const pr=v.play();if(pr&&pr.catch)pr.catch(set);set()}
@@ -580,7 +580,7 @@ function t4go(n){t4s=n;const S=T4[n];let h='<h1>Search Console set-up, by chat</
    if(x.m)items+=x.m.map((m,j)=>bub4(m[0],m[1],last&&j==x.m.length-1&&!card4(x.kind,0)||false,j==x.m.length-1?x.note:'',m[2])).join('');
    if(x.kind=='file'||x.kind=='done'||x.kind=='update')items+=card4(x.kind,last)}
    h+='<div class="tl">'+items+'</div>'}
- t4l.innerHTML=h;document.getElementById('cnt').textContent='step '+n+' / '+(T4.length-1);
+ t4l.innerHTML=h;document.getElementById('cnt').textContent='step '+(n+1)+' / '+T4.length;
  const f=t4l.querySelectorAll('.tl .fresh');const sc=document.getElementById('t4');if(f.length&&n>1)f[f.length-1].scrollIntoView({block:'end',behavior:'smooth'});else sc.scrollTop=0}
 function t4next(){if(t4s<T4.length-1)t4go(t4s+1)}function t4prev(){if(t4s>0)t4go(t4s-1)}
 function t4key(e){const k=e.key;if((k=='Enter'||k==' ')&&e.target.closest&&e.target.closest('button'))return;if(k=='ArrowRight'||k==' '||k=='PageDown'||k=='Enter'){e.preventDefault();t4next()}else if(k=='ArrowLeft'||k=='PageUp'||k=='Backspace'){e.preventDefault();t4prev()}else if(k=='Home'||k=='r'||k=='R'){e.preventDefault();t4go(0)}}
@@ -618,7 +618,7 @@ function t5go(n){t5s=n;const S=T5[n];let h='<h1>Meeting note-taker</h1><p class=
  else if(S.paras)body=S.paras.map(p=>'<p>'+e2(p)+'</p>').join('')+t5shots(S.shots);
  else body='<ul class="lessons">'+(S.bullets||[]).map(b=>'<li>'+e2(b)+'</li>').join('')+'</ul>'+t5shots(S.shots);
  h+='<div class="frame fresh '+S.cls+'">'+kicker+'<h2>'+e2(S.h)+'</h2>'+body+'</div>';
- t5l.innerHTML=h;document.getElementById('cnt').textContent='step '+n+' / '+(T5.length-1);
+ t5l.innerHTML=h;document.getElementById('cnt').textContent='step '+(n+1)+' / '+T5.length;
  document.getElementById('t5').scrollTop=0}
 t5l.addEventListener('click',e=>{const b=e.target.closest('[data-j]');if(b)t5go(+b.dataset.j)});
 function t5next(){if(t5s<T5.length-1)t5go(t5s+1)}function t5prev(){if(t5s>0)t5go(t5s-1)}
@@ -672,7 +672,7 @@ let t6s=0;const t6l=document.getElementById('t6list');
 function trk6(n){return '<div class="trk">'+T6.map((s,i)=>{const done=i<n,cur=i===n;const cls=done?'d':cur?'r cur':'pd';const aria='Jump to '+s.h;return '<button type="button" class="sg '+cls+'" data-j="'+i+'" aria-label="'+e2(aria)+'"'+(cur?' aria-current="step"':'')+'><div class="sn">'+(done?'&#10003;':i+1)+'</div><div class="sl"><b>'+e2(s.track)+'</b><span>'+(done?'Done':cur?'In progress':'Pending')+'</span></div></button>'}).join('<div class="sa">&rarr;</div>')+'</div>'}
 function t6go(n){t6s=n;const S=T6[n];let h='<h1>Retiring a room</h1>'+trk6(n);
  h+='<div class="frame fresh"><h2>'+e2(S.h)+'</h2><p>'+e2(S.body)+'</p></div>';
- t6l.innerHTML=h;document.getElementById('cnt').textContent='step '+n+' / '+(T6.length-1);
+ t6l.innerHTML=h;document.getElementById('cnt').textContent='step '+(n+1)+' / '+T6.length;
  document.getElementById('t6').scrollTop=0}
 t6l.addEventListener('click',e=>{const b=e.target.closest('[data-j]');if(b)t6go(+b.dataset.j)});
 function t6next(){if(t6s<T6.length-1)t6go(t6s+1)}function t6prev(){if(t6s>0)t6go(t6s-1)}
@@ -789,7 +789,7 @@ function t8flow(flow){let html='';(flow||[]).forEach(b=>{
 });return html}
 function t8go(n){t8s=n;const S=T8[n];
  t8l.innerHTML='<h1>One Day</h1><p class="sub">'+e2(T8SUB)+'</p>'+trk8(n)+'<div class="frame fresh"><h2>'+e2(S.h)+'</h2>'+t8flow(S.flow)+'</div>';
- document.getElementById('cnt').textContent='step '+n+' / '+(T8.length-1);
+ document.getElementById('cnt').textContent='step '+(n+1)+' / '+T8.length;
  document.getElementById('t8').scrollTop=0}
 t8l.addEventListener('click',e=>{const b=e.target.closest('[data-j]');if(b)t8go(+b.dataset.j)});
 function t8next(){if(t8s<T8.length-1)t8go(t8s+1)}function t8prev(){if(t8s>0)t8go(t8s-1)}
