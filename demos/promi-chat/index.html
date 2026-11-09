@@ -251,25 +251,62 @@ body.tab7 #end .endline{display:block;width:100%;min-width:0;white-space:normal;
 .shotb figcaption{font-size:22px;line-height:1.35;color:#6b4a3a;margin:8px 2px 0;font-weight:600}
 .coverbar{display:inline-block;width:6.4em;height:.62em;background:#241812;border-radius:.18em;vertical-align:-.05em;margin:0 .14em;box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
 .b.u .coverbar{background:#2a160e}
+#t8{position:fixed;top:56px;left:0;right:0;bottom:52px;display:none;z-index:8;overflow:auto;background:linear-gradient(#faeee4,#e6c9d0);font-family:NS,-apple-system,'Segoe UI',Roboto,sans-serif;color:#2b1d16}
+body.tab8 #t8{display:block}
+body.tab8 #stage{visibility:hidden}
+body.tab8{background:#f3ddd6}
+body.tab8 #ctl{opacity:1}
+body.tab8 #ctl button{background:#fff;border:1.5px solid #B9562A;color:#B9562A;font-weight:700;padding:7px 12px}
+body.tab8 #ctl button:hover{background:#B9562A;color:#fff}
+#t8in{max-width:880px;margin:0 auto;padding:8px 14px 24px}
+#t8 h1{font-size:22px;text-align:center;margin:6px 0 4px}
+#t8 .sub{text-align:center;color:#6b4a3a;font-size:16px;margin:0 0 14px;line-height:1.45}
+#t8 .trk button.sg{font:inherit;text-align:left;cursor:pointer;background:#fff;transition:transform .12s,box-shadow .12s}
+#t8 .trk button.sg:hover{transform:translateY(-2px);box-shadow:0 3px 10px rgba(0,0,0,.15)}
+#t8 .trk button:focus-visible{outline:3px solid #c0562b;outline-offset:2px}
+#t8 .trk button.sg.cur{box-shadow:0 0 0 3px #c0562b;transform:translateY(-1px)}
+#t8 .frame{border-top:6px solid #B9562A}
+#t8 .frame h2{font-size:20px}
+#t8 .frame p{margin:0 0 12px}
+#t8 .frame p:last-child{margin-bottom:0}
+#t8 ul.lessons{margin:4px 0 12px;padding-left:1.25em}
+#t8 ul.lessons li{margin:0 0 10px;line-height:1.55}
+#t8 figure.shot{margin:14px 0}
+#t8 figure.shot:last-child{margin-bottom:0}
+#t8 figure.shot img{width:100%;height:auto;display:block;border-radius:10px;border:1px solid #e3c4b6;background:#fff}
+#t8 figure.shot figcaption{font-size:13px;line-height:1.4;color:#6b4a3a;margin-top:6px}
+#t8 .chatbit{margin:4px 0 14px;display:flex;flex-direction:column;gap:8px}
+#t8 .chatnote{font-size:13px;line-height:1.4;color:#6b4a3a;margin:0}
+#t8 .line{max-width:92%;display:flex;flex-direction:column;gap:3px}
+#t8 .line.king{align-self:flex-end;align-items:flex-end}
+#t8 .line.bot{align-self:flex-start;align-items:flex-start}
+#t8 .line .nm{font-size:11px;font-weight:700;letter-spacing:.03em;color:#8a6558}
+#t8 .line .bub{border-radius:16px;padding:10px 14px;font-size:15px;line-height:1.45}
+#t8 .line.king .bub{background:#B9562A;color:#fff}
+#t8 .line.bot .bub{background:#f2f2f2;color:#141414}
+#t8 .outs{margin-top:4px}
+#t8 a.out{font:700 15px NS,sans-serif;display:inline-block;margin:0 8px 8px 0;border:1.5px solid #B9562A;background:#fff;color:#B9562A;border-radius:999px;padding:9px 16px;text-decoration:none}
+#t8 a.out:hover{background:#B9562A;color:#fff}
 @media(max-width:600px){#tabs{flex-wrap:wrap;max-width:calc(100vw - 20px)}}
 
 @media(min-width:601px){
 #tabs{flex-direction:column;top:12px;left:12px;bottom:auto;width:208px;gap:4px;padding:8px;font-size:15px;border-radius:14px}
 #tabs button{text-align:left;white-space:normal;line-height:1.25;padding:12px 14px;font-size:15px}
 #tabs .lg{display:inline}#tabs .sh{display:none}
-#t2,#t3,#t4,#t5,#t6,#t7{top:0;left:240px}
+#t2,#t3,#t4,#t5,#t6,#t7,#t8{top:0;left:240px}
 }
 </style></head><body><div id="stage"><div id="cap"></div><div id="phone"><div id="screen">
 <div id="view"><div id="chat"></div></div>
 <div id="hdr"><div class="time">11:30</div><div class="batt"></div><div class="circ" style="left:30px">&#x2039;</div><div class="pill"><div class="av"></div><span id="who">Promi</span></div><div class="circ" style="right:30px;font-size:30px">•••</div></div>
 <div id="bar"><div id="plus">+</div><div id="inp" class="ph"><span>Ask Promi</span></div><div id="mic"></div><div id="voice">|ıl|ı</div></div>
 </div></div><div id="end"><div>Refining our practices<br>together</div></div></div>
-<div id="tabs" role="tablist"><button id="tb1" class="on" role="tab" aria-selected="true">1 &middot; <span class="lg">Refining practices</span><span class="sh">Practices</span></button><button id="tb2" role="tab" aria-selected="false">2 &middot; <span class="lg">Tech support tickets</span><span class="sh">Tickets</span></button><button id="tb3" role="tab" aria-selected="false">3 &middot; <span class="lg">PPT to PDF cleanup</span><span class="sh">Cleanup</span></button><button id="tb4" role="tab" aria-selected="false">4 &middot; <span class="lg">Search Console setup</span><span class="sh">Search</span></button><button id="tb5" role="tab" aria-selected="false">5 &middot; <span class="lg">Meeting note-taker</span><span class="sh">Notes</span></button><button id="tb6" role="tab" aria-selected="false">6 &middot; <span class="lg">Retiring a room</span><span class="sh">Room</span></button><button id="tb7" role="tab" aria-selected="false">7 &middot; <span class="lg">Write to us</span><span class="sh">Write</span></button></div>
+<div id="tabs" role="tablist"><button id="tb1" class="on" role="tab" aria-selected="true">1 &middot; <span class="lg">Refining practices</span><span class="sh">Practices</span></button><button id="tb2" role="tab" aria-selected="false">2 &middot; <span class="lg">Tech support tickets</span><span class="sh">Tickets</span></button><button id="tb3" role="tab" aria-selected="false">3 &middot; <span class="lg">PPT to PDF cleanup</span><span class="sh">Cleanup</span></button><button id="tb4" role="tab" aria-selected="false">4 &middot; <span class="lg">Search Console setup</span><span class="sh">Search</span></button><button id="tb5" role="tab" aria-selected="false">5 &middot; <span class="lg">Meeting note-taker</span><span class="sh">Notes</span></button><button id="tb6" role="tab" aria-selected="false">6 &middot; <span class="lg">Retiring a room</span><span class="sh">Room</span></button><button id="tb7" role="tab" aria-selected="false">7 &middot; <span class="lg">Write to us</span><span class="sh">Write</span></button><button id="tb8" role="tab" aria-selected="false">8 &middot; <span class="lg">One Day</span><span class="sh">One Day</span></button></div>
 <div id="t3"><div id="t2in"><div id="t3list"></div></div></div>
 <div id="t4"><div id="t4in"><div id="t4list"></div></div></div>
 <div id="t5"><div id="t5in"><div id="t5list"></div></div></div>
 <div id="t6"><div id="t6in"><div id="t6list"></div></div></div>
 <div id="t7"><div id="t7in"><div id="t7list"></div></div></div>
+<div id="t8"><div id="t8in"><div id="t8list"></div></div></div>
 <div id="t2"><div id="t2in"><div id="t2pick" role="toolbar" aria-label="Choose a ticket example"></div><div id="t2list"></div></div></div>
 <div id="ctl"><button id="bR" title="Restart (Home / R)">&#8634; Restart</button><button id="bB" title="Back (Left)">&#8249; Back</button><span id="cnt"></span><button id="bN" title="Next (Right / Space)">Next &#8250;</button></div>
 <script>
@@ -547,14 +584,14 @@ function t4go(n){t4s=n;const S=T4[n];let h='<h1>Search Console set-up, by chat</
  const f=t4l.querySelectorAll('.tl .fresh');const sc=document.getElementById('t4');if(f.length&&n>1)f[f.length-1].scrollIntoView({block:'end',behavior:'smooth'});else sc.scrollTop=0}
 function t4next(){if(t4s<T4.length-1)t4go(t4s+1)}function t4prev(){if(t4s>0)t4go(t4s-1)}
 function t4key(e){const k=e.key;if((k=='Enter'||k==' ')&&e.target.closest&&e.target.closest('button'))return;if(k=='ArrowRight'||k==' '||k=='PageDown'||k=='Enter'){e.preventDefault();t4next()}else if(k=='ArrowLeft'||k=='PageUp'||k=='Backspace'){e.preventDefault();t4prev()}else if(k=='Home'||k=='r'||k=='R'){e.preventDefault();t4go(0)}}
-setTab=function(n){if(n==7&&phoneAt[7]<0)document.body.classList.add('t7intro');else document.body.classList.remove('t7intro');TAB=n;[1,2,3,4,5,6,7].forEach(i=>{document.body.classList.toggle('tab'+i,n==i&&i>1);const b=document.getElementById('tb'+i);b.classList.toggle('on',n==i);b.setAttribute('aria-selected',n==i)});if(n==2)t2go(t2s);else if(n==3)t3go(t3s);else if(n==4)t4go(t4s);else if(n==5)t5go(t5s);else if(n==1||n==6||n==7)enterPhone(n);else upd();t5fit()};
+setTab=function(n){if(n==7&&phoneAt[7]<0)document.body.classList.add('t7intro');else document.body.classList.remove('t7intro');TAB=n;[1,2,3,4,5,6,7,8].forEach(i=>{document.body.classList.toggle('tab'+i,n==i&&i>1);const b=document.getElementById('tb'+i);b.classList.toggle('on',n==i);b.setAttribute('aria-selected',n==i)});if(n==2)t2go(t2s);else if(n==3)t3go(t3s);else if(n==4)t4go(t4s);else if(n==5)t5go(t5s);else if(n==8)t8go(t8s);else if(n==1||n==6||n==7)enterPhone(n);else upd();t5fit()};
 document.addEventListener('click',function(e){const t=e.target;if(!t.closest)return;const b=t.closest('.opentab');if(!b)return;e.preventDefault();e.stopPropagation();setTab(+b.getAttribute('data-open'))},true);
 document.getElementById('tb1').onclick=()=>setTab(1);document.getElementById('tb2').onclick=()=>setTab(2);document.getElementById('tb3').onclick=()=>setTab(3);document.getElementById('tb4').onclick=()=>setTab(4);
 document.getElementById('t4').addEventListener('click',e=>e.stopPropagation());
-document.getElementById('bN').onclick=()=>TAB==5?t5next():TAB==4?t4next():TAB==3?t3next():TAB==2?t2next():next();
-document.getElementById('bB').onclick=()=>TAB==5?t5prev():TAB==4?t4prev():TAB==3?t3prev():TAB==2?t2prev():prev();
-document.getElementById('bR').onclick=()=>TAB==5?t5go(0):TAB==4?t4go(0):TAB==3?t3go(0):TAB==2?t2go(0):restart();
-addEventListener('keydown',e=>{if(e.shiftKey||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key=='4'&&TAB!=4){e.preventDefault();e.stopImmediatePropagation();setTab(4)}else if(e.key=='5'&&TAB!=5){e.preventDefault();e.stopImmediatePropagation();setTab(5)}else if(e.key=='6'&&TAB!=6){e.preventDefault();e.stopImmediatePropagation();setTab(6)}else if(e.key=='7'&&TAB!=7){e.preventDefault();e.stopImmediatePropagation();setTab(7)}else if(TAB==7){if(e.key=='1'||e.key=='2'||e.key=='3'){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}else if((e.key=='Enter'||e.key==' ')&&e.target.closest&&e.target.closest('.opentab'))e.stopImmediatePropagation()}else if(TAB==4){if(e.key=='1'||e.key=='2'||e.key=='3'){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}else{e.stopImmediatePropagation();t4key(e)}}},true);
+document.getElementById('bN').onclick=()=>TAB==8?t8next():TAB==5?t5next():TAB==4?t4next():TAB==3?t3next():TAB==2?t2next():next();
+document.getElementById('bB').onclick=()=>TAB==8?t8prev():TAB==5?t5prev():TAB==4?t4prev():TAB==3?t3prev():TAB==2?t2prev():prev();
+document.getElementById('bR').onclick=()=>TAB==8?t8go(0):TAB==5?t5go(0):TAB==4?t4go(0):TAB==3?t3go(0):TAB==2?t2go(0):restart();
+addEventListener('keydown',e=>{if(e.shiftKey||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key=='4'&&TAB!=4){e.preventDefault();e.stopImmediatePropagation();setTab(4)}else if(e.key=='5'&&TAB!=5){e.preventDefault();e.stopImmediatePropagation();setTab(5)}else if(e.key=='6'&&TAB!=6){e.preventDefault();e.stopImmediatePropagation();setTab(6)}else if(e.key=='7'&&TAB!=7){e.preventDefault();e.stopImmediatePropagation();setTab(7)}else if(e.key=='8'&&TAB!=8){e.preventDefault();e.stopImmediatePropagation();setTab(8)}else if(TAB==7){if(e.key=='1'||e.key=='2'||e.key=='3'){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}else if((e.key=='Enter'||e.key==' ')&&e.target.closest&&e.target.closest('.opentab'))e.stopImmediatePropagation()}else if(TAB==4){if(e.key=='1'||e.key=='2'||e.key=='3'){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}else{e.stopImmediatePropagation();t4key(e)}}},true);
 
 
 /* ===== TAB 5: Meeting note-taker =====
@@ -589,7 +626,7 @@ function t5key(e){const k=e.key;if((k=='Enter'||k==' ')&&e.target.closest&&e.tar
 document.getElementById('tb5').onclick=()=>setTab(5);
 document.getElementById('t5').addEventListener('click',e=>e.stopPropagation());
 addEventListener('keydown',e=>{if(e.shiftKey||e.ctrlKey||e.metaKey||e.altKey)return;if(TAB==5){if(e.key=='1'||e.key=='2'||e.key=='3'||e.key=='4'){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}else{e.stopImmediatePropagation();t5key(e)}}else if(TAB==6){if(e.key=='1'||e.key=='2'||e.key=='3'||e.key=='4'||e.key=='5'){e.preventDefault();e.stopImmediatePropagation();setTab(+e.key)}}},true);
-function t5fit(){const tabs=document.getElementById('tabs');const narrow=innerWidth<=600;const box=tabs.getBoundingClientRect();const wrap=narrow&&box.height>52;const top=wrap?(Math.ceil(box.bottom)+6)+'px':'';['t2','t3','t4','t5','t6','t7'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.top=top})}
+function t5fit(){const tabs=document.getElementById('tabs');const narrow=innerWidth<=600;const box=tabs.getBoundingClientRect();const wrap=narrow&&box.height>52;const top=wrap?(Math.ceil(box.bottom)+6)+'px':'';['t2','t3','t4','t5','t6','t7','t8'].forEach(id=>{const el=document.getElementById(id);if(el)el.style.top=top})}
 addEventListener('resize',t5fit);t5fit();
 
 /* ===== TAB 6 cards: unused. The phone script (steps6) is what plays. =====
@@ -643,5 +680,98 @@ function t6key(e){const k=e.key;if((k=='Enter'||k==' ')&&e.target.closest&&e.tar
 document.getElementById('tb6').onclick=()=>setTab(6);
 document.getElementById('tb7').onclick=()=>setTab(7);
 document.getElementById('t6').addEventListener('click',e=>e.stopPropagation());
+
+/* ===== TAB 8: One Day =====
+   Eight beats. Click Next to advance. Screenshots sit with the point they show.
+   Two beats include a short reconstructed Grok Bot chat, in the same orange and grey bubbles as the phone. */
+const T8SUB = "How the One Day film card got onto the portfolio.";
+const T8 = [
+  {track:"The kit", h:"Read the folder before you publish", flow:[
+    {k:"p", t:"The folder to read was Portfolio Film Kit. Its README, “Portfolio Film Kit: start here”, was the list of what belonged on the site."},
+    {k:"ul", items:[
+      "It named 13 versions.",
+      "It pointed at Films → 10_v9_FINAL_one-day.mp4 as the final film.",
+      "It named the four making-of pages."
+    ]},
+    {k:"p", t:"A zip sitting in Mac Downloads was only the starter kit, the engine. It was not the movie."},
+    {k:"shots", shots:[{src:"tab8/readme-films-table.png", alt:"The films table from the README, listing 13 versions. The last row is 10_v9_FINAL_one-day, v9, 1:48.", cap:"The films table in the README. Thirteen versions, and v9 — 10_v9_FINAL_one-day — is the 1:48 final."}]}
+  ]},
+  {track:"The card", h:"The card is the film, not the portfolio", flow:[
+    {k:"p", t:"King refined what the card was for. It is about the video about the portfolio, not the portfolio itself. The portfolio already lists the designs."},
+    {k:"p", t:"So the card prefers the four Claude making-of pages, and it does not link back to the live portfolio. The only tool credited is Claude. The larger crew on the end card stays off this card."},
+    {k:"chat", note:"A short reconstruction in the Grok Bot chat, of that check. Not a saved transcript.", lines:[
+      {who:"king", t:"This card is for the film about the portfolio, not a second copy of the portfolio. The designs are already listed there."},
+      {who:"bot", t:"Then the links are the four making-of pages, and the only tool on the card is Claude."}
+    ]}
+  ]},
+  {track:"ElevenLabs", h:"ElevenLabs was on the end card only", flow:[
+    {k:"p", t:"On 11 October 2026 King’s Claude account was set up on the shared computer, as a backup to his Mac. It was signed in in the browser, and it was also available from the terminal. That is why the making session could be opened later, in a browser that was already signed in. The film versions were recovered that way."},
+    {k:"p", t:"ElevenLabs was not used to make this film. It only appears on the end-card CREW list in the starter kit, written in beside ChatGPT, Gemini, and the other tools that built the portfolio worlds."},
+    {k:"p", t:"The line on that card is “We built them to show how we can design a more human future.” Under CAST it says “Everyone these worlds were built for.” The soundtrack is an original score written in code. The kit brief asked, “Is there a voice-over, or does showing do the work?” Showing won."},
+    {k:"shots", shots:[{src:"tab8/end-card-crew.jpg", alt:"End card. CREW lists Claude, ChatGPT, Gemini, Grok, Perplexity, Codex, NotebookLM, ElevenLabs, Google AI Studio, Higgsfield, and Groq. CAST: Everyone these worlds were built for.", cap:"The end card in the starter kit. ElevenLabs is one name in that CREW line. It was not used to make this film."}]}
+  ]},
+  {track:"Empty", h:"The Films folder was empty", flow:[
+    {k:"p", t:"The Films folder was created empty on 8 November 2026, the day the README was written."},
+    {k:"p", t:"The README still listed 13 version files as sent on 24 October 2026, from the Claude session. The names were on the page. The files were not in the folder."}
+  ]},
+  {track:"Found", h:"The 13 versions were recovered", flow:[
+    {k:"p", t:"All 13 versions were recovered by opening the making session in the browser that was already signed in. Their lengths matched the README. They were uploaded into the private Films folder, and the sharing on that folder was left as it was."},
+    {k:"p", t:"The kit and the Films folder stay private."},
+    {k:"shots", shots:[{src:"tab8/films-folder.jpg", alt:"Films folder. The path is My Drive, Portfolio Film Kit, Films. The list includes 10_v9_FINAL_one-day.mp4 and the other version files.", cap:"The Films folder after the upload. Path: My Drive > Portfolio Film Kit > Films. 10_v9_FINAL_one-day.mp4 is in the list."}]}
+  ]},
+  {track:"Two checks", h:"Two decisions, checked with King", flow:[
+    {k:"p", t:"Before anything went up, two decisions were checked with King."},
+    {k:"ul", items:[
+      "The card: the four Claude making-of pages, not a link to the live portfolio. Claude only, as the tool. And a check that ElevenLabs was not used to make the film.",
+      "The film: YouTube Unlisted, and the film kit stays private for now."
+    ]},
+    {k:"chat", note:"A short reconstruction in the Grok Bot chat, of those two checks. Not a saved transcript.", lines:[
+      {who:"king", t:"Before this goes up, check two things with me."},
+      {who:"bot", t:"The card links the four making-of pages, not the live portfolio. The only tool named is Claude. ElevenLabs was not used to make the film."},
+      {who:"king", t:"That’s right. Put the film on YouTube as Unlisted, and leave the film kit private."}
+    ]},
+    {k:"shots", shots:[{src:"tab8/youtube-studio-unlisted.jpg", alt:"YouTube Studio video details. Title All Can Create — One Day. Visibility Unlisted. The description includes the four making-of links.", cap:"YouTube Studio. Visibility is Unlisted. The description carries the four making-of links."}]}
+  ]},
+  {track:"Live", h:"The film went on the portfolio", flow:[
+    {k:"p", t:"The film went up as Unlisted on YouTube, with the first frame as the thumbnail. The card carries the same four Claude links, and so does the YouTube description."},
+    {k:"p", t:"That card landed in PR #53. It sat taller than the cards beside it: the caption was longer, and the four links stacked one per row."},
+    {k:"shots", shots:[
+      {src:"tab8/grid-before.jpg", alt:"The portfolio row before the height tweak. One Day is on the right, with its making-of links stacked.", cap:"Before. One Day on the right, links stacked, taller than Ipsos and Living Digital 2040."},
+      {src:"tab8/card-before.jpg", alt:"The One Day card before the tweak: a long caption, then View Project, then four making-of buttons each on their own row.", cap:"The card up close, before the tweak."}
+    ]},
+    {k:"p", t:"PR #54 shortened the caption and put the making-of labels two to a row: Making of One Day, How We Made It, Film Playbook, and Director’s Cut Storyboard. Ipsos and Living Digital 2040 now share that row."},
+    {k:"shots", shots:[
+      {src:"tab8/three-card-row-after.jpg", alt:"After the height tweak: Ipsos, Living Digital 2040, and One Day in one row, close in height.", cap:"After. The same three cards, close in height."},
+      {src:"tab8/card-phone-after.jpg", alt:"The shorter One Day card on a phone. Making of One Day sits with View Project. How We Made It sits with Film Playbook.", cap:"The same card on a phone. Two links on a row, where they fit."},
+      {src:"tab8/youtube-watch.jpg", alt:"The YouTube watch page for All Can Create — One Day, Unlisted, with the four making-of links in the description.", cap:"The watch page. Unlisted, and the four links are in the description."}
+    ]}
+  ]},
+  {track:"This tab", h:"This tab is the example", flow:[
+    {k:"p", t:"This tab is the episode itself, so the whole thing can be used as an example of teaching, and of working with agents. Read the folder. Check the facts. Ask before publishing. Then show the work."},
+    {k:"p", t:"The live card is on the portfolio. The film is the Unlisted video."},
+    {k:"links"}
+  ]}
+];
+let t8s=0;const t8l=document.getElementById('t8list');
+function trk8(n){return '<div class="trk">'+T8.map((s,i)=>{const done=i<n,cur=i===n;const cls=done?'d':cur?'r cur':'pd';return '<button type="button" class="sg '+cls+'" data-j="'+i+'" aria-label="'+e2('Jump to '+s.h)+'"'+(cur?' aria-current="step"':'')+'><div class="sn">'+(done?'&#10003;':i+1)+'</div><div class="sl"><b>'+e2(s.track)+'</b><span>'+(done?'Done':cur?'In progress':'Pending')+'</span></div></button>'}).join('<div class="sa">&rarr;</div>')+'</div>'}
+function t8shots(list){return (list||[]).map(s=>'<figure class="shot"><img src="'+s.src+'" alt="'+e2(s.alt)+'"><figcaption>'+e2(s.cap)+'</figcaption></figure>').join('')}
+function t8chat(b){const lines=(b.lines||[]).map(l=>{const side=l.who==='king'?'king':'bot';const nm=l.who==='king'?'King':'Promi';return '<div class="line '+side+'"><div class="nm">'+nm+'</div><div class="bub">'+e2(l.t)+'</div></div>'}).join('');return '<div class="chatbit"><p class="chatnote">'+e2(b.note||'')+'</p>'+lines+'</div>'}
+function t8flow(flow){let html='';(flow||[]).forEach(b=>{
+  if(b.k==='p')html+='<p>'+e2(b.t)+'</p>';
+  else if(b.k==='ul')html+='<ul class="lessons">'+b.items.map(t=>'<li>'+e2(t)+'</li>').join('')+'</ul>';
+  else if(b.k==='shots')html+=t8shots(b.shots);
+  else if(b.k==='chat')html+=t8chat(b);
+  else if(b.k==='links')html+='<p class="outs"><a class="out" href="https://kr48vr.github.io/allcandesign/">The live card</a><a class="out" href="https://www.youtube.com/watch?v=r1ErxkARO4w">The film on YouTube</a></p>';
+});return html}
+function t8go(n){t8s=n;const S=T8[n];
+ t8l.innerHTML='<h1>One Day</h1><p class="sub">'+e2(T8SUB)+'</p>'+trk8(n)+'<div class="frame fresh"><h2>'+e2(S.h)+'</h2>'+t8flow(S.flow)+'</div>';
+ document.getElementById('cnt').textContent='step '+n+' / '+(T8.length-1);
+ document.getElementById('t8').scrollTop=0}
+t8l.addEventListener('click',e=>{const b=e.target.closest('[data-j]');if(b)t8go(+b.dataset.j)});
+function t8next(){if(t8s<T8.length-1)t8go(t8s+1)}function t8prev(){if(t8s>0)t8go(t8s-1)}
+function t8key(e){const k=e.key;if((k=='Enter'||k==' ')&&e.target.closest&&e.target.closest('button,a'))return;if(k=='ArrowRight'||k==' '||k=='PageDown'||k=='Enter'){e.preventDefault();t8next()}else if(k=='ArrowLeft'||k=='PageUp'||k=='Backspace'){e.preventDefault();t8prev()}else if(k=='Home'||k=='r'||k=='R'){e.preventDefault();t8go(0)}}
+document.getElementById('tb8').onclick=()=>setTab(8);
+document.getElementById('t8').addEventListener('click',e=>e.stopPropagation());
+addEventListener('keydown',e=>{if(e.shiftKey||e.ctrlKey||e.metaKey||e.altKey)return;if(TAB!=8)return;e.stopImmediatePropagation();t8key(e)},true);
 
 </script></body></html>
