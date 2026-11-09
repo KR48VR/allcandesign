@@ -334,7 +334,7 @@ function esc(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
 const COVER='\uE000';
 function paint(t){if(t.indexOf(COVER)<0)return esc(t);return t.split(COVER).map(esc).join('<i class="coverbar" role="img" aria-label="covered"></i>')}
 function setInput(t){if(t){inp.className='';inp.innerHTML='<span>'+paint(t)+'<b class="caret"></b></span>'}else{inp.className='ph';inp.innerHTML='<span>'+esc(askPlaceholder)+'</span>'}}
-function upd(){if(TAB==1||TAB==6||TAB==7)document.getElementById('cnt').textContent=step+' / '+steps.length}
+function upd(){if(TAB==1||TAB==6||TAB==7)document.getElementById('cnt').textContent=(step+1)+' / '+(steps.length+1)}
 function build(n){cancel();chat.innerHTML='';cardEl=null;setInput('');endEl.style.display='none';
  items.forEach(it=>el(it,false));let c=0;
  for(let i=0;i<n;i++){const s=steps[i];c=s.cap;if(s.end){endEl.style.display='flex';continue}el(s.add,false,s.add.k=='card'&&n>i+1);if(s.img)el(s.img,false);if(s.note)el({k:'note',t:s.note},false)}
