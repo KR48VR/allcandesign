@@ -649,7 +649,7 @@ const T5DATA = {"sub": "The meeting itself stays private; this tab is only the m
 const T5SUB = T5DATA.sub;
 const T5 = T5DATA.steps;
 let t5s=0;const t5l=document.getElementById('t5list');
-function trk5(n){return '<div class="trk">'+T5.map((s,i)=>{const on=i===n,done=i<n||(on&&s.track==='Official'),cur=on&&!done;const cls=done?'d':cur?'r cur':'pd';const aria='Jump to '+s.h+(s.n?' '+s.n:'');return '<button type="button" class="sg '+cls+'" data-j="'+i+'" aria-label="'+e2(aria)+'"'+(on?' aria-current="step"':'')+'><div class="sn">'+(done?'&#10003;':i+1)+'</div><div class="sl"><b>'+s.track+'</b><span>'+(done?'Done':cur?'In progress':'Pending')+'</span></div></button>'}).join('<div class="sa">&rarr;</div>')+'</div>'}
+function trk5(n){return '<div class="trk">'+T5.map((s,i)=>{const done=i<n,cur=i===n;const cls=done?'d':cur?'r cur':'pd';const aria='Jump to '+s.h+(s.n?' '+s.n:'');return '<button type="button" class="sg '+cls+'" data-j="'+i+'" aria-label="'+e2(aria)+'"'+(cur?' aria-current="step"':'')+'><div class="sn">'+(done?'&#10003;':i+1)+'</div><div class="sl"><b>'+s.track+'</b><span>'+(done?'Done':cur?'In progress':'Pending')+'</span></div></button>'}).join('<div class="sa">&rarr;</div>')+'</div>'}
 function t5shots(list){if(!list||!list.length)return '';return list.map(s=>'<figure class="shot"><img src="'+s.src+'" alt="'+e2(s.alt)+'"><figcaption>'+e2(s.cap)+'</figcaption></figure>').join('')}
 function t5flow(flow){let html='',lis=null,open=false;
  const flush=()=>{if(lis){html+='<ul class="lessons">'+lis.map(t=>'<li>'+e2(t)+'</li>').join('')+'</ul>';lis=null}};
