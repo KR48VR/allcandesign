@@ -1019,7 +1019,7 @@ const TOUR_SETS = [JSON.parse(JSON.stringify(TOUR)), [
  {"title":"Film School of Life","short":"Film School of Life","why":"Life lessons from movies, one scene at a time.","link":"https://kr48vr.github.io/film-school-of-life/"},
  {"title":"Refining practices with a bot","short":"Refining practices with a bot","why":"A clickable phone demo: King and Promi refine a rule together.","link":"https://kr48vr.github.io/allcandesign/demos/promi-chat/"},
  {"title":"The Secret Level Playbook","short":"The Secret Level Playbook","why":"Make your own maths video in an afternoon, with a 90-minute workshop plan.","link":"https://claude.ai/artifact/6pMdKgGKieMovvjwvvkH7Y"}]];
-function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&amp;quot;");}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");}
 function applyTourSet(i) {
   tourSet = i;
   nodes.forEach(n => { delete n.tour; delete n.tourLink; if (n.tourBaseR) { n.radius = n.tourBaseR; delete n.tourBaseR; } });
