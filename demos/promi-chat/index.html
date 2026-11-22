@@ -315,6 +315,46 @@ body.tab9{background:#f3ddd6}
 #t9 .sides{grid-template-columns:1fr}
 }
 @media(max-width:600px){#tabs{flex-wrap:wrap;max-width:calc(100vw - 20px)}}
+#t10{position:fixed;top:56px;left:0;right:0;bottom:52px;display:none;z-index:8;overflow:auto;background:linear-gradient(#faeee4,#e6c9d0);font-family:NS,-apple-system,'Segoe UI',Roboto,sans-serif;color:#2b1d16}
+body.tab10 #t10{display:block}
+body.tab10 #stage{visibility:hidden}
+body.tab10{background:#f3ddd6}
+body.tab10 #ctl{opacity:1}
+body.tab10 #ctl button{background:#fff;border:1.5px solid #B9562A;color:#B9562A;font-weight:700;padding:7px 12px}
+body.tab10 #ctl button:hover{background:#B9562A;color:#fff}
+#t10in{max-width:880px;margin:0 auto;padding:8px 14px 24px}
+#t10 h1{font-size:22px;text-align:center;margin:6px 0 4px}
+#t10 .sub{text-align:center;color:#6b4a3a;font-size:16px;margin:0 0 14px;line-height:1.45}
+#t10 .trk button.sg{font:inherit;text-align:left;cursor:pointer;background:#fff;transition:transform .12s,box-shadow .12s}
+#t10 .trk button.sg:hover{transform:translateY(-2px);box-shadow:0 3px 10px rgba(0,0,0,.15)}
+#t10 .trk button:focus-visible{outline:3px solid #c0562b;outline-offset:2px}
+#t10 .trk button.sg.cur{box-shadow:0 0 0 3px #c0562b;transform:translateY(-1px)}
+#t10 .frame{border-top:6px solid #B9562A}
+#t10 .frame h2{font-size:20px}
+#t10 .frame p{margin:0 0 12px}
+#t10 .frame p:last-child{margin-bottom:0}
+#t10 .frame p.ex{margin:0 0 4px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#B9562A}
+#t10 .frame p.rule{font-size:17px;line-height:1.5}
+#t10 ul.lessons{margin:4px 0 12px;padding-left:1.25em}
+#t10 ul.lessons li{margin:0 0 10px;line-height:1.55}
+#t10 figure.shot{margin:14px 0}
+#t10 figure.shot:last-child{margin-bottom:0}
+#t10 figure.shot img{max-width:100%;max-height:min(560px,70vh);width:auto;height:auto;display:block;margin-left:auto;margin-right:auto;border-radius:10px;border:0;box-shadow:inset 0 0 0 1px #e3c4b6;background:#fff}
+#t10 figure.shot a{display:block}
+#t10 figure.shot figcaption{font-size:13px;line-height:1.4;color:#6b4a3a;margin-top:6px}
+#t10 .chatbit{margin:4px 0 14px;display:flex;flex-direction:column;gap:8px}
+#t10 .chatnote{font-size:13px;line-height:1.4;color:#6b4a3a;margin:0}
+#t10 .line{max-width:92%;display:flex;flex-direction:column;gap:3px}
+#t10 .line.king{align-self:flex-end;align-items:flex-end}
+#t10 .line.bot{align-self:flex-start;align-items:flex-start}
+#t10 .line .nm{font-size:11px;font-weight:700;letter-spacing:.03em;color:#8a6558}
+#t10 .line .bub{border-radius:16px;padding:10px 14px;font-size:15px;line-height:1.45}
+#t10 .line.king .bub{background:#B9562A;color:#fff}
+#t10 .line.bot .bub{background:#f2f2f2;color:#141414}
+#t10 .outs{margin-top:4px}
+#t10 a.out{font:700 15px NS,sans-serif;display:inline-block;margin:0 8px 8px 0;border:1.5px solid #B9562A;background:#fff;color:#B9562A;border-radius:999px;padding:9px 16px;text-decoration:none}
+#t10 a.out:hover{background:#B9562A;color:#fff}
+@media(min-width:601px){#t10{top:0;left:240px}}
 
 @media(min-width:601px){
 #tabs{flex-direction:column;top:12px;left:12px;bottom:auto;width:208px;gap:4px;padding:8px;font-size:15px;border-radius:14px}
@@ -327,7 +367,7 @@ body.tab9{background:#f3ddd6}
 <div id="hdr"><div class="time">11:30</div><div class="batt"></div><div class="circ" style="left:30px">&#x2039;</div><div class="pill"><div class="av"></div><span id="who">Promi</span></div><div class="circ" style="right:30px;font-size:30px">•••</div></div>
 <div id="bar"><div id="plus">+</div><div id="inp" class="ph"><span>Ask Promi</span></div><div id="mic"></div><div id="voice">|ıl|ı</div></div>
 </div></div><div id="end"><div>Refining our practices<br>together</div></div></div>
-<div id="tabs" role="tablist"><button id="tb1" class="on" role="tab" aria-selected="true">1 &middot; <span class="lg">Refining practices</span><span class="sh">Practices</span></button><button id="tb2" role="tab" aria-selected="false">2 &middot; <span class="lg">Tech support tickets</span><span class="sh">Tickets</span></button><button id="tb3" role="tab" aria-selected="false">3 &middot; <span class="lg">PPT to PDF cleanup</span><span class="sh">Cleanup</span></button><button id="tb4" role="tab" aria-selected="false">4 &middot; <span class="lg">Search Console setup</span><span class="sh">Search</span></button><button id="tb5" role="tab" aria-selected="false">5 &middot; <span class="lg">Meeting note-taker</span><span class="sh">Notes</span></button><button id="tb6" role="tab" aria-selected="false">6 &middot; <span class="lg">Retiring a room</span><span class="sh">Room</span></button><button id="tb7" role="tab" aria-selected="false">7 &middot; <span class="lg">Write to us</span><span class="sh">Write</span></button><button id="tb8" role="tab" aria-selected="false">8 &middot; <span class="lg">One Day</span><span class="sh">One Day</span></button><button id="tb9" role="tab" aria-selected="false">9 &middot; <span class="lg">Spam into strategy</span><span class="sh">Spam</span></button></div>
+<div id="tabs" role="tablist"><button id="tb1" class="on" role="tab" aria-selected="true">1 &middot; <span class="lg">Refining practices</span><span class="sh">Practices</span></button><button id="tb2" role="tab" aria-selected="false">2 &middot; <span class="lg">Tech support tickets</span><span class="sh">Tickets</span></button><button id="tb3" role="tab" aria-selected="false">3 &middot; <span class="lg">PPT to PDF cleanup</span><span class="sh">Cleanup</span></button><button id="tb4" role="tab" aria-selected="false">4 &middot; <span class="lg">Search Console setup</span><span class="sh">Search</span></button><button id="tb5" role="tab" aria-selected="false">5 &middot; <span class="lg">Meeting note-taker</span><span class="sh">Notes</span></button><button id="tb6" role="tab" aria-selected="false">6 &middot; <span class="lg">Retiring a room</span><span class="sh">Room</span></button><button id="tb7" role="tab" aria-selected="false">7 &middot; <span class="lg">Write to us</span><span class="sh">Write</span></button><button id="tb8" role="tab" aria-selected="false">8 &middot; <span class="lg">One Day</span><span class="sh">One Day</span></button><button id="tb9" role="tab" aria-selected="false">9 &middot; <span class="lg">Spam into strategy</span><span class="sh">Spam</span></button><button id="tb10" role="tab" aria-selected="false">10 &middot; <span class="lg">Write, don’t just collect</span><span class="sh">Distil</span></button></div>
 <div id="t3"><div id="t2in"><div id="t3list"></div></div></div>
 <div id="t4"><div id="t4in"><div id="t4list"></div></div></div>
 <div id="t5"><div id="t5in"><div id="t5list"></div></div></div>
@@ -356,6 +396,7 @@ body.tab9{background:#f3ddd6}
 <div class="box"><b>Kondo and Crux</b><span>Has the strategy take changed? One short conclusion to King.</span></div>
 </div>
 </div></div>
+<div id="t10"><div id="t10in"><div id="t10list"></div></div></div>
 <div id="t2"><div id="t2in"><div id="t2pick" role="toolbar" aria-label="Choose a ticket example"></div><div id="t2list"></div></div></div>
 <div id="ctl"><button id="bR" title="Restart (Home / R)">&#8634; Restart</button><button id="bB" title="Back (Left)">&#8249; Back</button><span id="cnt"></span><button id="bN" title="Next (Right / Space)">Next &#8250;</button></div>
 <script>
@@ -848,4 +889,101 @@ document.getElementById('tb9').onclick=()=>setTab(9);
 document.getElementById('t8').addEventListener('click',e=>e.stopPropagation());
 addEventListener('keydown',e=>{if(e.shiftKey||e.ctrlKey||e.metaKey||e.altKey)return;if(TAB!=8)return;e.stopImmediatePropagation();t8key(e)},true);
 
+
+/* ===== TAB 10: Write, don't just collect =====
+   Ten steps: the idea, two examples, the practice. Same step tracker, frame and controls as tab 8.
+   Chat bubbles hold King's own words, lightly tidied. Book covers are cropped out of the slide image. */
+const T10SUB = "Beyond collecting articles, King makes sense of them himself. He learns more, and his view gets sharper.";
+const T10 = [
+  {track:"The idea", h:"Write, don’t just collect", flow:[
+    {k:"p", t:"Filing a link is easy. A bot can read it and give back a neat summary. That is still collecting."},
+    {k:"p", t:"The step that teaches King something is the next one: say what he thinks of it, in his own words, and let the bot push back with the evidence. Then turn it into something he will use."},
+    {k:"p", t:"Two examples follow. One is a books list with Muse. The other is a newspaper column with Bayes."}
+  ]},
+  {ex:"Example 1 · FT Best Books of 2026: Economics", track:"Collect", h:"v1: a good summary", flow:[
+    {k:"p", t:"Martin Wolf picked 12 economics books of 2026 for the FT (16 November). King asked Muse for a reader’s guide."},
+    {k:"p", t:"Version 1 was the twelve books, grouped by theme, with a read-first shortlist and a verdict on each. It was useful, and it was still collecting."},
+    {k:"p", t:"A judgement call came early. The FT page would not open in Muse’s browser, so v1 was built from a reconstruction, and the guide said so."}
+  ]},
+  {ex:"Example 1 · FT Best Books of 2026: Economics", track:"Check", h:"v2 to v6: check it, then go deeper", flow:[
+    {k:"ul", items:[
+      "v2: King sent the FT article as a PDF. The guide was corrected against the full text: a subtitle fixed, one book’s verdict put in Wolf’s own words, a line he never wrote taken out.",
+      "v3: in-depth sections on three books: Susskind, Lovely and Acemoglu.",
+      "v4 and v5: notes that Susskind and Acemoglu largely restate their earlier books.",
+      "v6: notes from King’s discussion with Muse. Is reinvention about adapting, or about creating?"
+    ]},
+    {k:"shots", shots:[{src:"tab10/ft-guide-versions.png", alt:"Muse’s chat message listing what changed in the reader’s guide from v2 to v8: verified against the real article, in-depth sections, the Susskind note, the Acemoglu note, the discussion notes, the three takeaways in King’s words, and the date.", cap:"Muse’s own list of what changed between v1 and v8."}]}
+  ]},
+  {ex:"Example 1 · FT Best Books of 2026: Economics", track:"His words", h:"v7: King’s three takeaways", flow:[
+    {k:"p", t:"After the discussion on Saturday 21 November, three takeaways went at the top of the guide, in King’s words. They change what the list is read for."},
+    {k:"ul", items:[
+      "The third position. Found in Bronowski and Phelps: humans create new value, and the question is whether the institutions let them. Not “adapt”, and not “stop the race”, but creation from the bottom up.",
+      "Mostly restating. The authors are mostly restating what they and others have said.",
+      "Running out of ideas? Taken together, leading thinkers, and maybe do-ers, may be running out of ideas, and paying too little attention to making sure institutions let humans create new value."
+    ]},
+    {k:"p", t:"v8 only added the date. Everything after v1 was checking, depth, and King’s own thinking on top."}
+  ]},
+  {ex:"Example 1 · FT Best Books of 2026: Economics", track:"Use it", h:"A slide for his workshop", flow:[
+    {k:"p", t:"The takeaways became one workshop slide, “Three takeaways: humans create new value”. It ends on an institutional test: don’t get in the way, make it easy for people to create new value."},
+    {k:"shots", shots:[{src:"tab10/ft-takeaways-slide-crop.png", alt:"Part of the workshop slide: the title Three takeaways: humans create new value, King’s three takeaways, and the institutional test bar.", cap:"The title and the takeaways from the slide. The book covers on the full slide are left off this page. Tap or click the image to see it full size."}]}
+  ]},
+  {ex:"Example 2 · An FT column on work", track:"Read", h:"A link, read with one hop", flow:[
+    {k:"p", t:"On 21 November King sent Bayes a LinkedIn post by Sarah O’Connor of the FT: “Brits have experienced a remarkable loss of autonomy at work”. It goes with her column “No, people have not fallen out of love with work”."},
+    {k:"p", t:"Bayes read it and went one hop further, to the surveys behind it: the Skills and Employment Survey 2024, British Social Attitudes 2025, and Eurofound’s European Working Conditions Survey 2024."},
+    {k:"p", t:"The key fact: in 1992, 62% of UK workers had a great deal of say over their tasks. By 2024 it was 34%."}
+  ]},
+  {ex:"Example 2 · An FT column on work", track:"His view", h:"King adds what he thinks", flow:[
+    {k:"chat", note:"King’s words in the Bayes chat, with typos fixed.", bot:"Bayes", lines:[
+      {who:"king", t:"For all the talk about engagement and letting AI and tech automate the routine, human work has in fact become more routine."},
+      {who:"king", t:"That it started before AI arrived is even more important. It wasn’t AI that caused this dehumanising outcome."},
+      {who:"king", t:"There was also a lot of risk management coming in after Enron and the GFC."}
+    ]}
+  ]},
+  {ex:"Example 2 · An FT column on work", track:"Test it", h:"Bayes tests his view against the data", flow:[
+    {k:"p", t:"Bayes checked King’s last point rather than just agreeing with it."},
+    {k:"ul", items:[
+      "The fall from 2012 to 2024 fits the rules that came after the financial crisis.",
+      "But the steep fall from 1992 to 2001 came before Enron. So risk management is a candidate driver, not a proven cause."
+    ]},
+    {k:"p", t:"King’s thoughts were logged. A monthly check-back can see whether they show up in his later work."}
+  ]},
+  {ex:"Example 2 · An FT column on work", track:"Use it", h:"A slide for his deck", flow:[
+    {k:"p", t:"King asked for one slide with the column’s charts, a plausible timeline, and the point that people are less engaged and do more routine work. The headline: “People at work have less say and do more routine work, and it started long before AI.”"},
+    {k:"p", t:"It shows three engagement figures, the say-over-tasks line from 1992 to 2024, and a timeline whose drivers are labelled as candidates, not proven. A caveat and the sources sit at the foot."},
+    {k:"p", t:"Two hiccups. The first file set off a PowerPoint repair warning, so it was rebuilt in a clean blank file. King then asked for a black version to match his deck."},
+    {k:"shots", shots:[{src:"tab10/oconnor-slide-black.jpg", alt:"The black slide. Headline: People at work have less say and do more routine work, and it started long before AI. Three cards: job satisfaction 81% to 74%, willing to work harder than required 69% to 55%, find their job interesting 74% to 63%. A line chart of UK employees with a great deal of say over their tasks, 62% in 1992 to 34% in 2024. A plausible timeline of candidate drivers from the 1990s to generative AI around 2023.", cap:"The black version, for King’s deck."}]}
+  ]},
+  {track:"The practice", h:"The practice in one line", flow:[
+    {k:"rule", t:"King sends a link and adds his own view. The bot tests that view against the evidence and turns it into something he uses. His thoughts are logged, to check back on later."},
+    {k:"p", t:"In both examples the summary came first. What King learned came after: his takeaways on the books, and his view on the column, tested and kept."},
+    {k:"links"}
+  ]}
+];
+let t10s=0;const t10l=document.getElementById('t10list');
+function trk10(n){return '<div class="trk">'+T10.map((s,i)=>{const done=i<n,cur=i===n;const cls=done?'d':cur?'r cur':'pd';return '<button type="button" class="sg '+cls+'" data-j="'+i+'" aria-label="'+e2('Jump to '+s.h)+'"'+(cur?' aria-current="step"':'')+'><div class="sn">'+(done?'&#10003;':i+1)+'</div><div class="sl"><b>'+e2(s.track)+'</b><span>'+(done?'Done':cur?'In progress':'Pending')+'</span></div></button>'}).join('<div class="sa">&rarr;</div>')+'</div>'}
+function t10shots(list){return (list||[]).map(s=>'<figure class="shot"><a href="'+s.src+'" target="_blank" rel="noopener" title="Open full size"><img src="'+s.src+'" alt="'+e2(s.alt)+'"></a><figcaption>'+e2(s.cap)+'</figcaption></figure>').join('')}
+function t10chat(b){const lines=(b.lines||[]).map(l=>{const side=l.who==='king'?'king':'bot';const nm=l.who==='king'?'King':(b.bot||'Grok Bot');return '<div class="line '+side+'"><div class="nm">'+nm+'</div><div class="bub">'+e2(l.t)+'</div></div>'}).join('');return '<div class="chatbit"><p class="chatnote">'+e2(b.note||'')+'</p>'+lines+'</div>'}
+function t10flow(flow){let html='';(flow||[]).forEach(b=>{
+  if(b.k==='p')html+='<p>'+e2(b.t)+'</p>';
+  else if(b.k==='rule')html+='<p class="rule">'+e2(b.t)+'</p>';
+  else if(b.k==='ul')html+='<ul class="lessons">'+b.items.map(t=>'<li>'+e2(t)+'</li>').join('')+'</ul>';
+  else if(b.k==='shots')html+=t10shots(b.shots);
+  else if(b.k==='chat')html+=t10chat(b);
+  else if(b.k==='links')html+='<p class="outs"><a class="out" href="https://www.irishtimes.com/business/work/2026/11/15/no-people-have-not-fallen-out-of-love-with-work/">Sarah O’Connor’s column</a></p>';
+});return html}
+function t10go(n){t10s=n;const S=T10[n];
+ t10l.innerHTML='<h1>Write, don’t just collect</h1><p class="sub">'+e2(T10SUB)+'</p>'+trk10(n)+'<div class="frame fresh">'+(S.ex?'<p class="ex">'+e2(S.ex)+'</p>':'')+'<h2>'+e2(S.h)+'</h2>'+t10flow(S.flow)+'</div>';
+ document.getElementById('cnt').textContent='step '+(n+1)+' / '+T10.length;
+ document.getElementById('t10').scrollTop=0}
+t10l.addEventListener('click',e=>{const b=e.target.closest('[data-j]');if(b)t10go(+b.dataset.j)});
+function t10next(){if(t10s<T10.length-1)t10go(t10s+1)}function t10prev(){if(t10s>0)t10go(t10s-1)}
+function t10key(e){const k=e.key;if((k=='Enter'||k==' ')&&e.target.closest&&e.target.closest('button,a'))return;if(k=='ArrowRight'||k==' '||k=='PageDown'||k=='Enter'){e.preventDefault();t10next()}else if(k=='ArrowLeft'||k=='PageUp'||k=='Backspace'){e.preventDefault();t10prev()}else if(k=='Home'||k=='r'||k=='R'){e.preventDefault();t10go(0)}}
+const setTab9=setTab;setTab=function(n){document.body.classList.toggle('tab10',n==10);const b10=document.getElementById('tb10');b10.classList.toggle('on',n==10);b10.setAttribute('aria-selected',n==10);setTab9(n);if(n==10)t10go(t10s);t10fit()};
+function t10fit(){const el=document.getElementById('t10');const t9=document.getElementById('t9');if(el&&t9)el.style.top=t9.style.top}
+addEventListener('resize',t10fit);
+document.getElementById('tb10').onclick=()=>setTab(10);
+{const bN=document.getElementById('bN'),bB=document.getElementById('bB'),bR=document.getElementById('bR');const n9=bN.onclick,b9=bB.onclick,r9=bR.onclick;
+ bN.onclick=e=>TAB==10?t10next():n9(e);bB.onclick=e=>TAB==10?t10prev():b9(e);bR.onclick=e=>TAB==10?t10go(0):r9(e)}
+document.getElementById('t10').addEventListener('click',e=>e.stopPropagation());
+addEventListener('keydown',e=>{if(e.shiftKey||e.ctrlKey||e.metaKey||e.altKey)return;if(TAB!=10)return;e.stopImmediatePropagation();if(/^[1-9]$/.test(e.key)){e.preventDefault();setTab(+e.key)}else t10key(e)},true);
 </script></body></html>
