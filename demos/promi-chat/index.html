@@ -406,6 +406,10 @@ body.tab11 #ctl button:hover{background:#B9562A;color:#fff}
 #t11 .lens a.out,#t11 .lens button.out{font-size:13.5px;padding:7px 12px;margin:0}
 #t11 a.out:hover,#t11 button.out:hover{background:#B9562A;color:#fff}
 #t11 a.out:focus-visible,#t11 button.out:focus-visible{outline:3px solid #c0562b;outline-offset:2px}
+#t11 figure.xpost{margin:4px 0 14px}
+#t11 figure.xpost a.xi{display:block;width:min(100%,440px);margin:0 auto}
+#t11 figure.xpost img{display:block;width:100%;height:auto;border-radius:12px;box-shadow:0 0 0 1px #e3c4b6,0 2px 10px rgba(0,0,0,.06);background:#fff}
+#t11 figure.xpost figcaption{font-size:13px;line-height:1.4;color:#6b4a3a;margin:8px auto 0;text-align:center;width:min(100%,440px)}
 @media(max-width:600px){#t11 .lenses{grid-template-columns:1fr}}
 @media(min-width:601px){#t11{top:0;left:240px}}
 
@@ -1093,19 +1097,13 @@ const T11 = [
   ]},
   {ex:"Lens 1 · Leigh Phillips", track:"Sorrow", h:"Leigh Phillips: sorrow", flow:[
     {k:"p", t:"Posted 22 November, 12:35am SGT."},
-    {k:"quote", ps:["A beautiful, sad short piece from neuroscientist @erikphoel on taking his five-year-old son for a walk on the day the Riemann Hypothesis fell.","It’s the first time a substack has left me weeping."], cite:"Leigh Phillips, on X"},
+    {k:"xpost", link:"leigh", src:"tab11/phillips-post.png", alt:"Screenshot of Leigh Phillips’s post on X (@Leigh_Phillips), 12:35 AM · Nov 22, 2026 · 803.9K Views. It reads: “A beautiful, sad short piece from neuroscientist @erikphoel on taking his five-year-old son for a walk on the day the Riemann Hypothesis fell. It’s the first time a substack has left me weeping.” Two attached images show the closing paragraphs of Erik Hoel’s essay.", cap:"Leigh Phillips’s post, as it appears on x.com. Tap or click to open it on X."},
     {k:"p", t:"He attached two screenshots of the essay’s closing paragraphs. The post was widely shared."},
     {k:"links", items:["leigh"]}
   ]},
   {ex:"Lens 2 · Rui Ma", track:"No algorithm", h:"Rui Ma: the sorrow is optional", flow:[
     {k:"p", t:"Posted 22 November, 4:31pm SGT, quoting Leigh Phillips’s post."},
-    {k:"quote", ps:[
-      "I think the point of this post goes something like: “By the time my son can hope to be a serious mathematician, mathematics may be too far beyond the reach of mere human minds.”",
-      "I guess that might be “sorrowful” to some people, but to most of us, for whom such heights (of the decidedly human kind) were never visible, much less attainable, our egos haven’t been crushed and we’re not thrown into existential crisis.",
-      "I also found the writing beautiful, but mainly this line: “At this age he and I can talk about anything. We find nothing mundane, we comment on it all, all we do is talk. It’s wonderful.”",
-      "Tonight, my four-year-old and I talked about how when you love someone very much, but they don’t quite love you back in the same way, it could really hurt. My kiddo decided this was “unfair.” I challenged them on that. We went on this topic for a while.",
-      "I guess, luckily for things like this situation, which is what most human beings probably spend way too much of their brain cells trying to reconcile (vs the Riemann hypothesis), there is no “right” answer and no algorithm in the world to prove or disprove it."
-    ], cite:"Rui Ma, on X"},
+    {k:"xpost", link:"rui", src:"tab11/ruima-post.png", alt:"Screenshot of Rui Ma’s post on X (@ruima), quoting Leigh Phillips’s post. Last edited 4:31 PM · Nov 22, 2026 · 2,330 Views. It reads: “I think the point of this post goes something like: ‘By the time my son can hope to be a serious mathematician, mathematics may be too far beyond the reach of mere human minds.’ I guess that might be ‘sorrowful’ to some people, but to most of us, for whom such heights (of the decidedly human kind) were never visible, much less attainable, our egos haven’t been crushed and we’re not thrown into existential crisis. I also found the writing beautiful, but mainly this line: ‘At this age he and I can talk about anything. We find nothing mundane, we comment on it all, all we do is talk. It’s wonderful.’ Tonight, my four-year-old and I talked about how when you love someone very much, but they don’t quite love you back in the same way, it could really hurt. My kiddo decided this was ‘unfair.’ I challenged them on that. We went on this topic for a while. I guess, luckily for things like this situation, which is what most human beings probably spend way too much of their brain cells trying to reconcile (vs the Riemann hypothesis), there is no ‘right’ answer and no algorithm in the world to prove or disprove it.” Below it is the quoted Leigh Phillips post with its two essay images.", cap:"Rui Ma’s post, as it appears on x.com. Tap or click to open it on X."},
     {k:"p", c:"small", t:"Her opening sentence is her own restatement of Hoel, not a line from his essay."},
     {k:"links", items:["rui"]}
   ]},
@@ -1134,10 +1132,11 @@ const T11 = [
     {k:"rule", t:"Use AI, and work with AI, to see more lenses than any one person brings."},
     {k:"p", t:"The same event produced at least four different lenses: grief, relief, an analyst’s spread of readings, and King’s “bridging the gulf” reading. The value came from setting them side by side and iterating with the AI."},
     {k:"p", t:"The AI’s first reading was off, and King’s correction sharpened it rather than replacing it."},
-    {k:"p", t:"This tab went live in PR #81."},
+    {k:"p", t:"This tab went live in PR #81. Screenshots added in PR #82."},
     {k:"links", items:["hoel","leigh","rui"]}
   ]}
 ];
+const T11IMG={};
 let t11s=0;const t11l=document.getElementById('t11list');
 function trk11(n){return '<div class="trk">'+T11.map((s,i)=>{const done=i<n,cur=i===n;const cls=done?'d':cur?'r cur':'pd';return '<button type="button" class="sg '+cls+'" data-j="'+i+'" aria-label="'+e2('Jump to '+s.h)+'"'+(cur?' aria-current="step"':'')+'><div class="sn">'+(done?'&#10003;':i+1)+'</div><div class="sl"><b>'+e2(s.track)+'</b><span>'+(done?'Done':cur?'In progress':'Pending')+'</span></div></button>'}).join('<div class="sa">&rarr;</div>')+'</div>'}
 function t11a(key){const L=T11L[key];return '<a class="out" href="'+L.href+'" target="_blank" rel="noopener">'+e2(L.label)+'</a>'}
@@ -1151,6 +1150,7 @@ function t11flow(flow){let html='';(flow||[]).forEach(b=>{
   else if(b.k==='src')html+='<div class="srcbox"><div class="lens" style="border:0;padding:0;background:none"><span class="who">'+e2(b.who)+'</span><b>'+e2(b.title)+'</b><q>'+e2(b.q)+'</q><span class="go">'+t11a(b.link)+'</span></div></div>';
   else if(b.k==='lenses')html+='<div class="lenses">'+b.items.map(L=>'<div class="lens'+(L.cls?' '+L.cls:'')+'"><span class="who">'+e2(L.who)+'</span><b>'+e2(L.h)+'</b>'+(L.q?'<q>'+e2(L.q)+'</q>':'<span class="sum">'+e2(L.s)+'</span>')+'<span class="go">'+(L.link?t11a(L.link)+' ':'')+'<button type="button" class="out" data-j="'+L.go+'">See step '+(L.go+1)+'</button></span></div>').join('')+'</div>';
   else if(b.k==='links')html+='<p class="outs">'+b.items.map(t11a).join('')+'</p>';
+  else if(b.k==='xpost')html+='<figure class="xpost"><a class="xi" href="'+T11L[b.link].href+'" target="_blank" rel="noopener"><img src="'+(T11IMG[b.src]||b.src)+'" alt="'+e2(b.alt)+'" loading="lazy"></a><figcaption>'+e2(b.cap)+'</figcaption></figure>';
 });return html}
 function t11go(n){t11s=n;const S=T11[n];
  t11l.innerHTML='<h1>Expand our lenses</h1><p class="sub">'+e2(T11SUB)+'</p>'+trk11(n)+'<div class="frame fresh">'+(S.ex?'<p class="ex">'+e2(S.ex)+'</p>':'')+'<h2>'+e2(S.h)+'</h2>'+t11flow(S.flow)+'</div>';
