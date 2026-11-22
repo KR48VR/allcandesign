@@ -355,6 +355,59 @@ body.tab10 #ctl button:hover{background:#B9562A;color:#fff}
 #t10 a.out{font:700 15px NS,sans-serif;display:inline-block;margin:0 8px 8px 0;border:1.5px solid #B9562A;background:#fff;color:#B9562A;border-radius:999px;padding:9px 16px;text-decoration:none}
 #t10 a.out:hover{background:#B9562A;color:#fff}
 @media(min-width:601px){#t10{top:0;left:240px}}
+/* ===== TAB 11: Expand our lenses (same frame, tracker and chat bubbles as tab 10) ===== */
+#t11{position:fixed;top:56px;left:0;right:0;bottom:52px;display:none;z-index:8;overflow:auto;background:linear-gradient(#faeee4,#e6c9d0);font-family:NS,-apple-system,'Segoe UI',Roboto,sans-serif;color:#2b1d16}
+body.tab11 #t11{display:block}
+body.tab11 #stage{visibility:hidden}
+body.tab11{background:#f3ddd6}
+body.tab11 #ctl{opacity:1}
+body.tab11 #ctl button{background:#fff;border:1.5px solid #B9562A;color:#B9562A;font-weight:700;padding:7px 12px}
+body.tab11 #ctl button:hover{background:#B9562A;color:#fff}
+#t11in{max-width:880px;margin:0 auto;padding:8px 14px 24px}
+#t11 h1{font-size:22px;text-align:center;margin:6px 0 4px}
+#t11 .sub{text-align:center;color:#6b4a3a;font-size:16px;margin:0 0 14px;line-height:1.45}
+#t11 .trk button.sg{font:inherit;text-align:left;cursor:pointer;background:#fff;transition:transform .12s,box-shadow .12s}
+#t11 .trk button.sg:hover{transform:translateY(-2px);box-shadow:0 3px 10px rgba(0,0,0,.15)}
+#t11 .trk button:focus-visible{outline:3px solid #c0562b;outline-offset:2px}
+#t11 .trk button.sg.cur{box-shadow:0 0 0 3px #c0562b;transform:translateY(-1px)}
+#t11 .frame{border-top:6px solid #B9562A}
+#t11 .frame h2{font-size:20px}
+#t11 .frame p{margin:0 0 12px}
+#t11 .frame p:last-child{margin-bottom:0}
+#t11 .frame p.ex{margin:0 0 4px;font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#B9562A}
+#t11 .frame p.rule{font-size:17px;line-height:1.5}
+#t11 ul.lessons{margin:4px 0 12px;padding-left:1.25em}
+#t11 ul.lessons li{margin:0 0 10px;line-height:1.55}
+#t11 .chatbit{margin:4px 0 14px;display:flex;flex-direction:column;gap:8px}
+#t11 .chatnote{font-size:13px;line-height:1.4;color:#6b4a3a;margin:0}
+#t11 .line{max-width:92%;display:flex;flex-direction:column;gap:3px}
+#t11 .line.king{align-self:flex-end;align-items:flex-end}
+#t11 .line.bot{align-self:flex-start;align-items:flex-start}
+#t11 .line .nm{font-size:11px;font-weight:700;letter-spacing:.03em;color:#8a6558}
+#t11 .line .bub{border-radius:16px;padding:10px 14px;font-size:15px;line-height:1.45}
+#t11 .line.king .bub{background:#B9562A;color:#fff}
+#t11 .line.bot .bub{background:#f2f2f2;color:#141414}
+#t11 blockquote.qt{margin:4px 0 14px;padding:10px 14px;border-left:4px solid #B9562A;background:#fbf3ee;border-radius:0 10px 10px 0}
+#t11 blockquote.qt p{margin:0 0 10px;font-size:15.5px;line-height:1.55}
+#t11 blockquote.qt p:last-child{margin-bottom:0}
+#t11 blockquote.qt cite{display:block;margin-top:6px;font-style:normal;font-size:12.5px;font-weight:700;color:#8a6558}
+#t11 p.small{font-size:13px;line-height:1.4;color:#6b4a3a}
+#t11 .srcbox{border:1.5px solid #e3c4b6;border-radius:14px;padding:12px 14px;margin:0 0 12px;background:#fffaf6}
+#t11 .lenses{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px}
+#t11 .lens{border:1.5px solid #e3c4b6;border-top:5px solid #B9562A;border-radius:12px;padding:10px 12px 12px;background:#fff;display:flex;flex-direction:column;gap:6px;min-width:0}
+#t11 .lens .who{font-size:12.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#8a6558}
+#t11 .lens b{color:#B9562A;font-size:16px;line-height:1.3}
+#t11 .lens q,#t11 .srcbox q{display:block;font-size:14.5px;line-height:1.5;quotes:none}
+#t11 .lens .sum{display:block;font-size:14.5px;line-height:1.5;color:#2b1d16}
+#t11 .lens .go{margin-top:auto}
+#t11 .lens.k{border-top-color:#2f63c7}#t11 .lens.k b{color:#2f63c7}
+#t11 .lens.b{border-top-color:#16865a}#t11 .lens.b b{color:#0f6b47}
+#t11 a.out,#t11 button.out{font:700 15px NS,sans-serif;display:inline-block;margin:0 8px 8px 0;border:1.5px solid #B9562A;background:#fff;color:#B9562A;border-radius:999px;padding:9px 16px;text-decoration:none;cursor:pointer}
+#t11 .lens a.out,#t11 .lens button.out{font-size:13.5px;padding:7px 12px;margin:0}
+#t11 a.out:hover,#t11 button.out:hover{background:#B9562A;color:#fff}
+#t11 a.out:focus-visible,#t11 button.out:focus-visible{outline:3px solid #c0562b;outline-offset:2px}
+@media(max-width:600px){#t11 .lenses{grid-template-columns:1fr}}
+@media(min-width:601px){#t11{top:0;left:240px}}
 
 @media(min-width:601px){
 #tabs{flex-direction:column;top:12px;left:12px;bottom:auto;width:208px;gap:4px;padding:8px;font-size:15px;border-radius:14px}
@@ -367,7 +420,7 @@ body.tab10 #ctl button:hover{background:#B9562A;color:#fff}
 <div id="hdr"><div class="time">11:30</div><div class="batt"></div><div class="circ" style="left:30px">&#x2039;</div><div class="pill"><div class="av"></div><span id="who">Promi</span></div><div class="circ" style="right:30px;font-size:30px">•••</div></div>
 <div id="bar"><div id="plus">+</div><div id="inp" class="ph"><span>Ask Promi</span></div><div id="mic"></div><div id="voice">|ıl|ı</div></div>
 </div></div><div id="end"><div>Refining our practices<br>together</div></div></div>
-<div id="tabs" role="tablist"><button id="tb1" class="on" role="tab" aria-selected="true">1 &middot; <span class="lg">Refining practices</span><span class="sh">Practices</span></button><button id="tb2" role="tab" aria-selected="false">2 &middot; <span class="lg">Tech support tickets</span><span class="sh">Tickets</span></button><button id="tb3" role="tab" aria-selected="false">3 &middot; <span class="lg">PPT to PDF cleanup</span><span class="sh">Cleanup</span></button><button id="tb4" role="tab" aria-selected="false">4 &middot; <span class="lg">Search Console setup</span><span class="sh">Search</span></button><button id="tb5" role="tab" aria-selected="false">5 &middot; <span class="lg">Meeting note-taker</span><span class="sh">Notes</span></button><button id="tb6" role="tab" aria-selected="false">6 &middot; <span class="lg">Retiring a room</span><span class="sh">Room</span></button><button id="tb7" role="tab" aria-selected="false">7 &middot; <span class="lg">Write to us</span><span class="sh">Write</span></button><button id="tb8" role="tab" aria-selected="false">8 &middot; <span class="lg">One Day</span><span class="sh">One Day</span></button><button id="tb9" role="tab" aria-selected="false">9 &middot; <span class="lg">Spam into strategy</span><span class="sh">Spam</span></button><button id="tb10" role="tab" aria-selected="false">10 &middot; <span class="lg">Write, don’t just collect</span><span class="sh">Distil</span></button></div>
+<div id="tabs" role="tablist"><button id="tb1" class="on" role="tab" aria-selected="true">1 &middot; <span class="lg">Refining practices</span><span class="sh">Practices</span></button><button id="tb2" role="tab" aria-selected="false">2 &middot; <span class="lg">Tech support tickets</span><span class="sh">Tickets</span></button><button id="tb3" role="tab" aria-selected="false">3 &middot; <span class="lg">PPT to PDF cleanup</span><span class="sh">Cleanup</span></button><button id="tb4" role="tab" aria-selected="false">4 &middot; <span class="lg">Search Console setup</span><span class="sh">Search</span></button><button id="tb5" role="tab" aria-selected="false">5 &middot; <span class="lg">Meeting note-taker</span><span class="sh">Notes</span></button><button id="tb6" role="tab" aria-selected="false">6 &middot; <span class="lg">Retiring a room</span><span class="sh">Room</span></button><button id="tb7" role="tab" aria-selected="false">7 &middot; <span class="lg">Write to us</span><span class="sh">Write</span></button><button id="tb8" role="tab" aria-selected="false">8 &middot; <span class="lg">One Day</span><span class="sh">One Day</span></button><button id="tb9" role="tab" aria-selected="false">9 &middot; <span class="lg">Spam into strategy</span><span class="sh">Spam</span></button><button id="tb10" role="tab" aria-selected="false">10 &middot; <span class="lg">Write, don’t just collect</span><span class="sh">Distil</span></button><button id="tb11" role="tab" aria-selected="false">11 &middot; <span class="lg">Expand our lenses</span><span class="sh">Lenses</span></button></div>
 <div id="t3"><div id="t2in"><div id="t3list"></div></div></div>
 <div id="t4"><div id="t4in"><div id="t4list"></div></div></div>
 <div id="t5"><div id="t5in"><div id="t5list"></div></div></div>
@@ -397,6 +450,7 @@ body.tab10 #ctl button:hover{background:#B9562A;color:#fff}
 </div>
 </div></div>
 <div id="t10"><div id="t10in"><div id="t10list"></div></div></div>
+<div id="t11"><div id="t11in"><div id="t11list"></div></div></div>
 <div id="t2"><div id="t2in"><div id="t2pick" role="toolbar" aria-label="Choose a ticket example"></div><div id="t2list"></div></div></div>
 <div id="ctl"><button id="bR" title="Restart (Home / R)">&#8634; Restart</button><button id="bB" title="Back (Left)">&#8249; Back</button><span id="cnt"></span><button id="bN" title="Next (Right / Space)">Next &#8250;</button></div>
 <script>
@@ -992,4 +1046,125 @@ document.getElementById('tb10').onclick=()=>setTab(10);
  bN.onclick=e=>TAB==10?t10next():n9(e);bB.onclick=e=>TAB==10?t10prev():b9(e);bR.onclick=e=>TAB==10?t10go(0):r9(e)}
 document.getElementById('t10').addEventListener('click',e=>e.stopPropagation());
 addEventListener('keydown',e=>{if(e.shiftKey||e.ctrlKey||e.metaKey||e.altKey)return;if(TAB!=10)return;e.stopImmediatePropagation();if(/^[1-9]$/.test(e.key)){e.preventDefault();setTab(+e.key)}else t10key(e)},true);
+
+
+/* ===== TAB 11: Expand our lenses =====
+   Nine steps: the practice, the claim, four lenses side by side, each lens in full, King and Bayes iterating, why it is a practice.
+   Same step tracker, frame, chat bubbles and controls as tab 10. Quotes are word for word from the posts, the essay and the chat, typos kept.
+   Text quotes and links only: no screenshots of the essay. */
+const T11SUB = "One essay about AI got at least four readings in a day. King’s practice, in his words: “using ai and working with ai to expand our lenses and understanding.”";
+const T11L = {
+  hoel:{href:"https://www.theintrinsicperspective.com/p/on-the-day-the-riemann-hypothesis", label:"Erik Hoel’s essay"},
+  leigh:{href:"https://x.com/Leigh_Phillips/status/2124179914316509302", label:"Leigh Phillips’s post"},
+  rui:{href:"https://x.com/ruima/status/2124420480652505488", label:"Rui Ma’s post"},
+  clay:{href:"https://www.claymath.org/millennium/riemann-hypothesis/", label:"Clay Institute: Riemann Hypothesis"}
+};
+const T11 = [
+  {track:"His words", h:"Expand our lenses", flow:[
+    {k:"p", t:"King named this practice on Sunday 22 November 2026, in his chat with Bayes, his forecasting bot."},
+    {k:"chat", note:"King’s words exactly as he typed them, Singapore time (SGT).", bot:"Bayes", lines:[
+      {who:"king", at:"9:29pm SGT", t:"In fact this difference in interpretation between rui ma, Leigh Philips, you, and me, with you and I iterating on interpretation, is an important capture, about the value of recognizing we can all have different lenses on ai and with ai. ... The practice is using ai and working with ai to expand our lenses and understanding."}
+    ]},
+    {k:"p", t:"The next steps set the four lenses side by side, then show King and Bayes iterating on one reading until it was right."}
+  ]},
+  {track:"The claim", h:"The day the Riemann Hypothesis “fell”", flow:[
+    {k:"p", t:"On 20 November, Levent Alpöge (Anthropic) said that, working with Claude, he believes he proved the Riemann Hypothesis, checked in the Lean proof checker. On 21 November the Lean community said it had “full confidence”."},
+    {k:"rule", t:"It is still a claim. The Clay Mathematics Institute still lists the Riemann Hypothesis as open."},
+    {k:"p", t:"The lenses on this tab are not about whether the proof holds. They are about what a day like that means for people."},
+    {k:"links", items:["clay"]}
+  ]},
+  {track:"Four lenses", h:"Four lenses on one essay", flow:[
+    {k:"src", who:"The essay · Erik Hoel, 21 November", title:"“On the day the Riemann hypothesis fell to AI, I took my son for a walk”", q:"At this age he and I can talk about anything. We find nothing mundane, we comment on it all, all we do is talk. It’s wonderful.", link:"hoel"},
+    {k:"lenses", items:[
+      {who:"Leigh Phillips", h:"Sorrow", q:"It’s the first time a substack has left me weeping.", link:"leigh", go:4},
+      {who:"Rui Ma", h:"The sorrow is optional", q:"there is no “right” answer and no algorithm in the world to prove or disprove it.", link:"rui", go:5},
+      {cls:"b", who:"Bayes", h:"Three readings, kept open", s:"Strong: what’s left for people is the messy human stuff that can’t be proved. Adjacent: why teach maths? Stretch: new capability evidence (it isn’t).", go:6},
+      {cls:"k", who:"King", h:"Bridging the gulf", q:"everyone can begin to have some baseline expertise, and the gulf between us can be bridge, can talk about anything with anyone.", go:7}
+    ]},
+    {k:"p", t:"Grief, relief, an analyst’s spread of readings, and King’s “bridging the gulf” reading. The next steps show each one in full."}
+  ]},
+  {ex:"The essay", track:"The walk", h:"Erik Hoel: a walk with his son", flow:[
+    {k:"p", t:"Erik Hoel, a neuroscientist, wrote a short piece on 21 November about taking his five-year-old son for a walk on the day of the claim. The key line:"},
+    {k:"quote", ps:["At this age he and I can talk about anything. We find nothing mundane, we comment on it all, all we do is talk. It’s wonderful."], cite:"Erik Hoel"},
+    {k:"p", t:"The ending: the boy asks about their usual 20 minutes of maths."},
+    {k:"quote", ps:["“No, maybe tomorrow.” ... “But it won’t be tomorrow, either.”"], cite:"Erik Hoel"},
+    {k:"p", c:"small", t:"Short lines only. The full essay is on his site."},
+    {k:"links", items:["hoel"]}
+  ]},
+  {ex:"Lens 1 · Leigh Phillips", track:"Sorrow", h:"Leigh Phillips: sorrow", flow:[
+    {k:"p", t:"Posted 22 November, 12:35am SGT."},
+    {k:"quote", ps:["A beautiful, sad short piece from neuroscientist @erikphoel on taking his five-year-old son for a walk on the day the Riemann Hypothesis fell.","It’s the first time a substack has left me weeping."], cite:"Leigh Phillips, on X"},
+    {k:"p", t:"He attached two screenshots of the essay’s closing paragraphs. The post was widely shared."},
+    {k:"links", items:["leigh"]}
+  ]},
+  {ex:"Lens 2 · Rui Ma", track:"No algorithm", h:"Rui Ma: the sorrow is optional", flow:[
+    {k:"p", t:"Posted 22 November, 4:31pm SGT, quoting Leigh Phillips’s post."},
+    {k:"quote", ps:[
+      "I think the point of this post goes something like: “By the time my son can hope to be a serious mathematician, mathematics may be too far beyond the reach of mere human minds.”",
+      "I guess that might be “sorrowful” to some people, but to most of us, for whom such heights (of the decidedly human kind) were never visible, much less attainable, our egos haven’t been crushed and we’re not thrown into existential crisis.",
+      "I also found the writing beautiful, but mainly this line: “At this age he and I can talk about anything. We find nothing mundane, we comment on it all, all we do is talk. It’s wonderful.”",
+      "Tonight, my four-year-old and I talked about how when you love someone very much, but they don’t quite love you back in the same way, it could really hurt. My kiddo decided this was “unfair.” I challenged them on that. We went on this topic for a while.",
+      "I guess, luckily for things like this situation, which is what most human beings probably spend way too much of their brain cells trying to reconcile (vs the Riemann hypothesis), there is no “right” answer and no algorithm in the world to prove or disprove it."
+    ], cite:"Rui Ma, on X"},
+    {k:"p", c:"small", t:"Her opening sentence is her own restatement of Hoel, not a line from his essay."},
+    {k:"links", items:["rui"]}
+  ]},
+  {ex:"Lens 3 · Bayes", track:"Three readings", h:"Bayes: three readings, kept open", flow:[
+    {k:"p", t:"Bayes filed the essay at 9:12pm SGT with three readings, and did not pick one. In Bayes’s words:"},
+    {k:"ul", items:[
+      "Strong: what’s left for people is the messy human stuff that can’t be proved. This is Rui Ma’s point.",
+      "Adjacent: “why teach maths?”, the apprenticeship question Hoel acts out.",
+      "Stretch: treating the essay as new capability evidence. It isn’t, so I didn’t double-count it."
+    ]},
+    {k:"p", t:"A careful spread. But none of the three was the reading King saw."}
+  ]},
+  {ex:"Lens 4 · King, with Bayes", track:"Iterate", h:"King and Bayes work it out", flow:[
+    {k:"chat", note:"Sunday 22 November 2026, Singapore time (SGT). King’s words exactly as he typed them. Bayes’s replies as Bayes recorded them, timed by the messages either side.", bot:"Bayes", lines:[
+      {who:"king", at:"9:24pm SGT", t:"I think the more useful and subtle point is we can talk about anything to each other now."},
+      {who:"bot", at:"9:24–9:26pm SGT", t:"the sorrow reading is about what AI takes from us; your point is about what’s left to share once it does. When nobody needs to be the expert at the table, a father and son can just talk about anything."},
+      {who:"king", at:"9:26pm SGT", t:"More like everyone can begin to have some baseline expertise, and the gulf between us can be bridge, can talk about anything with anyone. It’s not that nobody needs to be an expert"},
+      {who:"bot", at:"9:26–9:29pm SGT", t:"AI gives everyone a baseline of expertise, which narrows the gap between people so anyone can talk about anything with anyone, while experts still matter."},
+      {who:"bot", at:"9:26–9:29pm SGT", t:"For Friday I’ll test whether everyday users reach a useful baseline or only pick up confident-sounding answers."},
+      {who:"king", at:"9:29pm SGT", t:"The practice is using ai and working with ai to expand our lenses and understanding."}
+    ]},
+    {k:"p", t:"Bayes’s misreading: it heard “nobody needs to be the expert”. King meant something else. Experts still matter, and AI gives everyone a baseline, so the gulf between people can be bridged."},
+    {k:"p", t:"Bayes accepted the correction and turned it into something to test: do everyday users reach a useful baseline, or only pick up confident-sounding answers?"}
+  ]},
+  {track:"The practice", h:"Why it’s a practice", flow:[
+    {k:"rule", t:"Use AI, and work with AI, to see more lenses than any one person brings."},
+    {k:"p", t:"The same event produced at least four different lenses: grief, relief, an analyst’s spread of readings, and King’s “bridging the gulf” reading. The value came from setting them side by side and iterating with the AI."},
+    {k:"p", t:"The AI’s first reading was off, and King’s correction sharpened it rather than replacing it."},
+    {k:"p", t:"This tab went live in PR #81."},
+    {k:"links", items:["hoel","leigh","rui"]}
+  ]}
+];
+let t11s=0;const t11l=document.getElementById('t11list');
+function trk11(n){return '<div class="trk">'+T11.map((s,i)=>{const done=i<n,cur=i===n;const cls=done?'d':cur?'r cur':'pd';return '<button type="button" class="sg '+cls+'" data-j="'+i+'" aria-label="'+e2('Jump to '+s.h)+'"'+(cur?' aria-current="step"':'')+'><div class="sn">'+(done?'&#10003;':i+1)+'</div><div class="sl"><b>'+e2(s.track)+'</b><span>'+(done?'Done':cur?'In progress':'Pending')+'</span></div></button>'}).join('<div class="sa">&rarr;</div>')+'</div>'}
+function t11a(key){const L=T11L[key];return '<a class="out" href="'+L.href+'" target="_blank" rel="noopener">'+e2(L.label)+'</a>'}
+function t11chat(b){const lines=(b.lines||[]).map(l=>{const side=l.who==='king'?'king':'bot';const nm=(l.who==='king'?'King':(b.bot||'Grok Bot'))+(l.at?' · '+l.at:'');return '<div class="line '+side+'"><div class="nm">'+e2(nm)+'</div><div class="bub">'+e2(l.t)+'</div></div>'}).join('');return '<div class="chatbit"><p class="chatnote">'+e2(b.note||'')+'</p>'+lines+'</div>'}
+function t11flow(flow){let html='';(flow||[]).forEach(b=>{
+  if(b.k==='p')html+='<p'+(b.c?' class="'+b.c+'"':'')+'>'+e2(b.t)+'</p>';
+  else if(b.k==='rule')html+='<p class="rule">'+e2(b.t)+'</p>';
+  else if(b.k==='ul')html+='<ul class="lessons">'+b.items.map(t=>'<li>'+e2(t)+'</li>').join('')+'</ul>';
+  else if(b.k==='chat')html+=t11chat(b);
+  else if(b.k==='quote')html+='<blockquote class="qt">'+b.ps.map(t=>'<p>'+e2(t)+'</p>').join('')+'<cite>'+e2(b.cite)+'</cite></blockquote>';
+  else if(b.k==='src')html+='<div class="srcbox"><div class="lens" style="border:0;padding:0;background:none"><span class="who">'+e2(b.who)+'</span><b>'+e2(b.title)+'</b><q>'+e2(b.q)+'</q><span class="go">'+t11a(b.link)+'</span></div></div>';
+  else if(b.k==='lenses')html+='<div class="lenses">'+b.items.map(L=>'<div class="lens'+(L.cls?' '+L.cls:'')+'"><span class="who">'+e2(L.who)+'</span><b>'+e2(L.h)+'</b>'+(L.q?'<q>'+e2(L.q)+'</q>':'<span class="sum">'+e2(L.s)+'</span>')+'<span class="go">'+(L.link?t11a(L.link)+' ':'')+'<button type="button" class="out" data-j="'+L.go+'">See step '+(L.go+1)+'</button></span></div>').join('')+'</div>';
+  else if(b.k==='links')html+='<p class="outs">'+b.items.map(t11a).join('')+'</p>';
+});return html}
+function t11go(n){t11s=n;const S=T11[n];
+ t11l.innerHTML='<h1>Expand our lenses</h1><p class="sub">'+e2(T11SUB)+'</p>'+trk11(n)+'<div class="frame fresh">'+(S.ex?'<p class="ex">'+e2(S.ex)+'</p>':'')+'<h2>'+e2(S.h)+'</h2>'+t11flow(S.flow)+'</div>';
+ document.getElementById('cnt').textContent='step '+(n+1)+' / '+T11.length;
+ document.getElementById('t11').scrollTop=0}
+t11l.addEventListener('click',e=>{const b=e.target.closest('[data-j]');if(b)t11go(+b.dataset.j)});
+function t11next(){if(t11s<T11.length-1)t11go(t11s+1)}function t11prev(){if(t11s>0)t11go(t11s-1)}
+function t11key(e){const k=e.key;if((k=='Enter'||k==' ')&&e.target.closest&&e.target.closest('button,a'))return;if(k=='ArrowRight'||k==' '||k=='PageDown'||k=='Enter'){e.preventDefault();t11next()}else if(k=='ArrowLeft'||k=='PageUp'||k=='Backspace'){e.preventDefault();t11prev()}else if(k=='Home'||k=='r'||k=='R'){e.preventDefault();t11go(0)}}
+const setTab10=setTab;setTab=function(n){document.body.classList.toggle('tab11',n==11);const b11=document.getElementById('tb11');b11.classList.toggle('on',n==11);b11.setAttribute('aria-selected',n==11);setTab10(n);if(n==11)t11go(t11s);t11fit()};
+function t11fit(){const el=document.getElementById('t11');const t9=document.getElementById('t9');if(el&&t9)el.style.top=t9.style.top}
+addEventListener('resize',t11fit);
+document.getElementById('tb11').onclick=()=>setTab(11);
+{const bN=document.getElementById('bN'),bB=document.getElementById('bB'),bR=document.getElementById('bR');const n10=bN.onclick,b10=bB.onclick,r10=bR.onclick;
+ bN.onclick=e=>TAB==11?t11next():n10(e);bB.onclick=e=>TAB==11?t11prev():b10(e);bR.onclick=e=>TAB==11?t11go(0):r10(e)}
+document.getElementById('t11').addEventListener('click',e=>e.stopPropagation());
+addEventListener('keydown',e=>{if(e.shiftKey||e.ctrlKey||e.metaKey||e.altKey)return;if(TAB!=11)return;e.stopImmediatePropagation();if(/^[1-9]$/.test(e.key)){e.preventDefault();setTab(+e.key)}else t11key(e)},true);
 </script></body></html>
